@@ -13,8 +13,6 @@
 <style>
   #app {
     width: 100%;
-    -webkit-font-smoothing: antialiased;
-    -moz-font-smoothing: grayscale;
     height: 100%;
   }
   button{

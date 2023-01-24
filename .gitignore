@@ -4,7 +4,6 @@ config/Config.go
 
 .DS_Store
 
-vue/mipage/.idea
-vue/mipage/node_modules
-vue/mipage/dist
-vue/mipage/node_modules
+vue/.idea
+vue/node_modules
+vue/dist

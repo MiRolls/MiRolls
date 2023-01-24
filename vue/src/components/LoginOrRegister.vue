@@ -19,7 +19,7 @@
         border: none;
         border-radius: 200em;
         height: 33px;
-        padding: 0px 16px 0px 16px;
+        padding: 0 16px 0 16px;
         font-size: 16px;
         right: 100px;
         position: absolute;
