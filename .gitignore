@@ -1,9 +1,11 @@
 .idea
-
+*.sh
+*.iml
 config/Config.go
+*.local
 
 .DS_Store
 
-vue/.idea
-vue/node_modules
-vue/dist
+vite/.idea
+vite/node_modules
+vite/dist

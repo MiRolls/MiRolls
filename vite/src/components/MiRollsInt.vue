@@ -1,8 +1,7 @@
 <template>
   <div class="IntOfPage">
     <h1 class="IntOfTitle">使用米卷</h1>
-    <!--suppress HtmlUnknownTarget -->
-    <img src="favicon.png" alt="点击开始使用" class="IntOfImage">
+    <img src="../assets/logo.png" alt="点击开始使用" class="IntOfImage">
   </div>
 </template>
 <script>

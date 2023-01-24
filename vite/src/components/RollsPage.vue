@@ -53,7 +53,8 @@ export default {
   },
   methods: {
     changeQuestValue(list, index, value) {
-      this.$set(list, index, value);
+      // this.$set(list, index, value);
+      list[index] = value;
     },
     getRoll() {
       return JSON.stringify(this.rolls);

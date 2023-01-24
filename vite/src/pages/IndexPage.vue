@@ -8,10 +8,10 @@
 </template>
 <script>
 
-import AppBar from "@/components/AppBar.vue";
-import MainPage from "@/components/MainPage.vue";
-import MiRollsInt from "@/components/MiRollsInt.vue";
-import PageFooter from "@/components/PageFooter.vue";
+import AppBar from "../components/AppBar.vue";
+import MainPage from "../components/MainPage.vue";
+import MiRollsInt from "../components/MiRollsInt.vue";
+import PageFooter from "../components/PageFooter.vue";
 export default {
   name:"IndexPage",
   components: {PageFooter, MiRollsInt, MainPage, AppBar},
