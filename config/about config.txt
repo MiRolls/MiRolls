@@ -1,0 +1,7 @@
+There will in a Config.go file;
+
+This look like that:
+
+package config
+const MYSQL_CONNECT = "MiRolls:qwer123456@tcp(111.111.111.111:3306)/database"
+const Post = ":2333"
