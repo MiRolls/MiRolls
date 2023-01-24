@@ -25,7 +25,13 @@ export default {
       this.$refs.rollsPage.saveQuest();
     },
     submitRoll() {
-      this.$refs.rollsPage.getRoll();
+      let roll =  this.$refs.rollsPage.getRoll();
+      fetch("/roll/create",{
+        method:"POST",
+        body: roll
+      }).then(res=>res.json()).then(data=>{
+
+      })
     }
   },
   data(){
