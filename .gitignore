@@ -9,3 +9,4 @@ config/Config.go
 vite/.idea
 vite/node_modules
 vite/dist
+MiRollsBackend
