@@ -66,7 +66,6 @@ export default {
     addQuestValue(type, optionsNumber) {
       let quest;
       if (type === "radio" || type === "choice") {
-        // if type = choose
         quest = {
           type,
           optionsNumber,

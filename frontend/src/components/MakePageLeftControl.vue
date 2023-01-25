@@ -5,14 +5,14 @@
       <span>选项数量</span>
       <input type="number" id="chooseNumber" class="controlInput" placeholder="3">
       <br>
-      <button class="add" @click="$emit('add',{type:'choice',optionsNumber: radioNumber})">添加</button>
+      <button class="add" @click="$emit('add',{type:'choice',optionsNumber: this.radioNumber})">添加</button>
     </div>
     <div class="addControl">
       <span class="controlTitle">添加多选题</span><br>
       <span>选项数量</span>
       <input type="number" id="chooseNumber" class="controlInput" placeholder="3">
       <br>
-      <button class="add" @click="$emit('add',{type:'choice',optionsNumber: choiceNumber})">添加</button>
+      <button class="add" @click="$emit('add',{type:'choice',optionsNumber: this.choiceNumber})">添加</button>
     </div>
     <div class="addControl">
       <span class="controlTitle">添加填空题（单行）</span><br>
@@ -24,13 +24,13 @@
     </div>
     <div class="bottomControl">
       <span class="controlTitle">问卷标题：</span>
-      <input type="text" id="RollsTitle" v-model="rollsTitle" @input="$emit('title-change',rollsTitle)">
+      <input type="text" id="RollsTitle" v-model="rollsTitle" @input="$emit('title-change',this.rollsTitle)">
       <button id="submitRolls" @click="submitRoll">提交问卷</button>
       <button id="submitRolls" @click="save()">保存为草稿</button>
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
 export default {
   name: "MakePageLeftControl",
   data() {
