@@ -30,6 +30,7 @@ const router = createRouter({
 
 const app =createApp(App);
 app.use(router);
-app.use(VueCookies);
+// app.use(VueCookies);
+app.config.globalProperties.$cookies = app.config.globalProperties.$cookies = app.config.globalProperties.$cookies || VueCookies;
 app.mount('#app');
 // mount

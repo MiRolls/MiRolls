@@ -26,9 +26,10 @@ func CreateRoll(r *gin.Engine) {
 		reqBody, _ := c.GetRawData()
 		//reqBody := "1"
 		code := md5Hash(string(reqBody) + strconv.Itoa(rand.Int()))
+		link := "https://wj.lmfans.cn/#query?code=" + md5Hash(code)
 		// directly into database
 		//goland:noinspection SqlResolve
-		_, err = sql.Exec("INSERT INTO rolls (roll,code) VALUES (?,?)", string(reqBody), code)
+		_, err = sql.Exec("INSERT INTO rolls (roll,code,link) VALUES (?,?,?)", string(reqBody), code, link)
 		if err != nil {
 			c.JSON(500, gin.H{
 				"message":   "error",
@@ -42,6 +43,7 @@ func CreateRoll(r *gin.Engine) {
 		c.JSON(200, gin.H{
 			"message":  "success",
 			"rollCode": code,
+			"rollLink": link,
 		})
 	})
 }

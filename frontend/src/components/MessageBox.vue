@@ -1,18 +1,16 @@
 <template>
   <div class="MessageBody" />
-  <div class="Message">{{}}</div>
+  <div class="Message">{{message}}</div>
 </template>
 <script lang="ts">
+import {watch} from "vue";
+
 export default {
   name:"MessageBox",
-  setup(){
-    defineProps<{
-      message:
-    }>()
-  }
+  props:{
+    message:String
+  },
 }
-
-// const props = defineProps(['foo'])
 </script>
 <style>
 .MessageBody{

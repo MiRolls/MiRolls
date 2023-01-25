@@ -24,57 +24,54 @@
     <div class="line"></div>
   </div>
 </template>
-<script>
+<script lang="ts">
+import {reactive} from "vue";
+
 export default {
   name:"RollsPage",
-  data(){
-    return{
-      rolls:{
-        title: this.title,
-        quest:[
-          {
-            type: "radio",//或者multipleChoice(多选) / blank(单行填空) manyBlank(多行填空)
-            //如果是radio，或者choice，要填写选项数量
-            optionsNumber: 3,//选项数量，如果是blank就不用加
-            // placeholder: 就是选项相关的提示(placeholder) 如果是选择题就不用加
-            title: "问题标题",//题目的标题
-            options: [ // 填空题不用加
-              "选项1",
-              "选项2",
-              "选项3"
-            ]
-          }
-        ],
-      },
-    }
-  },
   props:{
     title:String
   },
-  methods: {
-    changeQuestValue(list, index, value) {
+  setup(props:{title:string}){
+    let rolls = reactive({
+      title: props.title,
+      quest:[
+        {
+          type: "radio",//或者multipleChoice(多选) / blank(单行填空) manyBlank(多行填空)
+          //如果是radio，或者choice，要填写选项数量
+          optionsNumber: 3,//选项数量，如果是blank就不用加
+          // placeholder: 就是选项相关的提示(placeholder) 如果是选择题就不用加
+          title: "问题标题",//题目的标题
+          options: [ // 填空题不用加
+            "选项1",
+            "选项2",
+            "选项3"
+          ]
+        }
+      ],
+    })
+    function changeQuestValue(list:any, index:any, value:any):void {
       // this.$set(list, index, value);
       list[index] = value;
-    },
-    getRoll() {
-      return JSON.stringify(this.rolls);
-    },
-    deleteQuest(index) {
-      // delete the quest
-      this.$delete(this.rolls.quest, index)
-    },
-    addQuestValue(type, optionsNumber) {
+    }
+    function getRoll(){
+      return JSON.stringify(rolls);
+    }
+    function deleteQuest(index:number){
+      rolls.quest.splice(index,1,)
+    }
+    function addQuestValue(type:string, optionsNumber?:number) {
       let quest;
       if (type === "radio" || type === "choice") {
         quest = {
           type,
           optionsNumber,
           title: "问题的标题",
-          options: []
+          options: [] as string[]
         }
         // 用for把数据给怼进去
-        for (let i = 0; i < optionsNumber; i++) {
-          quest.options.push("选项" + i)
+        for (let i = 0; i < <number>optionsNumber; i++) {
+          quest.options.push("选项" + i.toString())
         }
       } else if (type === "blank" || type === "manyBlank") {
         quest = {
@@ -84,9 +81,9 @@ export default {
         }
         //This quest not has array, not need for
       }
-      this.changeQuestValue(this.rolls.quest, this.rolls.quest.length, quest)
-    },
-    saveQuest() {
+      changeQuestValue(rolls.quest, rolls.quest.length, quest)
+    }
+    function saveQuest() {
       this.$cookies.config('99999d');
       if (this.$cookies.isKey("draft")) {
         let oldDate = this.$cookies.get("draft");
@@ -98,7 +95,14 @@ export default {
       }
 
     }
-  }
+    return {
+      rolls,
+      changeQuestValue,
+      deleteQuest,
+      getRoll,
+      addQuestValue
+    }
+  },
 }
 </script>
 <style>
