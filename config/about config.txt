@@ -3,6 +3,6 @@ There will in a Config.go file;
 This look like that:
 
 package config
-const MysqlConnect = "MiRolls:MiRolls0322@tcp(101.42.50.87:3306)/mirolls"
+const MysqlConnect = "MiRolls:xxxxxxx@tcp(111.111.111.111:3306)/mirolls"
 const Post = ":2333"
-const FilePath = "vue/dist"
+const FilePath = "frontend/dist/"

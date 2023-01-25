@@ -10,3 +10,7 @@ vite/.idea
 vite/node_modules
 vite/dist
 MiRollsBackend
+
+frontend/node_modules
+frontend/dist
+frontend/.gitignore

@@ -6,7 +6,7 @@
     <PageFooter></PageFooter>
   </div>
 </template>
-<script>
+<script lang="ts">
 
 import AppBar from "../components/AppBar.vue";
 import MainPage from "../components/MainPage.vue";

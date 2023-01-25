@@ -4,7 +4,7 @@
 </template>
 <script lang="ts" setup>
 
-const props = defineProps(['foo'])
+// const props = defineProps(['foo'])
 </script>
 <style>
 .MessageBody{

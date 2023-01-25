@@ -1,6 +1,12 @@
+// import { createApp } from 'vue'
+// import './style.css'
+// import App from './App.vue'
+//
+// createApp(App).mount('#app')
+
 import { createApp } from 'vue'
 import App from './App.vue'
-import './index.css'
+import './style.css'
 import VueCookies from 'vue-cookies'
 import {createRouter,createWebHashHistory} from 'vue-router'
 import MakePage from "./pages/MakePage.vue";
