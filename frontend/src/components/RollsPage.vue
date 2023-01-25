@@ -98,13 +98,6 @@ export default {
       }
 
     }
-    defineExpose({
-      rolls,
-      changeQuestValue,
-      deleteQuest,
-      getRoll,
-      addQuestValue
-    })
     return {
       rolls,
       changeQuestValue,

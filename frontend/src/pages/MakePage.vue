@@ -32,13 +32,13 @@
         rollLink?:string
       }
 
-      const rollsPage = ref<typeof RollsPage>()
+      let rollsPage = ref();
       let rollsTitle = ref("这是一张新的问卷");
       let message = ref("message")
       let msgBox = ref(false)
 
       function addQuest(questSetting:questSetting){
-        rollsPage.value?.addQuestValue(questSetting.type, questSetting.optionsNumber)
+        rollsPage.value.addQuestValue(questSetting.type, questSetting.optionsNumber)
       }
       function changeTitle(value: string) {
         rollsTitle.value = value;
