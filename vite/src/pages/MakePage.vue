@@ -7,10 +7,10 @@
   </div>
 </template>
 <script>
-import AppBar from "@/components/AppBar.vue";
-import MakePageLeftControl from "@/components/MakePageLeftControl.vue";
-import PageFooter from "@/components/PageFooter.vue";
-import RollsPage from "@/components/RollsPage.vue";
+import AppBar from "../components/AppBar.vue";
+import MakePageLeftControl from "../components/MakePageLeftControl.vue";
+import PageFooter from "../components/PageFooter.vue";
+import RollsPage from "../components/RollsPage.vue";
 
 export default {
   name:"MakePage",
