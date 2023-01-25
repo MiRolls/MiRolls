@@ -25,7 +25,9 @@
   </div>
 </template>
 <script lang="ts">
-import {reactive} from "vue";
+import {inject, reactive} from "vue";
+import {VueCookies} from "vue-cookies";
+
 
 export default {
   name:"RollsPage",
@@ -33,6 +35,7 @@ export default {
     title:String
   },
   setup(props:{title:string}){
+    const cookies = inject('cookies') as VueCookies
     let rolls = reactive({
       title: props.title,
       quest:[
@@ -84,14 +87,14 @@ export default {
       changeQuestValue(rolls.quest, rolls.quest.length, quest)
     }
     function saveQuest() {
-      this.$cookies.config('99999d');
-      if (this.$cookies.isKey("draft")) {
-        let oldDate = this.$cookies.get("draft");
-        oldDate.date[oldDate.date.length] = this.rolls;
-        this.$cookies.set('draft', JSON.stringify(oldDate));
+      cookies.config('99999d');
+      if (cookies.isKey("draft")) {
+        let oldDate = cookies.get("draft");
+        oldDate.date[oldDate.date.length] = rolls;
+        cookies.set('draft', JSON.stringify(oldDate));
         //get after this
       } else {
-        this.$cookies.set('draft', JSON.stringify({date: [this.rolls]}));
+        cookies.set('draft', JSON.stringify({date: [rolls]}));
       }
 
     }

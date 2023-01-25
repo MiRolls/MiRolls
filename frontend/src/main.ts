@@ -4,7 +4,7 @@
 //
 // createApp(App).mount('#app')
 
-import { createApp } from 'vue'
+import {createApp, provide} from 'vue'
 import App from './App.vue'
 import './style.css'
 import VueCookies from 'vue-cookies'
@@ -29,8 +29,9 @@ const router = createRouter({
 });
 
 const app =createApp(App);
+provide("cookies",VueCookies)
 app.use(router);
-// app.use(VueCookies);
+app.use(VueCookies);
 app.config.globalProperties.$cookies = app.config.globalProperties.$cookies = app.config.globalProperties.$cookies || VueCookies;
 app.mount('#app');
 // mount
