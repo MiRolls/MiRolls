@@ -5,6 +5,7 @@
       <span>{{ index + 1 }}.  </span>
       <input class="questTitle" placeholder="题目标题" type="text"
              @input="changeQuestValue(item,'title',$event.target.value)">
+      <!--suppress JSUnresolvedVariable -->
       <input v-if="item.type === 'blank' || item.type === 'manyBlank'" class="questPlaceholder"
              v-model="item.placeholder" placeholder="问题提示（placeholder，没有可以留空）">
       <div v-show="item.type === 'choice' || item.type === 'radio'" class="options">
@@ -19,7 +20,6 @@
         </svg>
       </button>
       <!-- v-if来实现各种题目的效果 -->
-      <!-- 因为sb的Vue2.0响应式，得用@input这个事件 -->
     </div>
     <div class="line"></div>
   </div>
@@ -98,6 +98,13 @@ export default {
       }
 
     }
+    defineExpose({
+      rolls,
+      changeQuestValue,
+      deleteQuest,
+      getRoll,
+      addQuestValue
+    })
     return {
       rolls,
       changeQuestValue,
