@@ -2,7 +2,15 @@
   <div class="MessageBody" />
   <div class="Message">{{}}</div>
 </template>
-<script lang="ts" setup>
+<script lang="ts">
+export default {
+  name:"MessageBox",
+  setup(){
+    defineProps<{
+      message:
+    }>()
+  }
+}
 
 // const props = defineProps(['foo'])
 </script>

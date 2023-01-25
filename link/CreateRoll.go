@@ -16,9 +16,9 @@ func CreateRoll(r *gin.Engine) {
 		sql, err := sqlx.Open("mysql", config.MysqlConnect)
 		if err != nil {
 			c.JSON(500, gin.H{
-				"message": "error",
-				"error":   err.Error(),
-				"type":    "DataBase connect error",
+				"message":   "error",
+				"error":     err.Error(),
+				"errorType": "DataBase connect error",
 			})
 		}
 
@@ -27,12 +27,13 @@ func CreateRoll(r *gin.Engine) {
 		//reqBody := "1"
 		code := md5Hash(string(reqBody) + strconv.Itoa(rand.Int()))
 		// directly into database
+		//goland:noinspection SqlResolve
 		_, err = sql.Exec("INSERT INTO rolls (roll,code) VALUES (?,?)", string(reqBody), code)
 		if err != nil {
 			c.JSON(500, gin.H{
-				"message": "error",
-				"error":   err.Error(),
-				"type":    "DataBase insert error",
+				"message":   "error",
+				"error":     err.Error(),
+				"errorType": "DataBase insert error",
 			})
 			return
 		}
@@ -40,7 +41,6 @@ func CreateRoll(r *gin.Engine) {
 		// After placed in database, we'll return json of Frontend
 		c.JSON(200, gin.H{
 			"message":  "success",
-			"state":    200,
 			"rollCode": code,
 		})
 	})
