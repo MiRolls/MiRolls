@@ -1,5 +1,5 @@
 <template>
-    <div id="homeMain">
+    <div id="homeMain" :style="style">
         <div id="mainText">
             <h1 class="titleOfMain">不用</h1>
             <h1 class="titleOfMain">登录账户 | 花费费用</h1>
@@ -11,6 +11,22 @@
 <script>
     export default {
       name: "MainPage",
+      data(){
+        return {
+          style:{
+            backgroundColor: "rgb(21, 127, 248)"
+          }
+        }
+      },
+      setup(){
+        fetch("/get/site",{
+          method:"post",
+        }).then(res=>res.json()).then(data=>{
+          data.name
+          // noinspection JSUnresolvedVariable
+          this.style.backgroundColor = data.mainColor;
+        })
+      },
       methods:{
         goMake(){
           window.location.href = "/#/make"
@@ -22,7 +38,6 @@
     #homeMain {
         height: 80%;
         margin: 0;
-        background-color: rgb(21, 127, 248);
         display: flex;
         flex-direction: column;
         align-items: center;

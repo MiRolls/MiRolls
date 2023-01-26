@@ -1,7 +1,7 @@
 <template>
-    <div id="bar">
-        <span id="title">{{ siteName }}</span>
-        <span id="secTitle">{{ siteLink }}</span>
+    <div id="bar" :style="style">
+        <span id="title">{{ site.name }}</span>
+        <span id="secTitle">{{ site.link }}</span>
         <titleBtn innerHtml="首页" @click="goHome" />
         <titleBtn innerHtml="问卷结果查询" @click="resSearch" />
         <titleBtn innerHtml="制作问卷" @click="makeQtn" />
@@ -28,21 +28,35 @@
     components: {titleBtn, LoginOrRegister},
     data(){
       return{
-        siteName:"米卷",
-        siteLink:"wj.lmfans.cn",
+        site:{
+          name:"米卷",
+          link:"wj.lmfans.cn"
+        },
+        style:{
+          backgroundColor: "rgb(21, 127, 248)"
+        }
       }
+    },
+    setup(){
+      fetch("/get/site",{
+        method:"post",
+      }).then(res=>res.json()).then(data=>{
+        data.name
+        this.site = data;
+        // noinspection JSUnresolvedVariable
+        this.style.backgroundColor = data.mainColor;
+      })
     },
   }
 </script>
 <style>
     #bar {
-        background-color: rgb(21, 127, 248);
         width: 100%;
         height: 33px;
         padding-top: 20px;
         padding-bottom: 20px;
         box-shadow: 0 0 12px rgba(0, 0, 0, 0.581);
-        color: rgb(255, 242, 202);
+        color: white;
         position: fixed;
         top: 0;
         margin-top: 0;
