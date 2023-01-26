@@ -1,1 +1,9 @@
-server:
+port: 2333
+database:
+  username: "MiRolls"
+  password: "MiRolls0233"
+  protocol: "tcp"
+  host: "101.42.50.87"
+  port: 3306
+  database: "mirolls"
+static: "vite/dist"
