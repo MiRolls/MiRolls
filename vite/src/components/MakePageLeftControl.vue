@@ -5,40 +5,50 @@
       <span>选项数量</span>
       <input type="number" id="chooseNumber" class="controlInput" placeholder="3" v-model="radioNumber">
       <br>
-      <button class="add" @click="$emit('add',{type:'choice',optionsNumber: radioNumber})">添加</button>
+      <!--suppress JSUnresolvedVariable -->
+      <button class="add" @click="$emit('add',{type:'choice',optionsNumber: radioNumber})" :style="{background:style}">添加</button>
     </div>
     <div class="addControl">
       <span class="controlTitle">添加多选题</span><br>
       <span>选项数量</span>
       <input type="number" id="chooseNumber" class="controlInput" placeholder="3" v-model="choiceNumber">
       <br>
-      <button class="add" @click="$emit('add',{type:'choice',optionsNumber: choiceNumber})">添加</button>
+      <!--suppress JSUnresolvedVariable -->
+      <button class="add" @click="$emit('add',{type:'choice',optionsNumber: choiceNumber})" :style="{background:style}">添加</button>
     </div>
     <div class="addControl">
       <span class="controlTitle">添加填空题（单行）</span><br>
-      <button class="add" @click="$emit('add',{type:'blank'})">添加</button>
+      <button class="add" @click="$emit('add',{type:'blank'})" :style="{background:style}">添加</button>
     </div>
     <div class="addControl">
       <span class="controlTitle">添加填空题（多行）</span><br />
-      <button class="add" @click="$emit('add',{type:'manyBlank'})">添加</button>
+      <button class="add" @click="$emit('add',{type:'manyBlank'})" :style="{background:style}">添加</button>
     </div>
     <div class="bottomControl">
       <span class="controlTitle">问卷标题：</span>
       <input type="text" id="RollsTitle" value="这是一张新的问卷" @input="$emit('title-change',$event.target.value)">
-      <button id="submitRolls" @click="submitRoll">提交问卷</button>
-      <button id="submitRolls" @click="save()">保存为草稿</button>
+      <button id="submitRolls" @click="submitRoll" :style="{background:style}">提交问卷</button>
+      <button id="submitRolls" @click="save()" :style="{background:style}">保存为草稿</button>
     </div>
   </div>
 </template>
+<!--suppress JSUnresolvedVariable -->
 <script>
 export default {
   name: "MakePageLeftControl",
   data() {
     return {
       radioNumber: 3,
-      choiceNumber: 3
+      choiceNumber: 3,
+      style:"rgb(21, 127, 248)"
     }
   },
+  created() {
+    fetch("/get/site",{method:"post"}).then(res=>res.json).then(data=>{
+      this.style = data.mainColor;
+    })
+  }
+  ,
   methods: {
     submitRoll() {
       console.log("submit")
