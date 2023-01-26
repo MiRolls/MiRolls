@@ -3,14 +3,14 @@
     <div class="addControl" style="margin-top: 0">
       <span class="controlTitle">添加单选题</span><br>
       <span>选项数量</span>
-      <input type="number" id="chooseNumber" class="controlInput" placeholder="3">
+      <input type="number" id="chooseNumber" class="controlInput" placeholder="3" v-model="radioNumber">
       <br>
       <button class="add" @click="$emit('add',{type:'choice',optionsNumber: radioNumber})">添加</button>
     </div>
     <div class="addControl">
       <span class="controlTitle">添加多选题</span><br>
       <span>选项数量</span>
-      <input type="number" id="chooseNumber" class="controlInput" placeholder="3">
+      <input type="number" id="chooseNumber" class="controlInput" placeholder="3" v-model="choiceNumber">
       <br>
       <button class="add" @click="$emit('add',{type:'choice',optionsNumber: choiceNumber})">添加</button>
     </div>
@@ -24,7 +24,7 @@
     </div>
     <div class="bottomControl">
       <span class="controlTitle">问卷标题：</span>
-      <input type="text" id="RollsTitle" v-model="rollsTitle" @input="$emit('title-change',rollsTitle)">
+      <input type="text" id="RollsTitle" value="这是一张新的问卷" @input="$emit('title-change',$event.target.value)">
       <button id="submitRolls" @click="submitRoll">提交问卷</button>
       <button id="submitRolls" @click="save()">保存为草稿</button>
     </div>
@@ -35,7 +35,6 @@ export default {
   name: "MakePageLeftControl",
   data() {
     return {
-      rollsTitle: '这是一张新的问卷',
       radioNumber: 3,
       choiceNumber: 3
     }

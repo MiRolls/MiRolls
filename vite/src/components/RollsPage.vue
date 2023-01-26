@@ -62,6 +62,7 @@ export default {
     deleteQuest(index) {
       // delete the quest
       // this.$delete(this.rolls.quest, index)
+      // this.rolls.quest.splice(index,1)
       this.rolls.quest.splice(index,1)
     },
     addQuestValue(type, optionsNumber) {
@@ -76,7 +77,7 @@ export default {
         }
         // 用for把数据给怼进去
         for (let i = 0; i < optionsNumber; i++) {
-          quest.options.push("选项" + i)
+          quest.options.push("选项" + (i + 1))
         }
       } else if (type === "blank" || type === "manyBlank") {
         quest = {
