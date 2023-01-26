@@ -1,7 +1,7 @@
 <template>
     <div id="bar">
         <span id="title">米卷</span>
-        <span id="secTitle">wj.lmfans.cna</span>
+        <span id="secTitle">wj.lmfans.cn</span>
         <titleBtn innerHtml="首页" @click="goHome" />
         <titleBtn innerHtml="问卷结果查询" @click="resSearch" />
         <titleBtn innerHtml="制作问卷" @click="makeQtn" />
