@@ -61,7 +61,7 @@
         width: 100%;
         font-size: 16px;
         border: none;
-        background-color: rgb(247, 227, 52);
+        background-color: white;
         border-radius: 5px;
         cursor: pointer;
         transition: 0.1s;

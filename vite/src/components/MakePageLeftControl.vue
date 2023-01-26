@@ -6,7 +6,7 @@
       <input type="number" id="chooseNumber" class="controlInput" placeholder="3" v-model="radioNumber">
       <br>
       <!--suppress JSUnresolvedVariable -->
-      <button class="add" @click="$emit('add',{type:'choice',optionsNumber: radioNumber})" :style="{background:style}">添加</button>
+      <button class="add" @click="$emit('add',{type:'choice',optionsNumber: radioNumber})" :style="{backgroundColor:style}">添加</button>
     </div>
     <div class="addControl">
       <span class="controlTitle">添加多选题</span><br>
@@ -14,21 +14,21 @@
       <input type="number" id="chooseNumber" class="controlInput" placeholder="3" v-model="choiceNumber">
       <br>
       <!--suppress JSUnresolvedVariable -->
-      <button class="add" @click="$emit('add',{type:'choice',optionsNumber: choiceNumber})" :style="{background:style}">添加</button>
+      <button class="add" @click="$emit('add',{type:'choice',optionsNumber: choiceNumber})" :style="{backgroundColor:style}">添加</button>
     </div>
     <div class="addControl">
       <span class="controlTitle">添加填空题（单行）</span><br>
-      <button class="add" @click="$emit('add',{type:'blank'})" :style="{background:style}">添加</button>
+      <button class="add" @click="$emit('add',{type:'blank'})" :style="{backgroundColor:style}">添加</button>
     </div>
     <div class="addControl">
       <span class="controlTitle">添加填空题（多行）</span><br />
-      <button class="add" @click="$emit('add',{type:'manyBlank'})" :style="{background:style}">添加</button>
+      <button class="add" @click="$emit('add',{type:'manyBlank'})" :style="{backgroundColor:style}">添加</button>
     </div>
     <div class="bottomControl">
       <span class="controlTitle">问卷标题：</span>
       <input type="text" id="RollsTitle" value="这是一张新的问卷" @input="$emit('title-change',$event.target.value)">
-      <button id="submitRolls" @click="submitRoll" :style="{background:style}">提交问卷</button>
-      <button id="submitRolls" @click="save()" :style="{background:style}">保存为草稿</button>
+      <button id="submitRolls" @click="submitRoll" :style="{backgroundColor:style}">提交问卷</button>
+      <button id="submitRolls" @click="save()" :style="{backgroundColor:style}">保存为草稿</button>
     </div>
   </div>
 </template>
@@ -44,7 +44,7 @@ export default {
     }
   },
   created() {
-    fetch("/get/site",{method:"post"}).then(res=>res.json).then(data=>{
+    fetch("/get/site",{method:"post"}).then(res=>res.json()).then(data=>{
       this.style = data.mainColor;
     })
   }

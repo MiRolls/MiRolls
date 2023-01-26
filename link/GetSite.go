@@ -13,7 +13,6 @@ func GetSite(r *gin.Engine) {
 			"link":      Configs.Site.Link,
 			"logo":      Configs.Site.Logo,
 			"mainColor": Configs.Site.MainColor,
-			"withColor": Configs.Site.WithColor,
 			"icp":       Configs.Site.Icp,
 		})
 	})

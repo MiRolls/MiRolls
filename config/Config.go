@@ -31,7 +31,6 @@ type Site struct {
 	Link      string `yaml:"link"`
 	Logo      string `yaml:"logo"`
 	MainColor string `yaml:"mainColor"`
-	WithColor string `yaml:"withColor"`
 	Icp       string `yaml:"icp"`
 }
 
