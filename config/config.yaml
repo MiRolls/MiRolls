@@ -1,9 +1,15 @@
-port: 2333
-database:
+server:
+  port: 2333 #server port
+  static: "vite/dist" # theme filepath
+database: # about database
   username: "MiRolls"
   password: "MiRolls0233"
   protocol: "tcp"
   host: "101.42.50.87"
   port: 3306
   database: "mirolls"
-static: "vite/dist"
+site:
+  name: "米卷-MiRolls"
+  link: "wj.lmfans.cn" # site link and site name
+  mainColor: ""
+  withColor: "" # if is null, MiRolls will use normal color
