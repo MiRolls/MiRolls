@@ -30,7 +30,8 @@
       return{
         site:{
           name:"米卷",
-          link:"wj.lmfans.cn"
+          link:"wj.lmfans.cn",
+          logo:"https://img.lmfans.cn/i/2023/01/26/uqwc3n.png"
         },
         style:{
           backgroundColor: "rgb(21, 127, 248)"
