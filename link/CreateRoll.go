@@ -26,7 +26,7 @@ func CreateRoll(r *gin.Engine) {
 		reqBody, _ := c.GetRawData()
 		//reqBody := "1"
 		code := md5Hash(string(reqBody) + strconv.Itoa(rand.Int()))
-		link := "https://wj.lmfans.cn/#query?code=" + md5Hash(code)
+		link := "https://wj.lmfans.cn/#/query?code=" + md5Hash(code)
 		// directly into database
 		//goland:noinspection SqlResolve
 		_, err = sql.Exec("INSERT INTO rolls (roll,code,link) VALUES (?,?,?)", string(reqBody), code, link)
