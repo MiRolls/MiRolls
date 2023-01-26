@@ -1,6 +1,6 @@
 <template>
     <span>
-        <img v-if="loginStates" :src="userHeadImg" alt="用户头像" id="head">
+        <img v-if="loginStates" :src="userHeadImg" alt="Img" id="head">
         <button v-else id="loginOrRegister">登录 / 注册</button>
     </span>
 </template>

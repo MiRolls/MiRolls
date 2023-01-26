@@ -6,7 +6,7 @@
         <titleBtn innerHtml="问卷结果查询" @click="resSearch" />
         <titleBtn innerHtml="制作问卷" @click="makeQtn" />
         <!-- <LoginOrRegister loginStates="true"></LoginOrRegister> -->
-        <LoginOrRegister loginStates userHeadImg="./favicon.png"></LoginOrRegister>
+        <LoginOrRegister loginStates :userHeadImg="site.logo"></LoginOrRegister>
     </div>
 </template>
 <script>
