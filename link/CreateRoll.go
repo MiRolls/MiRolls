@@ -4,6 +4,7 @@ import (
 	"MiRollsBackend/config"
 	"crypto/md5"
 	"encoding/hex"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
@@ -13,7 +14,9 @@ import (
 
 func CreateRoll(r *gin.Engine) {
 	r.POST("/roll/create", func(c *gin.Context) {
-		sql, err := sqlx.Open("mysql", config.MysqlConnect)
+		mysql := fmt.Sprintf("%s:%s@%s(%s:%d)/%s", config.Configs.Database.Username, config.Configs.Database.Password, config.Configs.Database.Protocol, config.Configs.Database.Host, config.Configs.Database.Port, config.Configs.Database.Database)
+		fmt.Println(mysql)
+		sql, err := sqlx.Open("mysql", mysql)
 		if err != nil {
 			c.JSON(500, gin.H{
 				"message":   "error",
@@ -26,10 +29,10 @@ func CreateRoll(r *gin.Engine) {
 		reqBody, _ := c.GetRawData()
 		//reqBody := "1"
 		code := md5Hash(string(reqBody) + strconv.Itoa(rand.Int()))
-		link := "https://wj.lmfans.cn/#/query?code=" + md5Hash(code)
+		link := "https://" + config.Configs.Site.Link + "/#/query?code=" + md5Hash(code)
 		// directly into database
 		//goland:noinspection SqlResolve
-		_, err = sql.Exec("INSERT INTO rolls (roll,code,link) VALUES (?,?,?)", string(reqBody), code, md5Hash(code))
+		_, err = sql.Exec("INSERT INTO `rolls`(`id`,`roll`,`code`,`link`) VALUES(DEFAULT,?,?,?)", string(reqBody), code, md5Hash(code))
 		if err != nil {
 			c.JSON(500, gin.H{
 				"message":   "error",

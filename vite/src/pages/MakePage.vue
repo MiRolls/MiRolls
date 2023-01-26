@@ -41,7 +41,7 @@ export default {
         }else {
           // if error
           // noinspection JSUnresolvedVariable
-          console.log("error")
+          console.log("error",date)
           this.message = `服务器出现问题，请截图发送给lm@lmfans.cn Error:${date.error}, ErrorType:${date.errorType}`
         }
       })

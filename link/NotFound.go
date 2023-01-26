@@ -8,6 +8,6 @@ import (
 func NotFound(r *gin.Engine) {
 	r.NoRoute(func(context *gin.Context) {
 		//context.HTML(404, "404.html", nil)
-		context.File(config.FilePath + "404.html")
+		context.File(config.Configs.Server.Static + "404.html")
 	})
 }

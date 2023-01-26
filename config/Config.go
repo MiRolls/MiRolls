@@ -33,14 +33,14 @@ type Site struct {
 	WithColor string `yaml:"withColor"`
 }
 
-var config Config
+var Configs Config
 
 func InitConfig() {
-	configYaml, err := ioutil.ReadFile("config.yaml")
+	configYaml, err := ioutil.ReadFile("./config/config.yaml")
 	if err != nil {
 		log.Fatal("[FATAL ERROR]Cannot get config.yaml!" + err.Error())
 	}
-	err = yaml.Unmarshal(configYaml, &config)
+	err = yaml.Unmarshal(configYaml, &Configs)
 	if err != nil {
 		log.Fatal("[FATAL ERROR]Cannot read config.yaml!" + err.Error())
 	}
