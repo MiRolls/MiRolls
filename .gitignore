@@ -1,7 +1,7 @@
 .idea
 *.sh
 *.iml
-config/Config.go
+config/config.yaml
 *.local
 
 .DS_Store

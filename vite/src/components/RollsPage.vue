@@ -4,13 +4,13 @@
     <div class="topic" v-for="(item,index) in rolls.quest" :key="index">
       <span>{{ index + 1 }}.  </span>
       <input class="questTitle" placeholder="题目标题" type="text"
-             @input="changeQuestValue(item,'title',$event.target.value)">
+             v-model="item.title">
       <input v-if="item.type === 'blank' || item.type === 'manyBlank'" class="questPlaceholder"
              v-model="item.placeholder" placeholder="问题提示（placeholder，没有可以留空）">
-      <div v-show="item.type === 'choice' || item.type === 'radio'" class="options">
-        <input v-for="(options,i) in item.optionsNumber" :key="options"
-               :placeholder="'选项'+i" class="option"
-               type="text" @input="changeQuestValue(item.options,i,$event.target.value)">
+      <div v-if="item.type === 'choice' || item.type === 'radio'" class="options">
+        <input v-for="(options,i) in item.optionsNumber" :key="options + i"
+               :placeholder="'选项'+i" class="option" v-model="item.options[i]" type="text">
+        <!--               type="text" @input="changeQuestValue(item.options,i,$event.target.value)">-->
       </div>
       <button class="delButton" title="删除这个题目" @click="deleteQuest(index)">
         <svg fill="red" style="width: 1em;height: 1em;" viewBox="0 0 1025 1024">
@@ -61,7 +61,8 @@ export default {
     },
     deleteQuest(index) {
       // delete the quest
-      this.$delete(this.rolls.quest, index)
+      // this.$delete(this.rolls.quest, index)
+      this.rolls.quest.splice(index,1)
     },
     addQuestValue(type, optionsNumber) {
       let quest;
@@ -70,7 +71,7 @@ export default {
         quest = {
           type,
           optionsNumber,
-          title: "问题的标题",
+          title: "",
           options: []
         }
         // 用for把数据给怼进去
@@ -80,7 +81,7 @@ export default {
       } else if (type === "blank" || type === "manyBlank") {
         quest = {
           type,
-          title: "正常的问题",
+          title: "",
           placeholder: ""
         }
         //This quest not has array, not need for

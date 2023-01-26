@@ -1,8 +1,4 @@
-There will in a Config.go file;
+There will in a Config.yaml file;
 
 This look like that:
 
-package config
-const MysqlConnect = "MiRolls:xxxxxxx@tcp(111.111.111.111:3306)/mirolls"
-const Post = ":2333"
-const FilePath = "frontend/dist/"

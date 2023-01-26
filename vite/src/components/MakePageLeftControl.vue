@@ -42,8 +42,8 @@ export default {
   },
   methods: {
     submitRoll() {
+      console.log("submit")
       this.$emit('submit')
-      alert("后端都还没写你提交个毛啊")
     },
     save() {
       this.$emit('save-roll');
