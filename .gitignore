@@ -2,6 +2,7 @@
 *.sh
 *.iml
 config/config.yaml
+*.yaml
 *.local
 
 .DS_Store

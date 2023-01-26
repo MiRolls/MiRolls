@@ -1,7 +1,11 @@
 package main
 
-import "MiRollsBackend/server"
+import (
+	"MiRollsBackend/config"
+	"MiRollsBackend/server"
+)
 
 func main() {
+	config.InitConfig()
 	server.Boot()
 }
