@@ -29,7 +29,7 @@ func CreateRoll(r *gin.Engine) {
 		link := "https://wj.lmfans.cn/#/query?code=" + md5Hash(code)
 		// directly into database
 		//goland:noinspection SqlResolve
-		_, err = sql.Exec("INSERT INTO rolls (roll,code,link) VALUES (?,?,?)", string(reqBody), code, link)
+		_, err = sql.Exec("INSERT INTO rolls (roll,code,link) VALUES (?,?,?)", string(reqBody), code, md5Hash(code))
 		if err != nil {
 			c.JSON(500, gin.H{
 				"message":   "error",

@@ -38,6 +38,8 @@ export default {
           this.message = `问卷上传成功！查询码：${date.rollCode}，请务必务必务必务必牢记！访问${date.rollLink}即可开始答题。`
         }else {
           // if error
+          // noinspection JSUnresolvedVariable
+          this.message = `服务器出现问题，请截图发送给lm@lmfans.cn Error:${date.error}, ErrorType:${date.errorType}`
         }
       })
     }
@@ -45,7 +47,7 @@ export default {
   data(){
     return{
       rollsTitle:'这是一张新的问卷',
-      message: String,
+      message: "",
     }
   },
   components: {RollsPage, PageFooter, MakePageLeftControl, AppBar,Message},
