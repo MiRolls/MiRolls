@@ -38,11 +38,11 @@
         }
       }
     },
-    setup(){
+    created(){
       fetch("/get/site",{
         method:"post",
       }).then(res=>res.json()).then(data=>{
-        data.name
+        console.log(data)
         this.site = data;
         // noinspection JSUnresolvedVariable
         this.style.backgroundColor = data.mainColor;

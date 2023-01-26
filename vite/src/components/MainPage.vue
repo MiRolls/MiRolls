@@ -18,7 +18,7 @@
           }
         }
       },
-      setup(){
+      created(){
         fetch("/get/site",{
           method:"post",
         }).then(res=>res.json()).then(data=>{

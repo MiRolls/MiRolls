@@ -19,7 +19,7 @@
         icp: "鲁ICP备2022023454号-25"
       }
     },
-    setup(){
+    created(){
       fetch("/get/site",{
         method:"post",
       }).then(res=>res.json()).then(data=>{

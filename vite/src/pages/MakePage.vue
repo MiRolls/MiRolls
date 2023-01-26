@@ -28,8 +28,6 @@ export default {
       this.$refs.rollsPage.saveQuest();
     },
     submitRoll() {
-      console.log("submit",this.$refs.rollsPage.getRoll())
-      return
       fetch("/roll/create",{
         method:"post",
         body:this.$refs.rollsPage.getRoll()
