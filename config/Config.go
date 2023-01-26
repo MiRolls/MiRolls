@@ -29,6 +29,7 @@ type Database struct {
 type Site struct {
 	Name      string `yaml:"name"`
 	Link      string `yaml:"link"`
+	Logo      string `yaml:"logo"`
 	MainColor string `yaml:"mainColor"`
 	WithColor string `yaml:"withColor"`
 }

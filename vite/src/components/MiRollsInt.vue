@@ -1,6 +1,6 @@
 <template>
   <div class="IntOfPage">
-    <h1 class="IntOfTitle">使用米卷</h1>
+    <h1 class="IntOfTitle">米卷</h1>
     <img src="../assets/logo.png" alt="点击开始使用" class="IntOfImage">
   </div>
 </template>

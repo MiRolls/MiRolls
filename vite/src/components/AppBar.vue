@@ -1,7 +1,7 @@
 <template>
     <div id="bar">
-        <span id="title">米卷</span>
-        <span id="secTitle">wj.lmfans.cn</span>
+        <span id="title">{{ siteName }}</span>
+        <span id="secTitle">{{ siteLink }}</span>
         <titleBtn innerHtml="首页" @click="goHome" />
         <titleBtn innerHtml="问卷结果查询" @click="resSearch" />
         <titleBtn innerHtml="制作问卷" @click="makeQtn" />
@@ -10,27 +10,29 @@
     </div>
 </template>
 <script>
-    import titleBtn from "./titleBtn.vue";
-    import LoginOrRegister from "./LoginOrRegister.vue"
-    export default {
-        name: 'AppBar',
-        methods: {
-            goHome() {
-              window.location.href = "/#/";
-            },
-            resSearch() {
-              window.location.href = "/#/search";
-            },
-            makeQtn() {
-              window.location.href = "/#/make";
-            }
-        },
-        components: {
-            titleBtn,
-            LoginOrRegister
-        }
-    }
-
+  import titleBtn from "./titleBtn.vue";
+  import LoginOrRegister from "./LoginOrRegister.vue"
+  export default {
+    name: 'AppBar',
+      methods: {
+      goHome() {
+        window.location.href = "/#/";
+      },
+      resSearch() {
+        window.location.href = "/#/search";
+      },
+      makeQtn() {
+        window.location.href = "/#/make";
+      }
+    },
+    components: {titleBtn, LoginOrRegister},
+    data(){
+      return{
+        siteName:"米卷",
+        siteLink:"wj.lmfans.cn",
+      }
+    },
+  }
 </script>
 <style>
     #bar {
