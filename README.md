@@ -48,6 +48,9 @@ cd c:/User/mirolls/Desktop/server/
 ./mirolls.exe
 ```
 
+# License
+[MIT](https://opensource.org/licenses/MIT)
 
+Copyright (c) 2023-present, Liangmi
 
 ***EnJoy the MiRolls***
