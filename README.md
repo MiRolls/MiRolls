@@ -51,6 +51,6 @@ cd c:/User/mirolls/Desktop/server/
 # License
 [MIT](https://opensource.org/licenses/MIT)
 
-Copyright (c) 2023-present, Liangmi
+Copyright © 2023-present,Liangmi
 
 ***EnJoy the MiRolls***
