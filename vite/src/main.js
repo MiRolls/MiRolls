@@ -6,7 +6,6 @@ import {createRouter,createWebHashHistory} from 'vue-router'
 import MakePage from "./pages/MakePage.vue";
 import IndexPage from "./pages/IndexPage.vue";
 import SearchPage from "./pages/SearchPage.vue";
-// import
 
 const router = createRouter({
     history:createWebHashHistory(),

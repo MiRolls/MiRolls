@@ -1,12 +1,13 @@
 <template>
   <div style="height: 100%;">
+    <Message v-if="message"></Message>
     <AppBar></AppBar>
     <MakePageLeftControl @add="addQuest" @submit="submitRoll" @title-change="changeTitle" @save-roll="saveRoll"/>
     <RollsPage ref="rollsPage" :title="rollsTitle"/>
     <PageFooter style="margin-left: 30%"/>
-    <Message v-if="message"></Message>
   </div>
 </template>
+<!--suppress JSUnresolvedFunction -->
 <script>
 import AppBar from "../components/AppBar.vue";
 import MakePageLeftControl from "../components/MakePageLeftControl.vue";
