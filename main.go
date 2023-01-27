@@ -1,8 +1,8 @@
 package main
 
 import (
-	"MiRollsBackend/config"
-	"MiRollsBackend/server"
+	"MiRolls/config"
+	"MiRolls/server"
 )
 
 func main() {

@@ -1,4 +1,4 @@
-module MiRollsBackend
+module MiRolls
 
 go 1.19
 
@@ -6,6 +6,7 @@ require (
 	github.com/gin-gonic/gin v1.8.2
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/jmoiron/sqlx v1.3.5
+	gopkg.in/yaml.v2 v2.4.0
 )
 
 require (
@@ -26,5 +27,4 @@ require (
 	golang.org/x/sys v0.3.0 // indirect
 	golang.org/x/text v0.5.0 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
-	gopkg.in/yaml.v2 v2.4.0 // indirect
 )

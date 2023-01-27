@@ -1,7 +1,7 @@
 package link
 
 import (
-	"MiRollsBackend/config"
+	"MiRolls/config"
 	"crypto/md5"
 	"encoding/hex"
 	"fmt"

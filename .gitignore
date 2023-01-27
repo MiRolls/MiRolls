@@ -10,7 +10,7 @@ config/config.yaml
 vite/.idea
 vite/node_modules
 vite/dist
-MiRollsBackend
+MiRolls
 
 frontend/node_modules
 frontend/dist

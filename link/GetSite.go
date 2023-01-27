@@ -1,7 +1,7 @@
 package link
 
 import (
-	. "MiRollsBackend/config"
+	. "MiRolls/config"
 	"github.com/gin-gonic/gin"
 )
 

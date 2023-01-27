@@ -1,8 +1,8 @@
 package server
 
 import (
-	"MiRollsBackend/config"
-	"MiRollsBackend/link"
+	"MiRolls/config"
+	"MiRolls/link"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"path/filepath"
