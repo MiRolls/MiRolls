@@ -1,6 +1,6 @@
 <template>
   <div style="height: 100%;">
-    <Message v-if="message"></Message>
+    <Message v-if="message" :message="message"></Message>
     <AppBar></AppBar>
     <MakePageLeftControl @add="addQuest" @submit="submitRoll" @title-change="changeTitle" @save-roll="saveRoll"/>
     <RollsPage ref="rollsPage" :title="rollsTitle"/>

@@ -1,0 +1,25 @@
+const zh = {
+    titleOne: "不用",
+    titleTwo: "登录账户|花费费用",
+    titleThere: "就可以享受优秀的免费问卷系统",
+    titleBtn: "创建问卷",
+    footerInt:"一个免费且好用的优秀问卷软件",
+    appBarHome: "首页",
+    appBarSearch: "问卷结果查询",
+    appBarMake: "制作问卷",
+    makeOptionsNumber:"选项数量",
+    makeRadio:"添加单选题",
+    makeChoice:"添加多选题",
+    makeBlank:"添加单行填空题",
+    makeManyBlank:"添加多行填空题",
+    makeLeftControlButton:"添加",
+    makeRollTitle:"问卷标题: ",
+    makeTitleNormal:"这是一张新的问卷",
+    makeSubmit:"提交问卷",
+    makeSave:"保存为草稿",
+    makeQuestTitleNormal:"问题标题",
+    makeOptions:"选项 ",
+    makeQuestBlankTitleNormal: "题目标题",
+    makeQuestTips:"问题提示（placeholder，没有可以填空）"
+}
+export default zh;

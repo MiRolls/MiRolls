@@ -34,7 +34,7 @@
 .footer{
   padding: 50px 0 50px 0;
   margin-top: 50px;
-  background: rgb(23,27,33);
+  background-color: rgb(23,27,33);
   text-align: center;
   color: white;
 }

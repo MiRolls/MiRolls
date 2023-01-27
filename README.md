@@ -26,8 +26,10 @@
   | Database(database) | String          | Database name                                                |
   | Name(Site)         | String          | Your website name(such as MiRolls)                           |
   | Link(Site)         | String          | Your website domain(IP)                                      |
+  | Logo(Site)      | String          | Favicon and logo.png           |
   | MainColor(Site)    | String          | Theme color, can use"rgb()"function, or use "#xxxxx" or all colors that can be inserted into css |
-  | icp(Site)          | String     <br/>     | icp备案，其他国家的人貌似没有这个需求，就当是放在页脚的一个提示语！icp(A Policy for Chinese Sites) You can be put on footer, For example, write a promotion for this site here |
+  | icp(Site)          | String     | icp备案，其他国家的人貌似没有这个需求，就当是放在页脚的一个提示语！icp(A Policy for Chinese Sites) You can be put on footer, For example, write a promotion for this site here |
+  | Lang(Site) | String | Language, only support English and Chinese |
 
 3. After configuration, you need import the sql file(database.sql)
 
@@ -40,12 +42,11 @@
 ```shell
 $ cd /mirolls/website/mirolls
 $ ./mirolls
-// server running now
 ```
 
 ```cmd
 cd c:/User/mirolls/Desktop/server/
-./mirolls.exe
+mirolls.exe
 ```
 
 # License
