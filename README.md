@@ -27,7 +27,7 @@
   | Name(Site)         | String          | Your website name(such as MiRolls)                           |
   | Link(Site)         | String          | Your website domain(IP)                                      |
   | MainColor(Site)    | String          | Theme color, can use"rgb()"function, or use "#xxxxx" or all colors that can be inserted into css |
-  | icp(Site)          | String          | icp备案，其他国家的人貌似没有这个需求，就当是放在页脚的一个提示语！icp(A Policy for Chinese Sites) You can be put on footer, For example, write a promotion for this site here |
+  | icp(Site)          | String     <br/>     | icp备案，其他国家的人貌似没有这个需求，就当是放在页脚的一个提示语！icp(A Policy for Chinese Sites) You can be put on footer, For example, write a promotion for this site here |
 
 3. After configuration, you need import the sql file(database.sql)
 
