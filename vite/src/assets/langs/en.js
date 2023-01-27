@@ -1,6 +1,7 @@
 const en = {
     titleOne: "No",
-    titleTwo: "Login account|Spend money",
+    titleTwo: "Login account",
+    titleTwo2: "Spend money",
     titleThere: "You can enjoy the excellent questionnaire system",
     titleBtn: "Create questionnaire",
     footerInt:"A free and excellent questionnaire software",

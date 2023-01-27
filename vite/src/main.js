@@ -6,6 +6,9 @@ import {createRouter,createWebHashHistory} from 'vue-router'
 import MakePage from "./pages/MakePage.vue";
 import IndexPage from "./pages/IndexPage.vue";
 import SearchPage from "./pages/SearchPage.vue";
+import zh from "./assets/langs/zh";
+import en from "./assets/langs/en";
+import {createI18n} from "vue-i18n";
 
 const router = createRouter({
     history:createWebHashHistory(),
@@ -21,8 +24,17 @@ const router = createRouter({
     }]
 });
 
+const i18n = new createI18n({
+    locale: document.documentElement.lang,
+    messages:{
+        en,
+        zh,
+    }
+})
+
 const app =createApp(App);
 app.use(router);
 app.use(VueCookies);
+app.use(i18n)
 app.mount('#app');
 // mount

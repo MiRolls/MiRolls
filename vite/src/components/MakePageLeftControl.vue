@@ -1,34 +1,35 @@
 <template>
   <div id="MakePageLeftControl">
     <div class="addControl" style="margin-top: 0">
-      <span class="controlTitle">添加单选题</span><br>
-      <span>选项数量</span>
+      <span class="controlTitle">{{ $t("makeRadio") }}</span><br>
+      <span>{{$t("makeOptionsNumber")}}</span>
       <input type="number" id="chooseNumber" class="controlInput" placeholder="3" v-model="radioNumber">
       <br>
       <!--suppress JSUnresolvedVariable -->
-      <button class="add" @click="$emit('add',{type:'choice',optionsNumber: radioNumber})" :style="{backgroundColor:style}">添加</button>
+      <button class="add" @click="$emit('add',{type:'choice',optionsNumber: radioNumber})" :style="{backgroundColor:style}">
+        {{ $t("makeLeftControlButton") }}</button>
     </div>
     <div class="addControl">
-      <span class="controlTitle">添加多选题</span><br>
-      <span>选项数量</span>
+      <span class="controlTitle">{{$t("makeChoice")}}</span><br>
+      <span>{{$t("makeOptionsNumber")}}</span>
       <input type="number" id="chooseNumber" class="controlInput" placeholder="3" v-model="choiceNumber">
       <br>
       <!--suppress JSUnresolvedVariable -->
-      <button class="add" @click="$emit('add',{type:'choice',optionsNumber: choiceNumber})" :style="{backgroundColor:style}">添加</button>
+      <button class="add" @click="$emit('add',{type:'choice',optionsNumber: choiceNumber})" :style="{backgroundColor:style}">{{ $t("makeLeftControlButton") }}</button>
     </div>
     <div class="addControl">
-      <span class="controlTitle">添加填空题（单行）</span><br>
-      <button class="add" @click="$emit('add',{type:'blank'})" :style="{backgroundColor:style}">添加</button>
+      <span class="controlTitle">{{$t("makeBlank")}}</span><br>
+      <button class="add" @click="$emit('add',{type:'blank'})" :style="{backgroundColor:style}">{{ $t("makeLeftControlButton") }}</button>
     </div>
     <div class="addControl">
-      <span class="controlTitle">添加填空题（多行）</span><br />
-      <button class="add" @click="$emit('add',{type:'manyBlank'})" :style="{backgroundColor:style}">添加</button>
+      <span class="controlTitle">{{$t("makeManyBlank")}}</span><br />
+      <button class="add" @click="$emit('add',{type:'manyBlank'})" :style="{backgroundColor:style}">{{ $t("makeLeftControlButton") }}</button>
     </div>
     <div class="bottomControl">
-      <span class="controlTitle">问卷标题：</span>
-      <input type="text" id="RollsTitle" value="这是一张新的问卷" @input="$emit('title-change',$event.target.value)">
-      <button id="submitRolls" @click="submitRoll" :style="{backgroundColor:style}">提交问卷</button>
-      <button id="submitRolls" @click="save()" :style="{backgroundColor:style}">保存为草稿</button>
+      <span class="controlTitle">{{$t("makeRollTitle")}}</span>
+      <input type="text" id="RollsTitle" :value="$t('makeTitleNormal')" @input="$emit('title-change',$event.target.value)">
+      <button id="submitRolls" @click="submitRoll" :style="{backgroundColor:style}">{{$t("makeSubmit")}}</button>
+      <button id="submitRolls" @click="save()" :style="{backgroundColor:style}">{{$t("makeSave")}}</button>
     </div>
   </div>
 </template>

@@ -1,6 +1,7 @@
 const zh = {
     titleOne: "不用",
-    titleTwo: "登录账户|花费费用",
+    titleTwo: "登录账户",
+    titleTwo2: "花费费用",
     titleThere: "就可以享受优秀的免费问卷系统",
     titleBtn: "创建问卷",
     footerInt:"一个免费且好用的优秀问卷软件",

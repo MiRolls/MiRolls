@@ -2,9 +2,9 @@
     <div id="bar" :style="style">
         <span id="title">{{ site.name }}</span>
         <span id="secTitle">{{ site.link }}</span>
-        <titleBtn innerHtml="首页" @click="goHome" />
-        <titleBtn innerHtml="问卷结果查询" @click="resSearch" />
-        <titleBtn innerHtml="制作问卷" @click="makeQtn" />
+        <titleBtn :innerHtml="$t('appBarHome')" @click="goHome" />
+        <titleBtn :innerHtml="$t('appBarSearch')" @click="resSearch" />
+        <titleBtn :innerHtml="$t('appBarMake')" @click="makeQtn" />
         <!-- <LoginOrRegister loginStates="true"></LoginOrRegister> -->
         <LoginOrRegister loginStates :userHeadImg="site.logo"></LoginOrRegister>
     </div>

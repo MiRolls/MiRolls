@@ -49,7 +49,7 @@ export default {
   },
   data(){
     return{
-      rollsTitle:'这是一张新的问卷',
+      rollsTitle:this.$t("makeTitleNormal"),
       message: "",
     }
   },

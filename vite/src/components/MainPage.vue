@@ -1,10 +1,10 @@
 <template>
     <div id="homeMain" :style="style">
         <div id="mainText">
-            <h1 class="titleOfMain">不用</h1>
-            <h1 class="titleOfMain">登录账户 | 花费费用</h1>
-            <span id="spanTitle">就可以享受优秀的免费问卷系统</span><br />
-            <button id="btnMakePage" @click="goMake">创建问卷</button>
+            <h1 class="titleOfMain">{{$t('titleOne')}}</h1>
+            <h1 class="titleOfMain">{{ $t("titleTwo")}}|{{$t("titleTwo2")}}</h1>
+            <span id="spanTitle">{{ $t("titleThere") }}</span><br />
+            <button id="btnMakePage" @click="goMake">{{ $t("titleBtn") }}</button>
         </div>
     </div>
 </template>

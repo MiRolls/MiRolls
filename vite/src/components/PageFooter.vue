@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
     <h1>{{name}}</h1>
-    <p class="footerButton">一个免费且好用的国内问卷软件</p>
+    <p class="footerButton">{{ $t("footerInt") }}</p>
     <p class="footerButton" style="cursor: pointer;" @click="goIcp">{{ icp }}</p>
   </div>
 </template>
