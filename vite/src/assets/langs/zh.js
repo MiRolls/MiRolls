@@ -21,6 +21,7 @@ const zh = {
     makeQuestTitleNormal:"问题标题",
     makeOptions:"选项 ",
     makeQuestBlankTitleNormal: "题目标题",
-    makeQuestTips:"问题提示（placeholder，没有可以填空）"
+    makeQuestTips:"问题提示（placeholder，没有可以填空）",
+    makeDelete:"删除这个题目"
 }
 export default zh;

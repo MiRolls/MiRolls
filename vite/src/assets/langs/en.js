@@ -18,9 +18,10 @@ const en = {
     makeTitleNormal:"This is a new questionnaire",
     makeSubmit:"Submit questionnaire",
     makeSave:"Save as draft",
-    makeQuestTitleNormal:"Questionnaire",
+    makeQuestTitleNormal:"Question title",
     makeOptions:"Options ",
-    makeQuestBlankTitleNormal: "Questionnaire",
-    makeQuestTips:"Question tips（placeholder，if not can be left blank）"
+    makeQuestBlankTitleNormal: "Question title",
+    makeQuestTips:"Question tips（placeholder，if not can be left blank）",
+    makeDelete:"Delete this question"
 }
 export default en;
