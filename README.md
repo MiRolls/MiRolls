@@ -4,7 +4,7 @@
 
 > MiRolls use gin and vue frame build, if you can write code, you can change the source code
 
-**If you need build the *Mirolls* you need have a normal the server manage experience. You must can insert the ".sql" file, and must use nginx/apache... to bind Your domain name. **
+**If you need build the *Mirolls* you need have a normal the server manage experience. You must be able to insert the ".sql" file, and must use nginx/apache... to bind Your domain name.**
 
 ### Use Normal theme build website
 
