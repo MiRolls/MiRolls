@@ -22,6 +22,10 @@ const en = {
     makeOptions:"Options ",
     makeQuestBlankTitleNormal: "Question title",
     makeQuestTips:"Question tips（placeholder，if not can be left blank）",
-    makeDelete:"Delete this question"
+    makeDelete:"Delete this question",
+    messageDatabaseError:"Database error!",
+    messageUpdateSuccess:"Update success! Query code: ",
+    messageUpdateSuccess2:"Please remember your query code!Visit ",
+    messageUpdateSuccess3:"to start answering questions."
 }
 export default en;

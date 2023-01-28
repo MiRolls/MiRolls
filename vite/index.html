@@ -15,8 +15,8 @@
             method:"POST"
         }).then(res => res.json()).then(data=>{
             document.getElementById("favicon").href = data.logo;
+            document.documentElement.lang=data.lang;
         })
-
     </script>
 </body>
 </html>

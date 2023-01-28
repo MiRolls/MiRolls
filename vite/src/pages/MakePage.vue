@@ -37,12 +37,11 @@ export default {
           // if success
           console.log("success",date)
           // noinspection JSUnresolvedVariable
-          this.message = `问卷上传成功！查询码：${date.rollCode}，请务必务必务必务必牢记！访问${date.rollLink}即可开始答题。`
+          this.message = $t('messageUpdateSuccess') + `${date.rollCode}, ${$t("messageUpdateSuccess2")} ${date.rollLink} ${$t("messageUpdateSuccess3")}`
         }else {
           // if error
           // noinspection JSUnresolvedVariable
-          console.log("error",date)
-          this.message = `服务器出现问题，请截图发送给lm@lmfans.cn Error:${date.error}, ErrorType:${date.errorType}`
+          this.message = $t('messageDatabaseError') + ` Error:${date.error}, ErrorType:${date.errorType}`
         }
       })
     }

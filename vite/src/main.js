@@ -24,8 +24,15 @@ const router = createRouter({
     }]
 });
 
+let lang
+fetch("/get/site",{
+    method:"POST"
+}).then(res => res.json()).then(data=>{
+     lang = data.lang;
+})
+
 const i18n = new createI18n({
-    locale: document.documentElement.lang,
+    locale: lang,
     messages:{
         en,
         zh,

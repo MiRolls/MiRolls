@@ -22,6 +22,7 @@ const zh = {
     makeOptions:"选项 ",
     makeQuestBlankTitleNormal: "题目标题",
     makeQuestTips:"问题提示（placeholder，没有可以填空）",
-    makeDelete:"删除这个题目"
+    makeDelete:"删除这个题目",
+    messageDatabaseError:"服务器数据库错误！"
 }
 export default zh;

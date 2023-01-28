@@ -113,7 +113,7 @@ export default {
   border: none;
   outline: none;
   border-bottom: solid 1px black;
-  width: 25px;
+  width: 35px;
   font-size: 16px;
 }
 
