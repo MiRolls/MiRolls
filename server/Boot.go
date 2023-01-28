@@ -5,10 +5,13 @@ import (
 	"MiRolls/link"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"log"
 	"path/filepath"
 )
 
 func Boot() {
+	gin.SetMode(gin.ReleaseMode)
+	// set release
 	r := gin.Default()
 	//处理中间件
 	r.Use(MiddleWare)
@@ -20,5 +23,10 @@ func Boot() {
 	link.NotFound(r)
 	link.GetSite(r)
 
-	_ = r.Run(":" + fmt.Sprintf("%d", config.Configs.Server.Port))
+	err := r.Run(":" + fmt.Sprintf("%d", config.Configs.Server.Port))
+	if err != nil {
+		log.Fatal("[FATAL ERROR]Cannot start server")
+	} else {
+		log.Println("[Success]Server running at http://localhost:" + fmt.Sprintf("%d", config.Configs.Server.Port) + "/")
+	}
 }

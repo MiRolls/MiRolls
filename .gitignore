@@ -15,3 +15,5 @@ MiRolls
 frontend/node_modules
 frontend/dist
 frontend/.gitignore
+
+releases
