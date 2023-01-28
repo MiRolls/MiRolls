@@ -37,11 +37,11 @@ export default {
           // if success
           console.log("success",date)
           // noinspection JSUnresolvedVariable
-          this.message = $t('messageUpdateSuccess') + `${date.rollCode}, ${$t("messageUpdateSuccess2")} ${date.rollLink} ${$t("messageUpdateSuccess3")}`
+          this.message = this.$t('messageUpdateSuccess') + `${date.rollCode}, ${this.$t("messageUpdateSuccess2")} ${date.rollLink} ${this.$t("messageUpdateSuccess3")}`
         }else {
           // if error
           // noinspection JSUnresolvedVariable
-          this.message = $t('messageDatabaseError') + ` Error:${date.error}, ErrorType:${date.errorType}`
+          this.message = this.$t('messageDatabaseError') + ` Error:${date.error}, ErrorType:${date.errorType}`
         }
       })
     }
