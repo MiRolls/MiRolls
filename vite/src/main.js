@@ -28,20 +28,20 @@ let lang
 fetch("/get/site",{
     method:"POST"
 }).then(res => res.json()).then(data=>{
-     lang = data.lang;
+    lang = data.lang;
+    const i18n = new createI18n({
+        locale: lang,
+        messages:{
+            en,
+            zh,
+        }
+    })
+    const app =createApp(App);
+    app.use(router);
+    app.use(VueCookies);
+    app.use(i18n)
+    app.mount('#app');
 })
 
-const i18n = new createI18n({
-    locale: lang,
-    messages:{
-        en,
-        zh,
-    }
-})
 
-const app =createApp(App);
-app.use(router);
-app.use(VueCookies);
-app.use(i18n)
-app.mount('#app');
 // mount
