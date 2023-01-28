@@ -26,6 +26,7 @@ const en = {
     messageDatabaseError:"Database error!",
     messageUpdateSuccess:"Update success! Query code: ",
     messageUpdateSuccess2:"Please remember your query code!Visit ",
-    messageUpdateSuccess3:"to start answering questions."
+    messageUpdateSuccess3:"to start answering questions.",
+    savedRolls:"Saved questionnaires"
 }
 export default en;

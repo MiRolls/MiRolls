@@ -9,6 +9,7 @@ import SearchPage from "./pages/SearchPage.vue";
 import zh from "./assets/langs/zh";
 import en from "./assets/langs/en";
 import {createI18n} from "vue-i18n";
+import QueryPage from "./pages/QueryPage.vue";
 
 const router = createRouter({
     history:createWebHashHistory(),
@@ -21,14 +22,16 @@ const router = createRouter({
     },{
         path:"/search",
         component: SearchPage,
+    },{
+        path:"/query",
+        component: QueryPage,
     }]
 });
 
-let lang
 fetch("/get/site",{
     method:"POST"
 }).then(res => res.json()).then(data=>{
-    lang = data.lang;
+    let lang = data.lang;
     const i18n = new createI18n({
         locale: lang,
         messages:{
@@ -43,5 +46,8 @@ fetch("/get/site",{
     app.mount('#app');
 })
 
-
-// mount
+// const app =createApp(App);
+// app.use(router);
+// app.use(VueCookies);
+// app.mount('#app');
+// Dev mode

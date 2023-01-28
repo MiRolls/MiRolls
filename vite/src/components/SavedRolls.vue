@@ -1,14 +1,36 @@
 <template>
-  <div id="savedRolls"></div>
+  <div id="savedRolls">
+    <div class="line"></div>
+    <div v-for="(item,index) in savedRolls" class="savedRoll" :key="item + index">
+      <span style="margin-left: 10px;display: block;">{{ index + $t("savedRolls")}}</span>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "SavedRolls"
+  name: "SavedRolls",
+  created(){
+    // add hook
+
+  },
+  data(){
+    return{
+      savedRolls:[
+
+      ]
+    }
+  }
 }
 </script>
 
-<style scoped>
+<style>
+.savedRoll{
+  /*background: black;*/
+  padding-top:10px;
+  padding-bottom: 10px;
+  border-bottom:#bebebe 1px solid;
+}
 #savedRolls{
   margin-top: 40px;
   border-radius: 10px;

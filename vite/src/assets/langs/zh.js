@@ -23,6 +23,7 @@ const zh = {
     makeQuestBlankTitleNormal: "题目标题",
     makeQuestTips:"问题提示（placeholder，没有可以填空）",
     makeDelete:"删除这个题目",
-    messageDatabaseError:"服务器数据库错误！"
+    messageDatabaseError:"服务器数据库错误！",
+    savedRolls:"保存的问卷"
 }
 export default zh;
