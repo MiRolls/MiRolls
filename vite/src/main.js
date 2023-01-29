@@ -31,7 +31,7 @@ const router = createRouter({
 fetch("/get/site",{
     method:"POST"
 }).then(res => res.json()).then(data=>{
-    let lang = data.lang;2
+    let lang = data.lang;
     const i18n = new createI18n({
         locale: lang,
         messages:{
