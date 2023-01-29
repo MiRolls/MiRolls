@@ -4,6 +4,7 @@
     <div v-for="(item,index) in savedRolls" class="savedRoll" :key="item + index">
       <span style="margin-left: 10px;display: block;">{{ index + $t("savedRolls")}}</span>
     </div>
+    <div class="bottomLine">{{ $t("savedNone") }}</div>
   </div>
 </template>
 
@@ -12,13 +13,11 @@ export default {
   name: "SavedRolls",
   created(){
     // add hook
-
+    this.savedRolls = JSON.parse(this.$cookies.get("draft"));
   },
   data(){
     return{
-      savedRolls:[
-
-      ]
+      savedRolls:[]
     }
   }
 }
@@ -26,11 +25,17 @@ export default {
 
 <style>
 .savedRoll{
-  /*background: black;*/
   padding-top:10px;
   padding-bottom: 10px;
   border-bottom:#bebebe 1px solid;
 }
+
+.bottomLine{
+  margin-top: 20px;
+  text-align: center;
+  font-size: 17px;
+}
+
 #savedRolls{
   margin-top: 40px;
   border-radius: 10px;

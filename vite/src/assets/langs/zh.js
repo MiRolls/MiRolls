@@ -24,6 +24,7 @@ const zh = {
     makeQuestTips:"问题提示（placeholder，没有可以填空）",
     makeDelete:"删除这个题目",
     messageDatabaseError:"服务器数据库错误！",
-    savedRolls:"保存的问卷"
+    savedRolls:"保存的问卷",
+    savedNone:"这里啥都没有"
 }
 export default zh;

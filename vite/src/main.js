@@ -31,7 +31,7 @@ const router = createRouter({
 fetch("/get/site",{
     method:"POST"
 }).then(res => res.json()).then(data=>{
-    let lang = data.lang;
+    let lang = data.lang;2
     const i18n = new createI18n({
         locale: lang,
         messages:{
@@ -39,6 +39,20 @@ fetch("/get/site",{
             zh,
         }
     })
+    const app =createApp(App);
+    app.use(router);
+    app.use(VueCookies);
+    app.use(i18n)
+    app.mount('#app');
+}).catch(()=>{
+    const i18n = new createI18n({
+        locale: "zh",
+        messages:{
+            en,
+            zh,
+        }
+    })
+
     const app =createApp(App);
     app.use(router);
     app.use(VueCookies);
