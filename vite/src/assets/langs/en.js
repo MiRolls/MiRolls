@@ -29,6 +29,8 @@ const en = {
     messageUpdateSuccess3:"to start answering questions.",
     savedNone:"Nothing here",
     messageCookiesError:"Cannot save draft! Please change you browser setting",
-    messageCookiesSuccess:"Saved draft! If you need see, pleases see 'Quest. result query' page."
+    messageCookiesSuccess:"Saved draft! If you need see, pleases see 'Quest. result query' page.",
+    queryBigDataOverview:"Big data overview",
+    queryDetails:""
 }
 export default en;

@@ -29,12 +29,7 @@
       }).then(res=>res.json()).then(data=>{
         this.icp = data.icp;
         this.name = data.name;
-        if(data.lang === "zh"){
-          this.icpBoolean = true
-        }else{
-          this.icpBoolean = false
-        }
-        // noinspection JSUnresolvedVariable
+        this.icpBoolean = data.lang === "zh";
       })
     },
   }
