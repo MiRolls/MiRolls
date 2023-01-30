@@ -23,6 +23,7 @@
     <div class="line"></div>
   </div>
 </template>
+<!--suppress JSUnresolvedVariable -->
 <script>
 export default {
   name:"RollsPage",
@@ -53,6 +54,12 @@ export default {
   watch:{
     title(nv){
       this.rolls.title = nv;
+    }
+  },
+  mounted() {
+    if(this.$route.query.draft !== undefined){
+      // use the import data
+      this.rolls =  JSON.parse(this.$route.query.draft);
     }
   },
   methods: {
