@@ -92,12 +92,12 @@ export default {
     saveQuest() {
       this.$cookies.config('99999d');
       if (this.$cookies.isKey("draft")) {
-        let oldDate = this.$cookies.get("draft");
-        oldDate.date[oldDate.date.length] = this.rolls;
-        this.$cookies.set('draft', JSON.stringify(oldDate));
+        let oldData = this.$cookies.get("draft");
+        oldData.data[oldData.data.length] = this.rolls;
+        this.$cookies.set('draft', JSON.stringify(oldData));
         //get after this
       } else {
-        this.$cookies.set('draft', JSON.stringify({date: [this.rolls]}));
+        this.$cookies.set('draft', JSON.stringify({data: [this.rolls]}));
       }
 
     }

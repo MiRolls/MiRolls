@@ -2,7 +2,7 @@
   <div id="savedRolls">
     <div class="line"></div>
     <div v-for="(item,index) in savedRolls" class="savedRoll" :key="item + index">
-      <span style="margin-left: 10px;display: block;">{{ index + $t("savedRolls")}}</span>
+      <span style="margin-left: 10px;display: block;">{{ index+1 + $t("savedRolls")}}</span>
     </div>
     <div class="bottomLine">{{ $t("savedNone") }}</div>
   </div>
@@ -13,7 +13,8 @@ export default {
   name: "SavedRolls",
   created(){
     // add hook
-    this.savedRolls = JSON.parse(this.$cookies.get("draft"));
+    this.savedRolls = this.$cookies.get("draft").data;
+    console.log(this.$cookies.get("draft").data)
   },
   data(){
     return{
@@ -34,6 +35,7 @@ export default {
   margin-top: 20px;
   text-align: center;
   font-size: 17px;
+  color: #a1a1a1;
 }
 
 #savedRolls{

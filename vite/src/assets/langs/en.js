@@ -27,7 +27,7 @@ const en = {
     messageUpdateSuccess:"Update success! Query code: ",
     messageUpdateSuccess2:"Please remember your query code!Visit ",
     messageUpdateSuccess3:"to start answering questions.",
-    savedRolls:"Saved questionnaires",
+    savedRolls:". Saved questionnaires",
     savedNone:"Nothing here",
 }
 export default en;
