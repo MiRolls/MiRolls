@@ -10,13 +10,17 @@
     name:"PageFooter",
     methods:{
       goIcp(){
-        window.location.href="https://beian.miit.gov.cn/";
+        if(this.icpBoolean){
+          window.location.href="https://beian.miit.gov.cn/";
+        }
       }
     },
     data(){
       return {
         name:"米卷",
-        icp: "鲁ICP备2022023454号-25"
+        icp: "鲁ICP备2022023454号-25",
+        icpBoolean:Boolean,
+        icpStyle:{cursor:"pointer"}
       }
     },
     created(){
@@ -25,6 +29,11 @@
       }).then(res=>res.json()).then(data=>{
         this.icp = data.icp;
         this.name = data.name;
+        if(data.lang === "zh"){
+          this.icpBoolean = true
+        }else{
+          this.icpBoolean = false
+        }
         // noinspection JSUnresolvedVariable
       })
     },
