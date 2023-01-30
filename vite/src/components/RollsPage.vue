@@ -94,12 +94,21 @@ export default {
       if (this.$cookies.isKey("draft")) {
         let oldData = this.$cookies.get("draft");
         oldData.data[oldData.data.length] = this.rolls;
-        this.$cookies.set('draft', JSON.stringify(oldData));
+        try{
+          this.$cookies.set('draft', JSON.stringify(oldData));
+        }catch (err){
+          return [false,err]
+        }
+        return [true,null]
         //get after this
       } else {
-        this.$cookies.set('draft', JSON.stringify({data: [this.rolls]}));
+        try{
+          this.$cookies.set('draft', JSON.stringify({data: [this.rolls]}));
+        }catch (err){
+          return [false,err]
+        }
+        return [true,null]
       }
-
     }
   }
 }

@@ -1,10 +1,10 @@
 <template>
   <div id="savedRolls">
     <div class="line"></div>
-    <div v-for="(item,index) in savedRolls" class="savedRoll" :key="item + index">
-      <span style="margin-left: 10px;display: block;">{{ index+1 + $t("savedRolls")}}</span>
+    <div v-for="(item,index) in savedRolls" class="savedRoll" :key="item + index" @click="">
+      <span style="margin-left: 10px;display: block;">{{ index+1 + ". " + item.title}}</span>
     </div>
-    <div class="bottomLine">{{ $t("savedNone") }}</div>
+    <div class="bottomLine" v-if="savedRolls.length === 0">{{ $t("savedNone") }}</div>
   </div>
 </template>
 
@@ -13,8 +13,9 @@ export default {
   name: "SavedRolls",
   created(){
     // add hook
-    this.savedRolls = this.$cookies.get("draft").data;
-    console.log(this.$cookies.get("draft").data)
+    if(this.$cookies.isKey("draft")){
+      this.savedRolls = this.$cookies.get("draft").data;
+    }
   },
   data(){
     return{

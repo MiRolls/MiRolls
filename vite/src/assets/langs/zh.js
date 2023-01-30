@@ -23,8 +23,9 @@ const zh = {
     makeQuestBlankTitleNormal: "题目标题",
     makeQuestTips:"问题提示（placeholder，没有可以填空）",
     makeDelete:"删除这个题目",
-    messageDatabaseError:"服务器数据库错误！",
-    savedRolls:". 保存的问卷",
-    savedNone:"这里啥都没有"
+    messageDatabaseError:"服务器错误！",
+    savedNone:"这里啥都没有",
+    messageCookiesError:"不能保存草稿！请查看您的浏览器配置！",
+    messageCookiesSuccess:"存储完毕！请到'问卷结果查询'页面查看保存的问卷"
 }
 export default zh;

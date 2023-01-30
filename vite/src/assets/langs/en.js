@@ -23,11 +23,12 @@ const en = {
     makeQuestBlankTitleNormal: "Question title",
     makeQuestTips:"Question tips（placeholder，if not can be left blank）",
     makeDelete:"Delete this question",
-    messageDatabaseError:"Database error!",
+    messageDatabaseError:"Server error!",
     messageUpdateSuccess:"Update success! Query code: ",
     messageUpdateSuccess2:"Please remember your query code!Visit ",
     messageUpdateSuccess3:"to start answering questions.",
-    savedRolls:". Saved questionnaires",
     savedNone:"Nothing here",
+    messageCookiesError:"Cannot save draft! Please change you browser setting",
+    messageCookiesSuccess:"Saved draft! If you need see, pleases see 'Quest. result query' page."
 }
 export default en;

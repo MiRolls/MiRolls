@@ -26,7 +26,11 @@ export default {
       this.$refs.rollsPage.addQuestValue(questSetting.type, questSetting.optionsNumber)
     },
     saveRoll() {
-      this.$refs.rollsPage.saveQuest();
+      if(this.$refs.rollsPage.saveQuest()){
+        this.message = this.$t("messageCookiesSuccess")
+      }else{
+        this.message = this.$t("messageCookiesError")
+      }
     },
     submitRoll() {
       fetch("/roll/create",{
@@ -43,6 +47,8 @@ export default {
           // noinspection JSUnresolvedVariable
           this.message = this.$t('messageDatabaseError') + ` Error:${date.error}, ErrorType:${date.errorType}`
         }
+      }).catch(()=>{
+        this.message = this.$t('messageDatabaseError')
       })
     }
   },
