@@ -1,7 +1,7 @@
 <template>
   <div id="savedRolls">
     <div class="line"></div>
-    <div v-for="(item,index) in savedRolls" class="savedRoll" :key="item + index" @click="">
+    <div v-for="(item,index) in savedRolls" class="savedRoll" :key="item + index" @click="$router.push('/make?draft=' + JSON.stringify(item))">
       <span style="margin-left: 10px;display: block;">{{ index+1 + ". " + item.title}}</span>
     </div>
     <div class="bottomLine" v-if="savedRolls.length === 0">{{ $t("savedNone") }}</div>
@@ -30,6 +30,7 @@ export default {
   padding-top:10px;
   padding-bottom: 10px;
   border-bottom:#bebebe 1px solid;
+  cursor: pointer;
 }
 
 .bottomLine{
