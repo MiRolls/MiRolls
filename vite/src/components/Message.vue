@@ -39,7 +39,7 @@ export default {
   position: fixed;
   z-index: 1145142;
   width: 40%;
-  max-height: 150px;
+  max-height: 170px;
   border-radius: 10px;
   background-color: white;
   padding: 10px 40px 10px 40px;

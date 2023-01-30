@@ -19,7 +19,6 @@
         </svg>
       </button>
       <!-- v-if来实现各种题目的效果 -->
-      <!-- 因为sb的Vue2.0响应式，得用@input这个事件 -->
     </div>
     <div class="line"></div>
   </div>
