@@ -29,7 +29,7 @@ export default {
   data(){
     return{
       rolls:{
-        title: this.title,
+        title: this.$t("makeTitleNormal"),
         quest:[
           {
             type: "radio",//或者multipleChoice(多选) / blank(单行填空) manyBlank(多行填空)
@@ -50,12 +50,18 @@ export default {
   props:{
     title:String
   },
+  watch:{
+    title(nv){
+      this.rolls.title = nv;
+    }
+  },
   methods: {
     changeQuestValue(list, index, value) {
       // this.$set(list, index, value);
       list[index] = value;
     },
     getRoll() {
+      console.log(this.rolls)
       return JSON.stringify(this.rolls);
     },
     deleteQuest(index) {
