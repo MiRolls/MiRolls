@@ -9,7 +9,8 @@ import SearchPage from "./pages/SearchPage.vue";
 import zh from "./assets/langs/zh";
 import en from "./assets/langs/en";
 import {createI18n} from "vue-i18n";
-import QueryPage from "./pages/QueryPage.vue";
+import QueryPage from "./pages/QueryBigData.vue";
+import QueryDetails from "./pages/QueryDetails.vue";
 
 const router = createRouter({
     history:createWebHashHistory(),
@@ -23,8 +24,11 @@ const router = createRouter({
         path:"/search",
         component: SearchPage,
     },{
-        path:"/query",
+        path:"/queryBigData",
         component: QueryPage,
+    },{
+        path:"/queryDetails",
+        component:QueryDetails
     }]
 });
 

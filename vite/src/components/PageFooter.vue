@@ -1,5 +1,5 @@
 <template>
-  <div class="footer">
+  <div class="footer" :style="{marginTop:margin}">
     <h1>{{name}}</h1>
     <p class="footerButton">{{ $t("footerInt") }}</p>
     <p class="footerButton" style="cursor: pointer;" @click="goIcp">{{ icp }}</p>
@@ -14,6 +14,9 @@
           window.location.href="https://beian.miit.gov.cn/";
         }
       }
+    },
+    props:{
+      margin:"margin-top: 50px;"
     },
     data(){
       return {
@@ -37,7 +40,6 @@
 <style>
 .footer{
   padding: 50px 0 50px 0;
-  margin-top: 50px;
   background-color: rgb(23,27,33);
   text-align: center;
   color: white;
