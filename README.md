@@ -10,30 +10,30 @@
 
 1. Download [Releases@latest](https://github.com/liangmiQwQ/MiRolls-/releases), Choose your server version(Such as Linux arm64.zip or Windows amd64.zip and more)
 
-[//]: # (   ![image]&#40;https://img.lmfans.cn/i/2023/01/26/10zj0ty.png&#41;)
+   ![image](https://img.lmfans.cn/i/2023/01/26/10zj0ty.png)
 
 2. Open config/config.yaml file, and change this file (follow this form)
 
-  | Key                | Value           | Remark                                                                                                                                         |
---------------------| ------------------ |------------------------------------------------------------------------------------------------------------------------------------------------| ------------------------------------------------------------ |
-  | Port(server)       | Number          | Server port(Such as 127.0.0.1:2202)                                                                                                            |
-  | Static(server)     | String,FilePath | Theme folder(default vite/dist)                                                                                                                |
+  | Key              | Value           | Remark                                                                                                                                         |
+  | ------------------ |------------------------------------------------------------------------------------------------------------------------------------------------| ------------------------------------------------------------ |
+  | Port(server)     | Number          | Server port(Such as 127.0.0.1:2202)                                                                                                            |
+  | Static(server)   | String,FilePath | Theme folder(default vite/dist)                                                                                                                |
   | Username(database) | String          | If you'll build a MiRolls website, you must be a database. Enter your database username                                                        |
   | Password(database) | String          | Enter your database password                                                                                                                   |
   | Protocol(database) | String          | Use tcp without special requirements                                                                                                           |
-  | Host(database)     | String          | If you use the remote database, else enter localhost                                                                                           |
-  | Port(database)     | Number          | If you change database port                                                                                                                |
+  | Host(database)   | String          | If you use the remote database, else enter localhost                                                                                           |
+  | Port(database)     | Number          | If you change database port                                                                                                                    |
   | Database(database) | String          | Database name                                                                                                                                  |
-  | Name(Site)         | String          | Your website name(such as MiRolls)                                                                                                             |
-  | Link(Site)         | String          | Your website domain(IP)                                                                                                                        |
-  | Logo(Site)         | String          | Favicon and logo.png                                                                                                                           |
-  | MainColor(Site)    | String          | Theme color, can use"rgb()"function, or use "#xxxxx" or all colors that can be inserted into css                                               |
-  | icp(Site)          | String     | icp备案，其他国家的人貌似没有这个需求，就当是放在页脚的一个提示语！icp(A Policy for Chinese Sites) You can be put on footer, For example, write a promotion for this site here |
-  | Lang(Site)         | String | Language, only support English and Chinese(en and zh)                                                                                          |
+  | Name(Site)       | String          | Your website name(such as MiRolls)                                                                                                             |
+  | Link(Site)       | String          | Your website domain(IP)                                                                                                                        |
+  | Logo(Site)      | String          | Favicon and logo.png                                                                                                                           |
+  | MainColor(Site)  | String          | Theme color, can use"rgb()"function, or use "#xxxxx" or all colors that can be inserted into css                                               |
+  | icp(Site)        | String     | icp备案，其他国家的人貌似没有这个需求，就当是放在页脚的一个提示语！icp(A Policy for Chinese Sites) You can be put on footer, For example, write a promotion for this site here |
+  | Lang(Site) | String | Language, only support English and Chinese(en and zh)                                                                                          |
 
 3. After configuration, you need import the sql file(database.sql)
 
-[//]: # (   ![image]&#40;https://img.lmfans.cn/i/2023/01/26/126azd4.png&#41;)
+   ![image](https://img.lmfans.cn/i/2023/01/26/126azd4.png)
 
    ***Tips: This Step is very important.If you cannot import, please use some server manage tools(such as cPanel and Plesk)***
 
