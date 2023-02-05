@@ -15,7 +15,6 @@ import (
 func CreateRoll(r *gin.Engine) {
 	r.POST("/roll/create", func(c *gin.Context) {
 		mysql := fmt.Sprintf("%s:%s@%s(%s:%d)/%s", config.Configs.Database.Username, config.Configs.Database.Password, config.Configs.Database.Protocol, config.Configs.Database.Host, config.Configs.Database.Port, config.Configs.Database.Database)
-		fmt.Println(mysql)
 		sql, err := sqlx.Open("mysql", mysql)
 		if err != nil {
 			c.JSON(500, gin.H{
