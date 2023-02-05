@@ -16,6 +16,6 @@ func QueryRoll(r *gin.Engine) {
 			c.JSON(500, gin.H{"message": err.Error(), "error": err.Error(), "errorType": "database connect error"})
 			log.Fatal("[FATAL ERROR]Cannot connect database")
 		}
-		sql.Close()
+		_ = sql.Close()
 	})
 }

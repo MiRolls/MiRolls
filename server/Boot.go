@@ -18,10 +18,11 @@ func Boot() {
 	//加载html文件
 	path, _ := filepath.Abs(config.Configs.Server.Static)
 	r.Static("/", path)
-	//加载路由（是不是说成注册更好）
+	//Register Router
 	link.CreateRoll(r)
 	link.NotFound(r)
 	link.GetSite(r)
+	link.QueryRoll(r)
 
 	err := r.Run(":" + fmt.Sprintf("%d", config.Configs.Server.Port))
 	if err != nil {
