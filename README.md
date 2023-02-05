@@ -10,8 +10,6 @@
 
 1. Download [Releases@latest](https://github.com/liangmiQwQ/MiRolls-/releases), Choose your server version(Such as Linux arm64.zip or Windows amd64.zip and more)
 
-   ![image](https://img.lmfans.cn/i/2023/01/26/10zj0ty.png)
-
 2. Open config/config.yaml file, and change this file (follow this form)
 
   | Key              | Value           | Remark                                                                                                                                         |
@@ -33,8 +31,6 @@
 
 3. After configuration, you need import the sql file(database.sql)
 
-   ![image](https://img.lmfans.cn/i/2023/01/26/126azd4.png)
-
    ***Tips: This Step is very important.If you cannot import, please use some server manage tools(such as cPanel and Plesk)***
 
 4. Open shell(cmd), run MiRolls!
@@ -49,7 +45,8 @@ cd c:/User/mirolls/Desktop/server/
 mirolls.exe
 ```
 
-# License
+License
+
 [MIT](https://opensource.org/licenses/MIT)
 
 Copyright © 2023-present,Liangmi
