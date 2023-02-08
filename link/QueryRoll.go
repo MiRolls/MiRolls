@@ -9,7 +9,7 @@ import (
 )
 
 func QueryRoll(r *gin.Engine) {
-	r.GET("/query/roll", func(c *gin.Context) {
+	r.POST("/query/roll", func(c *gin.Context) {
 		mysql := fmt.Sprintf("%s:%s@%s(%s:%d)/%s", config.Configs.Database.Username, config.Configs.Database.Password, config.Configs.Database.Protocol, config.Configs.Database.Host, config.Configs.Database.Port, config.Configs.Database.Database)
 		sql, err := sqlx.Open("mysql", mysql)
 		if err != nil {

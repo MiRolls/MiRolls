@@ -15,6 +15,7 @@ func GetSite(r *gin.Engine) {
 			"mainColor": Configs.Site.MainColor,
 			"icp":       Configs.Site.Icp,
 			"lang":      Configs.Site.Lang,
+			"needIcp":   Configs.Site.NeedIcp,
 		})
 	})
 }

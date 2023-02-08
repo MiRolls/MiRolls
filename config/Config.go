@@ -33,6 +33,7 @@ type Site struct {
 	MainColor string `yaml:"mainColor"`
 	Icp       string `yaml:"icp"`
 	Lang      string `yaml:"lang"`
+	NeedIcp   int    `yaml:"needIcp"`
 }
 
 var Configs Config

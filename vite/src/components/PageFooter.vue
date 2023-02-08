@@ -2,7 +2,7 @@
   <div class="footer" :style="{marginTop:margin}">
     <h1>{{name}}</h1>
     <p class="footerButton">{{ $t("footerInt") }}</p>
-    <p class="footerButton" style="cursor: pointer;" @click="goIcp">{{ icp }}</p>
+    <p class="footerButton" :style="icpStyle" @click="goIcp">{{ icp }}</p>
   </div>
 </template>
 <script>
@@ -22,8 +22,8 @@
       return {
         name:"米卷",
         icp: "鲁ICP备2022023454号-25",
-        icpBoolean:Boolean,
-        icpStyle:{cursor:"pointer"}
+        icpBoolean:false,
+        icpStyle:{}
       }
     },
     created(){
@@ -32,7 +32,8 @@
       }).then(res=>res.json()).then(data=>{
         this.icp = data.icp;
         this.name = data.name;
-        this.icpBoolean = data.lang === "zh";
+        this.icpBoolean = data.needIcp;
+        this.icpStyle = (this.icpBoolean) ? {cursor:"pointer"} : {}
       })
     },
   }

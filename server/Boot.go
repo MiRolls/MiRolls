@@ -10,24 +10,30 @@ import (
 )
 
 func Boot() {
-	gin.SetMode(gin.ReleaseMode)
+	config.InitConfig()
+	//Install
+
+	//gin.SetMode(gin.ReleaseMode)
 	// set release
 	r := gin.Default()
-	//处理中间件
+
+	//Load MiddleWare
 	r.Use(MiddleWare)
-	//加载html文件
+
+	//Load statics
 	path, _ := filepath.Abs(config.Configs.Server.Static)
 	r.Static("/", path)
+
 	//Register Router
-	link.CreateRoll(r)
-	link.NotFound(r)
 	link.GetSite(r)
 	link.QueryRoll(r)
+	link.CreateRoll(r)
+	link.NotFound(r)
 
 	err := r.Run(":" + fmt.Sprintf("%d", config.Configs.Server.Port))
 	if err != nil {
 		log.Fatal("[FATAL ERROR]Cannot start server")
 	} else {
-		log.Println("[Success]Server running at http://localhost:" + fmt.Sprintf("%d", config.Configs.Server.Port) + "/")
+		log.Println("[Success]Server running at http://" + config.Configs.Site.Link + ":" + fmt.Sprintf("%d", config.Configs.Server.Port) + "/")
 	}
 }
