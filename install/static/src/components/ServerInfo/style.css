@@ -1,0 +1,11 @@
+.quest{
+    font-size: 16px;
+}
+
+.infoType{
+    width: 500px;
+    border:none;
+    border-bottom: 1px black solid;
+    outline: none;
+    font-size: 16px;
+}

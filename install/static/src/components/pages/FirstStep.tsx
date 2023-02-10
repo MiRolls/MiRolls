@@ -1,12 +1,18 @@
 import "./global.css"
 import Steps from "../Steps";
-import React, {useEffect} from "react";
+import React, {useImperativeHandle} from "react";
+import ServerInFo from "../ServerInfo";
 
-export default function (){
+export default function (_: any, ref: React.Ref<unknown> | undefined){
+    useImperativeHandle(ref,()=>({
+
+    }))
+
     return (
         <div className={"page"}>
             <Steps step={3} CompletedStep={0}></Steps>
-            <h1>Server</h1>
+            <h1>Enter Your Server Info</h1>
+            <ServerInFo infoName={"Your Site Name"} tips={"Such of Leason's WebSite"}></ServerInFo>
         </div>
     )
 }
