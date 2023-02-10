@@ -10,7 +10,14 @@ import (
 )
 
 func Boot() {
-	config.InitConfig()
+	isSuccess, errCode := config.InitConfig()
+	if !isSuccess && errCode == 0 {
+		//is install mode
+		r := gin.Default()
+		path, _ := filepath.Abs("install/routes")
+		r.Static("/", path)
+		//Load static files
+	}
 	//Install
 
 	//gin.SetMode(gin.ReleaseMode)

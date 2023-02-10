@@ -38,13 +38,14 @@ type Site struct {
 
 var Configs Config
 
-func InitConfig() {
+func InitConfig() (bool, int) {
 	configYaml, err := ioutil.ReadFile("./config/config.yaml")
 	if err != nil {
-		log.Fatal("[FATAL ERROR]Cannot get config.yaml!" + err.Error())
+		return false, 0
 	}
 	err = yaml.Unmarshal(configYaml, &Configs)
 	if err != nil {
 		log.Fatal("[FATAL ERROR]Cannot read config.yaml!" + err.Error())
 	}
+	return true, 1
 }

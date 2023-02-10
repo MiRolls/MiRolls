@@ -1,0 +1,16 @@
+.page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height:100vh;
+    width:100%;
+    animation:enter 1s;
+    transition: 1s;
+}
+
+
+@keyframes enter {
+    from { opacity: 0; }
+    to {opacity: 1;}
+}
