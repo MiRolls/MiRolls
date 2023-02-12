@@ -2,6 +2,7 @@ package server
 
 import (
 	"MiRolls/config"
+	"MiRolls/install/routes"
 	"MiRolls/link"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -17,6 +18,8 @@ func Boot() {
 		path, _ := filepath.Abs("install/routes")
 		r.Static("/", path)
 		//Load static files
+		routes.SetSite(r)
+		//Load routes
 	}
 	//Install
 

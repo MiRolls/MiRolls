@@ -4,6 +4,8 @@ import (
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"log"
+	"os"
+	"path/filepath"
 )
 
 type Config struct {
@@ -45,7 +47,26 @@ func InitConfig() (bool, int) {
 	}
 	err = yaml.Unmarshal(configYaml, &Configs)
 	if err != nil {
-		log.Fatal("[FATAL ERROR]Cannot read config.yaml!" + err.Error())
+		log.Fatal("[FATAL ERROR]Can't read config.yaml!" + err.Error())
 	}
 	return true, 1
+}
+
+func MakeConfig(content string) (bool, string) {
+	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	//filepath.Abs, return(string,err)
+	if err != nil {
+		return false, "Can't read filepath"
+	}
+	//WriteFile
+	err = ioutil.WriteFile(filepath.Join(dir, "config", "config.yaml"), []byte(content), 0644)
+	if err != nil {
+		return false, "Can't write config"
+	}
+
+	return true, "Success"
+}
+
+func ChangeConfig() {
+
 }

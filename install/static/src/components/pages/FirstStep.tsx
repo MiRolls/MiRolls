@@ -9,13 +9,14 @@ import {Navigate} from "react-router-dom";
 export default function (){
     interface siteInfo {
 
-        name: string;
-        link: string;
-        logo: string;
-        icp: string;
-        lang: string;
-        needIcp: boolean;
-        [key: string]: string | boolean;
+        name: string,
+        link: string,
+        logo: string,
+        icp: string,
+        lang: string,
+        needIcp: number,
+
+        [key: string]: string | number;
     }
 
 
@@ -26,7 +27,7 @@ export default function (){
         logo: "",
         icp: "",
         lang: "",
-        needIcp: false,
+        needIcp: 0,
     })
     const [buttonText,setButtonText] = useState("Click To Submit")
     const [isOpacity,setIsOpacity] = useState(1)
