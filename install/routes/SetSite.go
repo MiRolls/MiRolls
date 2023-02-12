@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"encoding/json"
 	"github.com/gin-gonic/gin"
 )
 
@@ -10,7 +11,7 @@ type Site struct {
 	Logo    string
 	Icp     string
 	Lang    string
-	NeedIcp bool
+	NeedIcp int
 }
 
 func SetSite(r *gin.Engine) {
@@ -19,7 +20,11 @@ func SetSite(r *gin.Engine) {
 		if err != nil {
 			c.JSON(500, "Can't read reqBody")
 		}
-
+		var siteInfo Site
+		err = json.Unmarshal(data, &siteInfo)
+		if err != nil {
+			return
+		}
 		//config.MakeConfig()
 	})
 }
