@@ -1,5 +1,6 @@
 .quest{
     font-size: 16px;
+    margin-top: 15px;
 }
 
 .infoType{
@@ -8,4 +9,9 @@
     border-bottom: 1px black solid;
     outline: none;
     font-size: 16px;
+}
+
+.footerTips{
+    color: #989898;
+    margin-top: 10px;
 }
