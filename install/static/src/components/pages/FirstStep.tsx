@@ -15,6 +15,7 @@ export default function (){
         icp: string,
         lang: string,
         needIcp: number,
+        mainColor:string
 
         [key: string]: string | number;
     }
@@ -25,9 +26,10 @@ export default function (){
         name: "",
         link: "",
         logo: "",
-        icp: "",
-        lang: "",
+        icp: "A Nice Questionnaire System",
+        lang: "en",
         needIcp: 0,
+        mainColor:"rgb(21, 127, 248)"
     })
     const [buttonText,setButtonText] = useState("Click To Submit")
     const [isOpacity,setIsOpacity] = useState(1)
@@ -70,7 +72,6 @@ export default function (){
             </div>
             <span className={"footerTips"}>There all content correspond config.yaml</span>
             <button className={"nextStep"} onClick={submit}>{buttonText}</button>
-            {/*<span className={"footerTips"}>The details database config can change config.yaml file</span>*/}
             {isGoNext}
         </div>
     )

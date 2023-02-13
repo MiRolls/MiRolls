@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"MiRolls/config"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 )
@@ -35,32 +36,34 @@ type SiteConfig struct {
 	NeedIcp   int    `yaml:"needIcp"`
 }
 
-type Site struct {
-	Name    string
-	Link    string
-	Logo    string
-	Icp     string
-	Lang    string
-	NeedIcp int
-}
-
 func SetSite(r *gin.Engine) {
 	r.POST("/install/set/site", func(c *gin.Context) {
+		config.MakeConfig()
 		data, err := c.GetRawData()
 		if err != nil {
 			c.JSON(500, gin.H{
 				"error":   err.Error(),
 				"message": "error",
 			})
+			return
 		}
-		var siteInfo *Site
+		//var siteInfo *SiteConfig
+		siteInfo := new(SiteConfig)
 		err = json.Unmarshal(data, &siteInfo)
+
 		if err != nil {
 			c.JSON(500, gin.H{
 				"error":   err.Error(),
 				"message": "error",
 			})
+			return
 		}
-		//config.MakeConfig()
+
+		var newConfig = Config{
+			Server:   nil,
+			Database: nil,
+			Site:     siteInfo,
+		}
+
 	})
 }
