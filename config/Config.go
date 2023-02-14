@@ -1,6 +1,7 @@
 package config
 
 import (
+	"errors"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"log"
@@ -72,21 +73,35 @@ func InitConfig() (bool, int) {
 }
 
 //goland:noinspection GoDeprecation
-func MakeConfig() (bool, string) {
+func MakeConfig() error {
 	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
-	//filepath.Abs, return(string,err)
 	if err != nil {
-		return false, "Can't read filepath"
+		return errors.New("can't read filepath")
 	}
 	//WriteFile
 	err = ioutil.WriteFile(filepath.Join(dir, "config", "config.yaml"), []byte(defaultConfig), 0644)
 	if err != nil {
-		return false, "Can't write config"
+		return errors.New("can't write config")
 	}
-
-	return true, "Success"
+	InitConfig()
+	//return true, "Success"
+	return nil
 }
 
-func ChangeConfig() {
-
+func ChangeConfig(mode int, value string) error {
+	InitConfig() //init Config
+	if mode == 1 {
+		//Change Site Module
+		dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+		if err != nil {
+			return errors.New("can't read filepath")
+		}
+		//goland:noinspection GoDeprecation
+		err = ioutil.WriteFile(filepath.Join(dir, "config", "config.yaml"), []byte(defaultConfig), 0644)
+	} else if mode == 2 {
+		//Change Database module
+	} else {
+		//Else Change Theme or project Host
+	}
+	return nil
 }

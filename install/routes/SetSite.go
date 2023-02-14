@@ -4,29 +4,10 @@ import (
 	"MiRolls/config"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
+	"gopkg.in/yaml.v2"
 )
 
-type Config struct {
-	Server   *Server     `yaml:"server"`
-	Database *Database   `yaml:"database"`
-	Site     *SiteConfig `yaml:"site"`
-}
-
-type Server struct {
-	Port   int    `yaml:"port"`
-	Static string `yaml:"static"`
-}
-
-type Database struct {
-	Username string `yaml:"username"`
-	Password string `yaml:"password"`
-	Protocol string `yaml:"protocol"`
-	Host     string `yaml:"host"`
-	Port     int    `yaml:"port"`
-	Database string `yaml:"database"`
-}
-
-type SiteConfig struct {
+type Site struct {
 	Name      string `yaml:"name"`
 	Link      string `yaml:"link"`
 	Logo      string `yaml:"logo"`
@@ -38,7 +19,13 @@ type SiteConfig struct {
 
 func SetSite(r *gin.Engine) {
 	r.POST("/install/set/site", func(c *gin.Context) {
-		config.MakeConfig()
+		err := config.MakeConfig()
+		if err != nil {
+			c.JSON(500, gin.H{
+				"error":   err.Error(),
+				"message": "error",
+			})
+		}
 		data, err := c.GetRawData()
 		if err != nil {
 			c.JSON(500, gin.H{
@@ -47,10 +34,8 @@ func SetSite(r *gin.Engine) {
 			})
 			return
 		}
-		//var siteInfo *SiteConfig
-		siteInfo := new(SiteConfig)
+		siteInfo := new(Site)
 		err = json.Unmarshal(data, &siteInfo)
-
 		if err != nil {
 			c.JSON(500, gin.H{
 				"error":   err.Error(),
@@ -58,12 +43,20 @@ func SetSite(r *gin.Engine) {
 			})
 			return
 		}
-
-		var newConfig = Config{
-			Server:   nil,
-			Database: nil,
-			Site:     siteInfo,
+		yamlConfig, err := yaml.Marshal(&siteInfo)
+		if err != nil {
+			c.JSON(500, gin.H{
+				"error":   err.Error(),
+				"message": "error",
+			})
 		}
-
+		err = config.ChangeConfig(1, string(yamlConfig))
+		if err != nil {
+			c.JSON(500, gin.H{
+				"error":   err.Error(),
+				"message": "error",
+			})
+			return
+		}
 	})
 }
