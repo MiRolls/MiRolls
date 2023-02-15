@@ -48,6 +48,7 @@ func CreateRoll(r *gin.Engine) {
 			"rollLink": link,
 		})
 	})
+
 }
 
 func md5Hash(str string) string {
