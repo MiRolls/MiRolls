@@ -20,7 +20,7 @@ export default function (){
         setIsOpacity(0)
         setTimeout(()=>{
             setRenderNext(true)
-        },1000)
+        },500)
     }
 
     return(

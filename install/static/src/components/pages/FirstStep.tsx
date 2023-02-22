@@ -3,7 +3,8 @@ import Steps from "../Steps";
 import React, {FormEvent, useState} from "react";
 import "../ServerInfo/style.css"
 import axios from "axios";
-import {Navigate} from "react-router-dom";
+import {Navigate, useLocation} from "react-router-dom";
+import InputBar from "../InputBar";
 
 
 export default function (){
@@ -50,26 +51,17 @@ export default function (){
             setIsGoNext(<Navigate to={"/step-two"}/>)
             return res.data
         }).catch(err=>{
-            alert("Error! Please restart the program. " + err)
+            alert("Error! Please restart the program." + err)
         })
     }
 
     return (
         <div className={"page"} style={{opacity:isOpacity}}>
-            <Steps step={3} CompletedStep={0}></Steps>
+            <Steps step={3} CompletedStep={0} nowStep={1}></Steps>
             <h1>Enter Your Server Info</h1>
-            <div className={"quest"}>
-                <span>Your Site Name: </span>
-                <input className={"infoType"} placeholder="MiRolls" onInput={changeInfo("name")}></input>.
-            </div>
-            <div className={"quest"}>
-                <span>Your Site Language: </span>
-                <input className={"infoType"} placeholder='"zh" or "en"' onInput={changeInfo("name")}></input>.
-            </div>
-            <div className={"quest"}>
-                <span>Your Site Language: </span>
-                <input className={"infoType"} placeholder='"zh" or "en"' onInput={changeInfo("name")}></input>.
-            </div>
+            <InputBar placeholder={"MiRolls"} question={"Your Site Name: "}></InputBar>
+            <InputBar placeholder={'"zh" or "en"'} question={"Your Size Language: "}></InputBar>
+            <InputBar placeholder={"https://github.com/fluidicon.png"} question={"Your Size Logo: "}></InputBar>
             <span className={"footerTips"}>There all content correspond config.yaml</span>
             <button className={"nextStep"} onClick={submit}>{buttonText}</button>
             {isGoNext}
