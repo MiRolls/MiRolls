@@ -8,21 +8,21 @@ interface props{
 }
 
 export default function (steps:props){
-    const [circleColor,setCircleColor] = useState("active")
+    let circleColor = "active"
 
     function getCircleColor(){
         if(!steps.hasBeenCompleted){
             //not completed
-            setCircleColor("unActive")
+            circleColor = "unActive"
         }else if (steps.hasBeenCompleted === 1){
-            setCircleColor("active")
+            circleColor = "active"
         }else{
-            setCircleColor("willActive")
+            circleColor = "willActive"
         }
         return circleColor
     }
 
     return (
-       <div className={"stepCircle " + circleColor}>{ steps.stepNumber }</div>
+       <div className={"stepCircle " + getCircleColor()}>{ steps.stepNumber }</div>
     )
 }
