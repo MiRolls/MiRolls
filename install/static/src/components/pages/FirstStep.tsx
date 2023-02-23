@@ -1,10 +1,11 @@
 import "./global.css"
 import Steps from "../Steps";
-import React, {FormEvent, useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import "../ServerInfo/style.css"
 import axios from "axios";
 import {Navigate} from "react-router-dom";
 import InputBar from "../InputBar";
+import mode from "../../mode";
 
 
 export default function (){
@@ -21,15 +22,6 @@ export default function (){
         [key: string]: string | number;
     }
 
-    const [siteInfo,setSiteInfo] = useState<siteInfo>({
-        name: "",
-        link: "",
-        logo: "",
-        icp: "A Nice Questionnaire System",
-        lang: "en",
-        needIcp: 0,
-        mainColor:"rgb(21, 127, 248)"
-    })
     const [buttonText,setButtonText] = useState("Click To Submit")
     const [isOpacity,setIsOpacity] = useState(1)
     const [isGoNext,setIsGoNext] = useState(<></>)
@@ -38,14 +30,20 @@ export default function (){
     const siteLogo = useRef(null);
 
     function submit(){
-        setIsOpacity(0)
-        setButtonText("Submitting Data...")
-        axios.post("/install/set/site",getData()).then(res=>{
-            setIsGoNext(<Navigate to={"/step-two"}/>)
-            return res.data
-        }).catch(err=>{
-            alert("Error! Please restart the program." + err)
-        })
+        const devMode = mode.debug
+
+        if (devMode === mode.debug){
+            console.log(getData())
+        }else{
+            setIsOpacity(0)
+            setButtonText("Submitting Data...")
+            axios.post("/install/set/site",getData()).then(res=>{
+                setIsGoNext(<Navigate to={"/step-two"}/>)
+                return res.data
+            }).catch(err=>{
+                alert("Error! Please restart the program." + err)
+            })
+        }
     }
 
     function getData():siteInfo{
