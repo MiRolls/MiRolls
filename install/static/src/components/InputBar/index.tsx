@@ -1,4 +1,4 @@
-import React, {useImperativeHandle} from 'react';
+import React, {forwardRef, useImperativeHandle, useState} from 'react';
 import "./style.css"
 
 interface input{
@@ -6,16 +6,18 @@ interface input{
     question:string,
 }
 
-function Index(props:input) {
-    // useImperativeHandle(()=>{
-    //
-    // })
+export default forwardRef((props:input,ref) => {
+    const [answer,setAnswer] = useState("")
+    useImperativeHandle(ref,()=>({
+        getAnswer: ():string=>{
+            return answer
+        }
+    }))
     return (
         <div className={"quest"}>
             <span>{props.question}</span>
-            <input className={"infoType"} placeholder={props.placeholder}></input>.
+            <input className={"infoType"} placeholder={props.placeholder} onInput={(event)=>setAnswer(event.currentTarget.value)}></input>.
         </div>
     );
-}
+});
 
-export default Index;
