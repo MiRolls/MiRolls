@@ -5,7 +5,12 @@ import axios from "axios";
 
 export default function (){
     interface dbConfig{
-
+        username:string,
+        password:string,
+        protocol:string,
+        host:string,
+        port:number,
+        database:string,
     }
 
     const dbUser = useRef(null);
@@ -14,11 +19,20 @@ export default function (){
     const dbName = useRef(null);
 
     function submit(){
-        axios.get("/install/set/database",).then(data => )
+        axios.post("/install/set/database",getDbConfig()).then(res => {
+
+        })
     }
 
-    function getDbConfig(){
-
+    function getDbConfig():dbConfig{
+        return {
+            username:(dbUser.current as any).getAnswer(),
+            password:(dbPwd.current as any).getAnswer(),
+            protocol:"tcp",
+            host:(dbServer.current as any).getAnswer(),
+            port:3306,
+            database:(dbServer.current as any).getAnswer()
+        }
     }
 
     return (
