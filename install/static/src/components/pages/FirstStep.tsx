@@ -1,7 +1,6 @@
 import "./global.css"
 import Steps from "../Steps";
 import React, {useRef, useState} from "react";
-import "../ServerInfo/style.css"
 import axios from "axios";
 import {Navigate} from "react-router-dom";
 import InputBar from "../InputBar";
@@ -30,7 +29,7 @@ export default function (){
     const siteLogo = useRef(null);
 
     function submit(){
-        const devMode = mode.debug
+        const devMode = mode.release
 
         if (devMode === mode.debug){
             console.log(getData())
@@ -72,9 +71,9 @@ export default function (){
             <Steps step={3} CompletedStep={0} nowStep={1}></Steps>
             <h1>Enter Your Server Info</h1>
             <InputBar placeholder={"MiRolls"} question={"Your Site Name: "} ref={siteName}></InputBar>
-            <InputBar placeholder={'"zh" or "en"'} question={"Your Size Language: "} ref={siteLang}></InputBar>
+            <InputBar placeholder={'The default theme only supports zh or en'} question={"Your Size Language: "} ref={siteLang}></InputBar>
             <InputBar placeholder={"https://github.com/fluidicon.png"} question={"Your Size Logo: "} ref={siteLogo}></InputBar>
-            <span className={"footerTips"}>There all content correspond config.yaml</span>
+            <span className={"tips"}>There all content correspond config.yaml</span>
             <button className={"nextStep"} onClick={submit}>{buttonText}</button>
             {isGoNext}
         </div>

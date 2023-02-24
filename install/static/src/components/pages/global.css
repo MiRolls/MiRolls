@@ -14,3 +14,9 @@
     from { opacity: 0; }
     to {opacity: 1;}
 }
+
+.tips{
+    color: #989898;
+    margin-top: 10px;
+    line-height: 20px;
+}
