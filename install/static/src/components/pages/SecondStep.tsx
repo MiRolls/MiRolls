@@ -3,7 +3,6 @@ import React, {useRef} from "react";
 import InputBar from "../InputBar";
 
 export default function (){
-
     const dbUser = useRef(null)
     const dbPwd = useRef(null)
     const dbServer = useRef(null)
