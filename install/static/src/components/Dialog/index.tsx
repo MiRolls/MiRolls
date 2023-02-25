@@ -30,6 +30,10 @@ function Index(props:items) {
         setChangeCount(changeCount + 1)
     },[message]);
 
+    useEffect(()=>{
+        setMessage(props.message)
+    },[props.message])
+
     function renderJsx():JSX.Element{
         if(changeCount == 2){
             return vmRender
