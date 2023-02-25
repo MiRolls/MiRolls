@@ -37,8 +37,11 @@ export default function (){
             setIsOpacity(0)
             setButtonText("Submitting Data...")
             axios.post("/install/set/site",getData()).then(res=>{
-                setIsGoNext(<Navigate to={"/step-two"}/>)
-                return res.data
+                if(res.data.message === "success"){
+                    setIsGoNext(<Navigate to={"/step-two"}/>)
+                }else{
+
+                }
             }).catch(err=>{
                 alert("Error! Please restart the program." + err)
             })

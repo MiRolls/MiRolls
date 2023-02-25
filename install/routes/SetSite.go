@@ -58,5 +58,9 @@ func SetSite(r *gin.Engine) {
 			})
 			return
 		}
+
+		c.JSON(200, gin.H{
+			"message": "success",
+		})
 	})
 }

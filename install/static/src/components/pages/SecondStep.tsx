@@ -1,5 +1,5 @@
 import Steps from "../Steps";
-import React, {useRef} from "react";
+import React, {useRef, useState} from "react";
 import InputBar from "../InputBar";
 import axios from "axios";
 
@@ -17,6 +17,9 @@ export default function (){
     const dbPwd = useRef(null);
     const dbServer = useRef(null);
     const dbName = useRef(null);
+    // refs
+
+    const [isGoNext,setIsGoNext] = useState(<></>)
 
     function submit(){
         axios.post("/install/set/database",getDbConfig()).then(res => {
@@ -46,6 +49,7 @@ export default function (){
             <span className={"tips"}>This step is very important. If this info is false, MiRolls will have many error.</span>
             <span className={"tips"}>If you need other settings, you can modify config.yaml</span>
             <button className={"nextStep"} onClick={submit}>Click To Submit</button>
+            {isGoNext}
         </div>
     )
 }
