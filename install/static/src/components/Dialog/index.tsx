@@ -8,22 +8,27 @@ interface items{
 }
 
 function Index(props:items) {
+    const [changeCount,setChangeCount] = useState(0)
+    const [message,setMessage] = useState(props.message)
 
     const vmRender = <div className={"dialogWindow"}>
         <div className={"dialog"}>
-                <span className={"dialogTitle " + props.type}><i className="fa-solid fa-circle-exclamation"></i>
-                    <span className={"title"}>{props.title}</span>
+            <span className={"dialogTitle " + props.type}>
+                <i className="fa-solid fa-circle-exclamation"></i>
+                <span className={"title"}>{props.title}</span>
+            </span>
+                <span className={"dialogControl"} onClick={()=>{setChangeCount(0);setMessage("")}}>
+                    <i className="fa-sharp fa-solid fa-xmark"></i>
                 </span>
             <div className={"content"}>
-                {props.message}
+                {message}
             </div>
         </div>
     </div>
-    const [changeCount,setChangeCount] = useState(0)
 
     useEffect(()=>{
         setChangeCount(changeCount + 1)
-    },[props.message]);
+    },[message]);
 
     function renderJsx():JSX.Element{
         if(changeCount == 2){
@@ -32,7 +37,6 @@ function Index(props:items) {
             return <></>
         }
     }
-
     return renderJsx()
 }
 

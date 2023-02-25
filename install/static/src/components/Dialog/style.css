@@ -22,9 +22,15 @@
     align-items: center;
 }
 
-.dialogTitle{
+.dialogTitle,.dialogControl{
     font-size: 20px;
     font-weight: bolder;
+}
+.dialogControl{
+    /*text-align: right;*/
+    float: right;
+    cursor: pointer;
+    right: 0;
 }
 
 .success{
