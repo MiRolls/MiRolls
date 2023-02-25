@@ -31,8 +31,6 @@ export default function (){
             <h1 id={"title"}>MiRolls <span className={"installText"}>Install</span> Program</h1>
             <button onClick={()=>renderAnimation()} className={"startSetup"}>Start Setup</button>
             {goStepOne()}
-            <button className={"startSetup"} onClick={()=>setDialogMessage("There is change")}>Render!</button>
-            <Dialog message={dialogMessage} type={"error"} title={"Error!"}></Dialog>
         </div>
     )
 }
