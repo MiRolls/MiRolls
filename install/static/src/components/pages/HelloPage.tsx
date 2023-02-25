@@ -2,13 +2,10 @@ import {Navigate} from "react-router-dom";
 import "./guide.css"
 import "./global.css"
 import {useState} from "react";
-import axios from "axios";
-import Dialog from "../Dialog";
 
 export default function (){
     const [isRenderNext,setRenderNext] = useState(false)
     const [isOpacity,setIsOpacity] = useState(1)
-    const [dialogMessage,setDialogMessage] = useState("This is a dialog.")
 
     function goStepOne(){
         if(isRenderNext){
