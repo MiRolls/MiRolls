@@ -3,6 +3,9 @@ import React, {useRef, useState} from "react";
 import InputBar from "../InputBar";
 import axios from "axios";
 import Dialog from "../Dialog";
+import {Navigate} from "react-router-dom";
+import {Simulate} from "react-dom/test-utils";
+import error = Simulate.error;
 
 export default function () {
     interface dbConfig {
@@ -14,19 +17,24 @@ export default function () {
         database: string,
     }
 
+    const [isGoNext, setIsGoNext] = useState(<></>)
+    const [isOpacity, setIsOpacity] = useState(1)
+    const [dialogErrorMessage,setDialogErrorMessage] = useState("")
     const dbUser = useRef(null);
     const dbPwd = useRef(null);
     const dbServer = useRef(null);
     const dbName = useRef(null);
-    // refs
-
-    const [isGoNext, setIsGoNext] = useState(<></>)
 
     function submit() {
+        setIsOpacity(0)
         axios.post("/install/set/database", getDbConfig()).then(res => {
             if (res.data.message === "success") {
-
+                setIsGoNext(<Navigate to="/step-three"></Navigate>)
+            } else {
+                setDialogErrorMessage("Server has error! Please reboot Mirolls-program. " + res.data.error)
             }
+        }).catch(err => {
+            setDialogErrorMessage("Server has error! Please reboot Mirolls-program. " + err)
         })
     }
 
@@ -41,10 +49,14 @@ export default function () {
         }
     }
 
+    function goHome(){
+        setIsGoNext(<Navigate to={"/"}></Navigate>)
+    }
+
     return (
         <div>
-            <Dialog message={""} type={"error"} title={"Error!"}></Dialog>
-            <div className={"page"}>
+            <Dialog message={dialogErrorMessage} type={"error"} title={"Error!"} onCloseToDo={goHome}></Dialog>
+            <div className={"page"} style={{opacity: isOpacity}}>
                 <Steps step={3} CompletedStep={1} nowStep={2}></Steps>
                 <h1>Setting Your Database</h1>
                 <InputBar placeholder={"MiRolls"} question={"Your Database Username: "} ref={dbUser}/>
