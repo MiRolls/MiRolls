@@ -40,24 +40,7 @@ type Site struct {
 }
 
 var Configs Config
-var defaultConfig = `server:
-  port: 2333 #server port
-  static: "vite/dist" # theme filepath
-database: # about database
-  username: "MiRolls"
-  password: "JyF8KRTMY85zhaDN"
-  protocol: "tcp"
-  host: "101.42.50.87"
-  port: 3306
-  database: "mirolls"
-site:
-  name: "米卷"
-  link: "wj.lmfans.cn" # site link and site name
-  logo: "https://img.lmfans.cn/i/2023/01/26/uqwc3n.png" # url(will be favicon and logo, .png or .jpg file, 128*128 best)
-  mainColor: "rgb(21, 127, 248)" #rgb or #xxxxxxx Your site color
-  icp: "鲁ICP备2022023454号-25"
-  lang: "zh"# Currently only supports English and Chinese（en and zh）
-  needIcp: 1 #icp(if you in China, you maybe blank 1, if you in the USA or other, you can blank 0(this options controls hyperlinks at the footer))`
+var defaultConfig = new(Config)
 
 //goland:noinspection GoDeprecation
 func InitConfig() (bool, int) {
@@ -79,7 +62,11 @@ func MakeConfig() error {
 		return errors.New("can't read filepath")
 	}
 	//WriteFile
-	err = ioutil.WriteFile(filepath.Join(dir, "config", "config.yaml"), []byte(defaultConfig), 0644)
+	defaultConfigByte, err := yaml.Marshal(defaultConfig)
+	if err != nil {
+		return errors.New("cant to byte")
+	}
+	err = ioutil.WriteFile(filepath.Join(dir, "config", "config.yaml"), defaultConfigByte, 0644)
 	if err != nil {
 		return errors.New("can't write config")
 	}
@@ -88,20 +75,38 @@ func MakeConfig() error {
 	return nil
 }
 
-func ChangeConfig(mode int, value string) error {
+//goland:noinspection GoDeprecation
+func ChangeSite(value *Site) error {
 	InitConfig() //init Config
-	if mode == 1 {
-		//Change Site Module
-		dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
-		if err != nil {
-			return errors.New("can't read filepath")
-		}
-		//goland:noinspection GoDeprecation
-		err = ioutil.WriteFile(filepath.Join(dir, "config", "config.yaml"), []byte(defaultConfig), 0644)
-	} else if mode == 2 {
-		//Change Database module
-	} else {
-		//Else Change Theme or project Host
+	//Change Site Module
+	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	if err != nil {
+		return errors.New("can't read filepath")
+	}
+	//goland:noinspection GoDeprecation
+	defaultConfig.Site = value
+	defaultConfigByte, err := yaml.Marshal(&defaultConfig)
+	err = ioutil.WriteFile(filepath.Join(dir, "config", "config.yaml"), defaultConfigByte, 0644)
+	if err != nil {
+		return errors.New(err.Error())
+	}
+	return nil
+}
+
+//goland:noinspection GoDeprecation
+func ChangeDatabase(value *Database) error {
+	InitConfig() //init Config
+	//Change Site Module
+	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	if err != nil {
+		return errors.New("can't read filepath")
+	}
+	//goland:noinspection GoDeprecation
+	defaultConfig.Database = value
+	defaultConfigByte, err := yaml.Marshal(&defaultConfig)
+	err = ioutil.WriteFile(filepath.Join(dir, "config", "config.yaml"), defaultConfigByte, 0644)
+	if err != nil {
+		return errors.New(err.Error())
 	}
 	return nil
 }

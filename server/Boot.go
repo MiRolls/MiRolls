@@ -20,6 +20,7 @@ func Boot() {
 		r.Static("/", path)
 		//Load static files
 		routes.SetSite(r)
+		routes.SetDatabase(r)
 		//Load routes
 		_ = r.Run(":2333")
 		return

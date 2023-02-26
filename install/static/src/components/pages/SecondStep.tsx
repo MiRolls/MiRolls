@@ -4,17 +4,15 @@ import InputBar from "../InputBar";
 import axios from "axios";
 import Dialog from "../Dialog";
 import {Navigate} from "react-router-dom";
-import {Simulate} from "react-dom/test-utils";
-import error = Simulate.error;
 
 export default function () {
     interface dbConfig {
-        username: string,
-        password: string,
-        protocol: string,
-        host: string,
-        port: number,
-        database: string,
+        Username: string,
+        Password: string,
+        Protocol: string,
+        Host: string,
+        Port: number,
+        Database: string,
     }
 
     const [isGoNext, setIsGoNext] = useState(<></>)
@@ -40,12 +38,12 @@ export default function () {
 
     function getDbConfig(): dbConfig {
         return {
-            username: (dbUser.current as any).getAnswer(),
-            password: (dbPwd.current as any).getAnswer(),
-            protocol: "tcp",
-            host: (dbServer.current as any).getAnswer(),
-            port: 3306,
-            database: (dbServer.current as any).getAnswer()
+            Username: (dbUser.current as any).getAnswer(),
+            Password: (dbPwd.current as any).getAnswer(),
+            Protocol: "tcp",
+            Host: (dbServer.current as any).getAnswer(),
+            Port: 3306,
+            Database: (dbServer.current as any).getAnswer()
         }
     }
 

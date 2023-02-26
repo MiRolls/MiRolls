@@ -4,18 +4,7 @@ import (
 	"MiRolls/config"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
-	"gopkg.in/yaml.v2"
 )
-
-type Site struct {
-	Name      string `yaml:"name"`
-	Link      string `yaml:"link"`
-	Logo      string `yaml:"logo"`
-	MainColor string `yaml:"mainColor"`
-	Icp       string `yaml:"icp"`
-	Lang      string `yaml:"lang"`
-	NeedIcp   int    `yaml:"needIcp"`
-}
 
 func SetSite(r *gin.Engine) {
 	r.POST("/install/set/site", func(c *gin.Context) {
@@ -34,7 +23,7 @@ func SetSite(r *gin.Engine) {
 			})
 			return
 		}
-		siteInfo := new(Site)
+		siteInfo := new(config.Site)
 		err = json.Unmarshal(data, &siteInfo)
 		if err != nil {
 			c.JSON(500, gin.H{
@@ -43,14 +32,14 @@ func SetSite(r *gin.Engine) {
 			})
 			return
 		}
-		yamlConfig, err := yaml.Marshal(&siteInfo)
-		if err != nil {
-			c.JSON(500, gin.H{
-				"error":   err.Error(),
-				"message": "error",
-			})
-		}
-		err = config.ChangeConfig(1, string(yamlConfig))
+		//yamlConfig, err := yaml.Marshal(&siteInfo)
+		//if err != nil {
+		//	c.JSON(500, gin.H{
+		//		"error":   err.Error(),
+		//		"message": "error",
+		//	})
+		//}
+		err = config.ChangeSite(siteInfo)
 		if err != nil {
 			c.JSON(500, gin.H{
 				"error":   err.Error(),

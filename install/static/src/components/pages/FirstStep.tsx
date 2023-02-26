@@ -11,13 +11,13 @@ import Dialog from "../Dialog";
 export default function (){
     interface siteInfo {
 
-        name: string,
-        link: string,
-        logo: string,
-        icp: string,
-        lang: string,
-        needIcp: number,
-        mainColor:string
+        Name: string,
+        Link: string,
+        Logo: string,
+        Icp: string,
+        Lang: string,
+        NeedIcp: number,
+        MainColor:string
 
         [key: string]: string | number;
     }
@@ -53,13 +53,13 @@ export default function (){
 
     function getData():siteInfo{
         return {
-            name: (siteName.current as any).getAnswer(),
-            link: getRootUrl(),
-            logo: (siteLogo.current as any).getAnswer(),
-            icp: "A Nice Questionnaire System",
-            lang: (siteLang.current as any).getAnswer(),
-            needIcp: 0,
-            mainColor:"rgb(21, 127, 248)"
+            Name: (siteName.current as any).getAnswer(),
+            Link: getRootUrl(),
+            Logo: (siteLogo.current as any).getAnswer(),
+            Icp: "A Nice Questionnaire System",
+            Lang: (siteLang.current as any).getAnswer(),
+            NeedIcp: 0,
+            MainColor:"rgb(21, 127, 248)"
         }
     }
 
