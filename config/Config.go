@@ -110,3 +110,20 @@ func ChangeDatabase(value *Database) error {
 	}
 	return nil
 }
+
+func ChangeServer(value *Server) error {
+	InitConfig() //init Config
+	//Change Site Module
+	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	if err != nil {
+		return errors.New("can't read filepath")
+	}
+	//goland:noinspection GoDeprecation
+	defaultConfig.Server = value
+	defaultConfigByte, err := yaml.Marshal(&defaultConfig)
+	err = ioutil.WriteFile(filepath.Join(dir, "config", "config.yaml"), defaultConfigByte, 0644)
+	if err != nil {
+		return errors.New(err.Error())
+	}
+	return nil
+}
