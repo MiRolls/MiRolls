@@ -37,3 +37,6 @@
 .nextStep{
     margin-top: 10px;
 }
+.nextStep:hover,.startSetup:hover{
+    background-color: #2a65cb;
+}
