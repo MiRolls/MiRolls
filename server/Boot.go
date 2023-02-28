@@ -21,6 +21,7 @@ func Boot() {
 		//Load static files
 		routes.SetSite(r)
 		routes.SetDatabase(r)
+		routes.DownloadAndGetDownloadSpeed(r)
 		//Load routes
 		_ = r.Run(":2333")
 		return
