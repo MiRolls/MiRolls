@@ -22,6 +22,7 @@ func Boot() {
 		routes.SetSite(r)
 		routes.SetDatabase(r)
 		routes.DownloadAndGetDownloadSpeed(r)
+		link.NotFound(r)
 		//Load routes
 		_ = r.Run(":2333")
 		return
@@ -49,6 +50,7 @@ func Boot() {
 	if err != nil {
 		log.Fatal("[FATAL ERROR]Cannot start server")
 	} else {
+		//goland:noinspection HttpUrlsUsage
 		log.Println("[Success]Server running at http://" + config.Configs.Site.Link + ":" + fmt.Sprintf("%d", config.Configs.Server.Port) + "/")
 	}
 }
