@@ -22,7 +22,7 @@ export default function (){
     }
 
     function download(){
-        axios.post("/install/download/default").then(res=>{
+        axios.post("/install/download",{file:"default"}).then(res=>{
             if(res.data.message === "success"){
                 getDownloadControl = setInterval(()=>{
                     getDownloadSpeed()
