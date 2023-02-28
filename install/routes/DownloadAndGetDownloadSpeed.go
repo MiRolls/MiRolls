@@ -14,7 +14,7 @@ func DownloadAndGetDownloadSpeed(r *gin.Engine) {
 			return
 		}
 		if string(data) == "default" {
-			DownloadFile("/theme/", "")
+			DownloadFile("./theme", "")
 		}
 	})
 }
