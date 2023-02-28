@@ -1,0 +1,42 @@
+.page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height:100vh;
+    width:100%;
+    animation:enter 0.5s;
+    transition: 0.5s;
+}
+
+
+@keyframes enter {
+    from { opacity: 0; }
+    to {opacity: 1;}
+}
+
+.tips{
+    color: #989898;
+    margin-top: 10px;
+    line-height: 20px;
+}
+
+.nextStep,.startSetup{
+    width: 353px;
+    font-size: 16px;
+    border: none;
+    background-color: #3b7df0;
+    color: white;
+    height: 35px;
+    border-radius: 999em;
+    cursor: pointer;
+    transition: 0.4s;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+.nextStep{
+    margin-top: 10px;
+}
+.nextStep:hover,.startSetup:hover{
+    background-color: #2a65cb;
+}

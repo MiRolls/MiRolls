@@ -29,7 +29,6 @@ func Boot() {
 	}
 	//Install
 
-	//gin.SetMode(gin.ReleaseMode)
 	// set release
 	r := gin.Default()
 
