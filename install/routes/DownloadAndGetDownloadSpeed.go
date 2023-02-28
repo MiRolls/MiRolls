@@ -14,25 +14,33 @@ func DownloadAndGetDownloadSpeed(r *gin.Engine) {
 			return
 		}
 		if string(data) == "default" {
-			DownloadFile("./theme", "")
+			err = DownloadFile("./theme", "")
+			if err != nil {
+				return
+			}
+		} else {
+			c.JSON(500, gin.H{
+				"message": "error",
+				"error":   "Are you idiot? What are you doing?" + err.Error(),
+			})
 		}
 	})
 }
 
 func DownloadFile(filepath string, url string) error {
-	// 创建一个空文件
+	// create a file
 	out, err := os.Create(filepath)
 	if err != nil {
 		return err
 	}
 	defer func(out *os.File) {
-		err := out.Close()
+		err = out.Close()
 		if err != nil {
 
 		}
 	}(out)
 
-	// 获取文件响应
+	// Get respone
 	resp, err := http.Get(url)
 	if err != nil {
 		return err
@@ -44,7 +52,7 @@ func DownloadFile(filepath string, url string) error {
 		}
 	}(resp.Body)
 
-	// 将响应内容写入文件
+	// write file
 	_, err = io.Copy(out, resp.Body)
 	if err != nil {
 		return err
