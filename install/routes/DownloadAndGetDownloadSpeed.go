@@ -1,20 +1,126 @@
 package routes
 
 import (
+	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"io"
 	"net/http"
 	"os"
+	"time"
 )
+
+type file struct {
+	File string `json:"file"`
+}
+type githubApi struct {
+	Url       string `json:"url"`
+	AssetsUrl string `json:"assets_url"`
+	UploadUrl string `json:"upload_url"`
+	HtmlUrl   string `json:"html_url"`
+	Id        int    `json:"id"`
+	Author    struct {
+		Login             string `json:"login"`
+		Id                int    `json:"id"`
+		NodeId            string `json:"node_id"`
+		AvatarUrl         string `json:"avatar_url"`
+		GravatarId        string `json:"gravatar_id"`
+		Url               string `json:"url"`
+		HtmlUrl           string `json:"html_url"`
+		FollowersUrl      string `json:"followers_url"`
+		FollowingUrl      string `json:"following_url"`
+		GistsUrl          string `json:"gists_url"`
+		StarredUrl        string `json:"starred_url"`
+		SubscriptionsUrl  string `json:"subscriptions_url"`
+		OrganizationsUrl  string `json:"organizations_url"`
+		ReposUrl          string `json:"repos_url"`
+		EventsUrl         string `json:"events_url"`
+		ReceivedEventsUrl string `json:"received_events_url"`
+		Type              string `json:"type"`
+		SiteAdmin         bool   `json:"site_admin"`
+	} `json:"author"`
+	NodeId          string    `json:"node_id"`
+	TagName         string    `json:"tag_name"`
+	TargetCommitish string    `json:"target_commitish"`
+	Name            string    `json:"name"`
+	Draft           bool      `json:"draft"`
+	Prerelease      bool      `json:"prerelease"`
+	CreatedAt       time.Time `json:"created_at"`
+	PublishedAt     time.Time `json:"published_at"`
+	Assets          []struct {
+		Url      string      `json:"url"`
+		Id       int         `json:"id"`
+		NodeId   string      `json:"node_id"`
+		Name     string      `json:"name"`
+		Label    interface{} `json:"label"`
+		Uploader struct {
+			Login             string `json:"login"`
+			Id                int    `json:"id"`
+			NodeId            string `json:"node_id"`
+			AvatarUrl         string `json:"avatar_url"`
+			GravatarId        string `json:"gravatar_id"`
+			Url               string `json:"url"`
+			HtmlUrl           string `json:"html_url"`
+			FollowersUrl      string `json:"followers_url"`
+			FollowingUrl      string `json:"following_url"`
+			GistsUrl          string `json:"gists_url"`
+			StarredUrl        string `json:"starred_url"`
+			SubscriptionsUrl  string `json:"subscriptions_url"`
+			OrganizationsUrl  string `json:"organizations_url"`
+			ReposUrl          string `json:"repos_url"`
+			EventsUrl         string `json:"events_url"`
+			ReceivedEventsUrl string `json:"received_events_url"`
+			Type              string `json:"type"`
+			SiteAdmin         bool   `json:"site_admin"`
+		} `json:"uploader"`
+		ContentType        string    `json:"content_type"`
+		State              string    `json:"state"`
+		Size               int       `json:"size"`
+		DownloadCount      int       `json:"download_count"`
+		CreatedAt          time.Time `json:"created_at"`
+		UpdatedAt          time.Time `json:"updated_at"`
+		BrowserDownloadUrl string    `json:"browser_download_url"`
+	} `json:"assets"`
+	TarballUrl string `json:"tarball_url"`
+	ZipballUrl string `json:"zipball_url"`
+	Body       string `json:"body"`
+}
+
+var downloadSpeed float32
+var fileName = "./theme/default.zip"
 
 func DownloadAndGetDownloadSpeed(r *gin.Engine) {
 	r.POST("/install/download", func(c *gin.Context) {
 		data, err := c.GetRawData()
+		file := new(file)
+		if json.Unmarshal(data, &file) != nil {
+			c.JSON(500, gin.H{"message": "error", "error": err.Error()})
+			return
+		}
 		if err != nil {
 			return
 		}
+		// theme
 		if string(data) == "default" {
-			err = DownloadFile("./theme", "")
+			req, err := http.Get("https://api.github.com/repos/MiRolls/MiRolls-default-theme/releases/latest")
+			defer func(Body io.ReadCloser) { _ = Body.Close() }(req.Body)
+
+			responseJson, err := io.ReadAll(req.Body)
+			if err != nil {
+				c.JSON(500, gin.H{"message": "error", "error": err.Error()})
+				return
+			}
+			gitHubApiResponse := new(githubApi)
+			_ = json.Unmarshal(responseJson, &gitHubApiResponse)
+			// Link to default
+			if err != nil {
+				c.JSON(500, gin.H{
+					"message": "error",
+					"error":   "Can't get mirolls-default-theme" + err.Error(),
+				})
+				return
+			}
+			err = DownloadFile(fileName, gitHubApiResponse.ZipballUrl)
+			// Download file
 			if err != nil {
 				return
 			}
@@ -40,7 +146,7 @@ func DownloadFile(filepath string, url string) error {
 		}
 	}(out)
 
-	// Get respone
+	// Get response
 	resp, err := http.Get(url)
 	if err != nil {
 		return err
@@ -48,7 +154,7 @@ func DownloadFile(filepath string, url string) error {
 	defer func(Body io.ReadCloser) {
 		err := Body.Close()
 		if err != nil {
-
+			return
 		}
 	}(resp.Body)
 
@@ -57,6 +163,9 @@ func DownloadFile(filepath string, url string) error {
 	if err != nil {
 		return err
 	}
-
 	return nil
+}
+
+func downloadSpeedControl() {
+
 }

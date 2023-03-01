@@ -3,7 +3,6 @@ package config
 import (
 	"errors"
 	"gopkg.in/yaml.v2"
-	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
@@ -44,7 +43,7 @@ var defaultConfig = new(Config)
 
 //goland:noinspection GoDeprecation
 func InitConfig() (bool, int) {
-	configYaml, err := ioutil.ReadFile("./config/config.yaml")
+	configYaml, err := os.ReadFile("./config/config.yaml")
 	if err != nil {
 		return false, 0
 	}
@@ -66,7 +65,7 @@ func MakeConfig() error {
 	if err != nil {
 		return errors.New("cant to byte")
 	}
-	err = ioutil.WriteFile(filepath.Join(dir, "config", "config.yaml"), defaultConfigByte, 0644)
+	err = os.WriteFile(filepath.Join(dir, "config", "config.yaml"), defaultConfigByte, 0644)
 	if err != nil {
 		return errors.New("can't write config")
 	}
@@ -86,7 +85,7 @@ func ChangeSite(value *Site) error {
 	//goland:noinspection GoDeprecation
 	defaultConfig.Site = value
 	defaultConfigByte, err := yaml.Marshal(&defaultConfig)
-	err = ioutil.WriteFile(filepath.Join(dir, "config", "config.yaml"), defaultConfigByte, 0644)
+	err = os.WriteFile(filepath.Join(dir, "config", "config.yaml"), defaultConfigByte, 0644)
 	if err != nil {
 		return errors.New(err.Error())
 	}
@@ -104,7 +103,7 @@ func ChangeDatabase(value *Database) error {
 	//goland:noinspection GoDeprecation
 	defaultConfig.Database = value
 	defaultConfigByte, err := yaml.Marshal(&defaultConfig)
-	err = ioutil.WriteFile(filepath.Join(dir, "config", "config.yaml"), defaultConfigByte, 0644)
+	err = os.WriteFile(filepath.Join(dir, "config", "config.yaml"), defaultConfigByte, 0644)
 	if err != nil {
 		return errors.New(err.Error())
 	}
@@ -121,7 +120,7 @@ func ChangeServer(value *Server) error {
 	//goland:noinspection GoDeprecation
 	defaultConfig.Server = value
 	defaultConfigByte, err := yaml.Marshal(&defaultConfig)
-	err = ioutil.WriteFile(filepath.Join(dir, "config", "config.yaml"), defaultConfigByte, 0644)
+	err = os.WriteFile(filepath.Join(dir, "config", "config.yaml"), defaultConfigByte, 0644)
 	if err != nil {
 		return errors.New(err.Error())
 	}
