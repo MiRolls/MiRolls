@@ -91,6 +91,7 @@ var downloadSpeed float64
 var fileName = "./theme/default.zip"
 var oldFileSize = 0.0
 var fileSize = 0.0
+var isDone = false
 
 func DownloadAndGetDownloadSpeed(r *gin.Engine) {
 	r.POST("/install/download", func(c *gin.Context) {
@@ -125,6 +126,17 @@ func DownloadAndGetDownloadSpeed(r *gin.Engine) {
 			}
 			err = DownloadFile(fileName, gitHubApiResponse.ZipballUrl)
 			// Download file
+			for !isDone {
+				err := downloadSpeedControl()
+				if err != nil {
+					c.JSON(500, gin.H{
+						"message": "error",
+						"error":   err.Error(),
+					})
+					return
+				}
+				time.Sleep(1 * time.Second)
+			}
 			if err != nil {
 				return
 			}
@@ -138,7 +150,6 @@ func DownloadAndGetDownloadSpeed(r *gin.Engine) {
 	//Download api
 
 	r.POST("/install/download/speed", func(c *gin.Context) {
-		var isDone bool
 		if fileSize == oldFileSize {
 			isDone = true
 		}
