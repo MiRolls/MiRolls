@@ -7,6 +7,7 @@ import (
 	"math"
 	"net/http"
 	"os"
+	"strconv"
 	"time"
 )
 
@@ -137,7 +138,15 @@ func DownloadAndGetDownloadSpeed(r *gin.Engine) {
 	//Download api
 
 	r.POST("/install/download/speed", func(c *gin.Context) {
-
+		var isDone bool
+		if fileSize == oldFileSize {
+			isDone = true
+		}
+		c.JSON(200, gin.H{
+			"done":    isDone,
+			"message": "success",
+			"speed":   downloadSpeed,
+		})
 	})
 }
 
@@ -148,10 +157,7 @@ func DownloadFile(filepath string, url string) error {
 		return err
 	}
 	defer func(out *os.File) {
-		err = out.Close()
-		if err != nil {
-
-		}
+		_ = out.Close()
 	}(out)
 
 	// Get response
@@ -171,6 +177,8 @@ func DownloadFile(filepath string, url string) error {
 	if err != nil {
 		return err
 	}
+
+	fileSize, err = strconv.ParseFloat(resp.Request.Header.Get("Content-Length"), 64)
 	return nil
 }
 
