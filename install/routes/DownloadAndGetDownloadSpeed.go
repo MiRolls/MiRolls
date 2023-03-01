@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"io"
+	"math"
 	"net/http"
 	"os"
 	"time"
@@ -85,8 +86,10 @@ type githubApi struct {
 	Body       string `json:"body"`
 }
 
-var downloadSpeed float32
+var downloadSpeed float64
 var fileName = "./theme/default.zip"
+var oldFileSize = 0.0
+var fileSize = 0.0
 
 func DownloadAndGetDownloadSpeed(r *gin.Engine) {
 	r.POST("/install/download", func(c *gin.Context) {
@@ -131,6 +134,11 @@ func DownloadAndGetDownloadSpeed(r *gin.Engine) {
 			})
 		}
 	})
+	//Download api
+
+	r.POST("/install/download/speed", func(c *gin.Context) {
+
+	})
 }
 
 func DownloadFile(filepath string, url string) error {
@@ -166,6 +174,18 @@ func DownloadFile(filepath string, url string) error {
 	return nil
 }
 
-func downloadSpeedControl() {
+func downloadSpeedControl() error {
+	stat, err := os.Stat(fileName)
+	if err != nil {
+		return err
+	}
+	var newFileSize float64
+	newFileSize = Round(float64(stat.Size() / 1048576)) //To mb/s
+	downloadSpeed = newFileSize - oldFileSize
+	oldFileSize = newFileSize
+	return nil
+}
 
+func Round(number float64) float64 {
+	return math.Round(number*100) / 100
 }
