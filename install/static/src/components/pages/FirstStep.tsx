@@ -10,7 +10,6 @@ import Dialog from "../Dialog";
 
 export default function (){
     interface siteInfo {
-
         Name: string,
         Link: string,
         Logo: string,

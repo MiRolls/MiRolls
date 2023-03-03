@@ -4,7 +4,7 @@ import Step from "../Step";
 interface props{
     step:number
     CompletedStep:number
-    nowStep:number
+    nowStep?:number
 }
 
 export default function (props:props){

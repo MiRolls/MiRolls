@@ -3,6 +3,7 @@ import FirstStep from "../pages/FirstStep";
 import SecondStep from "../pages/SecondStep";
 import ThirdStep from "../pages/ThirdStep";
 import HelloPage from "../pages/HelloPage";
+import Done from "../pages/Done";
 
 
 export default function (){
@@ -13,6 +14,7 @@ export default function (){
                 <Route path="/step-one" element={<FirstStep/>}></Route>
                 <Route path="/step-two" element={<SecondStep/>}></Route>
                 <Route path="/step-three" element={<ThirdStep/>}></Route>
+                <Route path="/done" element={<Done />}></Route>
             </Routes>
             {/*<Steps step={3} CompletedStep={0}></Steps>*/}
         </div>
