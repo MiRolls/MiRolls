@@ -8,6 +8,6 @@ config/config.yaml
 vite/.idea
 vite/node_modules
 vite/dist
-releases
+release
 install/static/node_modules
 MiRolls
