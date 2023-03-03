@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"MiRolls/packages"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"io"
@@ -92,6 +93,7 @@ var fileName = "./theme/default.zip"
 var oldFileSize = 0.0
 var fileSize = 0.0
 var isDone = false
+var unZipDone = false
 
 func DownloadAndGetDownloadSpeed(r *gin.Engine) {
 	r.POST("/install/download", func(c *gin.Context) {
@@ -152,12 +154,26 @@ func DownloadAndGetDownloadSpeed(r *gin.Engine) {
 	r.POST("/install/download/speed", func(c *gin.Context) {
 		if fileSize == oldFileSize {
 			isDone = true
+			_ = unZip()
+			c.JSON(200, gin.H{
+				"done":    isDone,
+				"message": "success",
+				"speed":   "It's unzipping",
+			})
+		} else if unZipDone {
+			c.JSON(200, gin.H{
+				"done":    unZipDone,
+				"message": "success",
+				"speed":   "Done.",
+			})
+		} else {
+			c.JSON(200, gin.H{
+				"done":    isDone,
+				"message": "success",
+				"speed":   downloadSpeed,
+			})
 		}
-		c.JSON(200, gin.H{
-			"done":    isDone,
-			"message": "success",
-			"speed":   downloadSpeed,
-		})
+
 	})
 }
 
@@ -202,6 +218,15 @@ func downloadSpeedControl() error {
 	newFileSize = Round(float64(stat.Size() / 1048576)) //To mb/s
 	downloadSpeed = newFileSize - oldFileSize
 	oldFileSize = newFileSize
+	//if fileSize
+	return nil
+}
+
+func unZip() error {
+	err := packages.Unzip(fileName, "./theme/")
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
