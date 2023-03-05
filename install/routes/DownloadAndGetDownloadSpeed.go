@@ -5,10 +5,8 @@ import (
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"io"
-	"math"
 	"net/http"
 	"os"
-	"strconv"
 	"time"
 )
 
@@ -88,12 +86,7 @@ type githubApi struct {
 	Body       string `json:"body"`
 }
 
-var downloadSpeed float64
 var fileName = "./theme/default.zip"
-var oldFileSize = 0.0
-var fileSize = 0.0
-var isDone = false
-var unZipDone = false
 
 func DownloadAndGetDownloadSpeed(r *gin.Engine) {
 	r.POST("/install/download", func(c *gin.Context) {
@@ -107,7 +100,7 @@ func DownloadAndGetDownloadSpeed(r *gin.Engine) {
 			return
 		}
 		// theme
-		if string(data) == "default" {
+		if file.File == "default" {
 			req, err := http.Get("https://api.github.com/repos/MiRolls/MiRolls-default-theme/releases/latest")
 			defer func(Body io.ReadCloser) { _ = Body.Close() }(req.Body)
 
@@ -126,22 +119,16 @@ func DownloadAndGetDownloadSpeed(r *gin.Engine) {
 				})
 				return
 			}
-			err = DownloadFile(fileName, gitHubApiResponse.ZipballUrl)
+			assets := gitHubApiResponse.Assets[0]
+			err = DownloadFile(fileName, assets.BrowserDownloadUrl)
 			// Download file
-			for !isDone {
-				err := downloadSpeedControl()
-				if err != nil {
-					c.JSON(500, gin.H{
-						"message": "error",
-						"error":   err.Error(),
-					})
-					return
-				}
-				time.Sleep(1 * time.Second)
-			}
 			if err != nil {
 				return
 			}
+			err = unZip()
+			if err != nil {
+				return
+			} // Unzip
 		} else {
 			c.JSON(500, gin.H{
 				"message": "error",
@@ -150,34 +137,13 @@ func DownloadAndGetDownloadSpeed(r *gin.Engine) {
 		}
 	})
 	//Download api
-
-	r.POST("/install/download/speed", func(c *gin.Context) {
-		if fileSize == oldFileSize {
-			isDone = true
-			_ = unZip()
-			c.JSON(200, gin.H{
-				"done":    isDone,
-				"message": "success",
-				"speed":   "It's unzipping",
-			})
-		} else if unZipDone {
-			c.JSON(200, gin.H{
-				"done":    unZipDone,
-				"message": "success",
-				"speed":   "Done.",
-			})
-		} else {
-			c.JSON(200, gin.H{
-				"done":    isDone,
-				"message": "success",
-				"speed":   downloadSpeed,
-			})
-		}
-
-	})
 }
 
 func DownloadFile(filepath string, url string) error {
+	err := os.Mkdir("theme", 0755)
+	if err != nil {
+		return err
+	}
 	// create a file
 	out, err := os.Create(filepath)
 	if err != nil {
@@ -205,20 +171,6 @@ func DownloadFile(filepath string, url string) error {
 		return err
 	}
 
-	fileSize, err = strconv.ParseFloat(resp.Request.Header.Get("Content-Length"), 64)
-	return nil
-}
-
-func downloadSpeedControl() error {
-	stat, err := os.Stat(fileName)
-	if err != nil {
-		return err
-	}
-	var newFileSize float64
-	newFileSize = Round(float64(stat.Size() / 1048576)) //To mb/s
-	downloadSpeed = newFileSize - oldFileSize
-	oldFileSize = newFileSize
-	//if fileSize
 	return nil
 }
 
@@ -228,8 +180,4 @@ func unZip() error {
 		return err
 	}
 	return nil
-}
-
-func Round(number float64) float64 {
-	return math.Round(number*100) / 100
 }

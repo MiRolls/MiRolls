@@ -14,6 +14,7 @@ func SetSite(r *gin.Engine) {
 				"error":   err.Error(),
 				"message": "error",
 			})
+			return
 		}
 		data, err := c.GetRawData()
 		if err != nil {

@@ -7,7 +7,7 @@ import (
 )
 
 func SetDatabase(r *gin.Engine) {
-	r.POST("", func(c *gin.Context) {
+	r.POST("/install/set/database", func(c *gin.Context) {
 		data, err := c.GetRawData()
 		if err != nil {
 			c.JSON(500, gin.H{"message": "error", "error": err.Error()})

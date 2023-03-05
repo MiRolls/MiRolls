@@ -56,6 +56,14 @@ func InitConfig() (bool, int) {
 
 //goland:noinspection GoDeprecation
 func MakeConfig() error {
+	err := os.Mkdir("config", 0755)
+	if err != nil {
+		return err
+	}
+	_, err = os.Create("./config/config.yaml")
+	if err != nil {
+		return err
+	}
 	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
 	if err != nil {
 		return errors.New("can't read filepath")
@@ -63,11 +71,12 @@ func MakeConfig() error {
 	//WriteFile
 	defaultConfigByte, err := yaml.Marshal(defaultConfig)
 	if err != nil {
-		return errors.New("cant to byte")
+		//return errors.New("cant to byte")
+		return err
 	}
 	err = os.WriteFile(filepath.Join(dir, "config", "config.yaml"), defaultConfigByte, 0644)
 	if err != nil {
-		return errors.New("can't write config")
+		return err
 	}
 	InitConfig()
 	//return true, "Success"

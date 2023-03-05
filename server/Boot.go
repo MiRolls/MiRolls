@@ -16,13 +16,16 @@ func Boot() {
 		log.Println("[Warning]MiRolls can't find config.yaml, It's Running the Install Mode. Server run at localhost:2333")
 		//is install mode
 		r := gin.Default()
-		path, _ := filepath.Abs("install/routes")
+		path, _ := filepath.Abs("./install/static/dist")
 		r.Static("/", path)
 		//Load static files
 		routes.SetSite(r)
 		routes.SetDatabase(r)
 		routes.DownloadAndGetDownloadSpeed(r)
-		link.NotFound(r)
+		r.NoRoute(func(context *gin.Context) {
+			context.File("./install/static/dist/index.html")
+		})
+		//link.NotFound(r)
 		//Load routes
 		_ = r.Run(":2333")
 		return
