@@ -8,31 +8,17 @@ export default function (){
     const [done,setDone] = useState(<></>)
     const [opacity,setOpacity] = useState(1)
 
-    let getDownloadControl: number | undefined;
-    function getDownloadSpeed(){
-        setOpacity(0)
-        axios.post("/install/download/speed").then(res=>{
-            if(res.data.message != "success"){
-                setDownloadSpeed("Can't get download speed." + res.data.error);
-            }else {
-                setDownloadSpeed(res.data.data.speed as string + "mb/s");
-                if (res.data.down){
-                    clearInterval(getDownloadControl);
-
-                }
-            }
-        }).catch(err => {
-            setDownloadSpeed("Can't get download speed.." + err)
-            setDone(<Navigate to={"/done"}></Navigate>)
-        })
-    }
-
     function download(){
+        setDownloadSpeed("Downloading ~")
         axios.post("/install/download",{file:"default"}).then(res=>{
             if(res.data.message === "success"){
-                getDownloadControl = setInterval(()=>{
-                    getDownloadSpeed()
-                })
+                setDownloadSpeed("Download Done!")
+                setTimeout(()=>{
+                    setOpacity(0)
+                    setTimeout(()=>{
+                        setDone(<Navigate to={"/done"}></Navigate>)
+                    },1000)
+                },1000)
             }else {
                 setDownloadSpeed("Can't download file." + res.data.error)
             }

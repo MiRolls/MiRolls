@@ -4,26 +4,53 @@ import (
 	"MiRolls/config"
 	"MiRolls/install/routes"
 	"MiRolls/link"
+	"MiRolls/packages"
+	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"io"
 	"log"
+	"net/http"
+	"os"
 	"path/filepath"
 )
 
 func Boot() {
 	isSuccess, errCode := config.InitConfig()
 	if !isSuccess && errCode == 0 {
-		log.Println("[Warning]MiRolls can't find config.yaml, It's Running the Install Mode. Server run at localhost:2333")
-		//is install mode
+		log.Println("[Warning]MiRolls can't find config.yaml, It's running the Install Mode. Server run at localhost:2333")
+		//read config.yaml and download file
+		_, err := os.ReadDir("install")
+		if err != nil {
+			if err != nil {
+				log.Fatal("[Error] Can't write files.")
+			}
+			get, err := http.Get("https://api.github.com/repos/MiRolls/MiRolls-installer/releases/latest")
+			responseJson, err := io.ReadAll(get.Body)
+			if err != nil {
+				log.Fatal("[Error] Cant to text.")
+			}
+			gitHubApiResponse := new(routes.GithubApi)
+			_ = json.Unmarshal(responseJson, &gitHubApiResponse)
+			err = routes.DownloadFile("./theme/install.zip", gitHubApiResponse.Assets[0].BrowserDownloadUrl, "theme")
+			if err != nil {
+				log.Fatal("Can't download files")
+			}
+			err = packages.Unzip("./theme/install.zip", "./theme")
+			if err != nil {
+				log.Fatal("Cant unzip.")
+			}
+		}
+		//is installer
 		r := gin.Default()
-		path, _ := filepath.Abs("./install/static/dist")
+		path, _ := filepath.Abs("./install")
 		r.Static("/", path)
 		//Load static files
 		routes.SetSite(r)
 		routes.SetDatabase(r)
 		routes.DownloadAndGetDownloadSpeed(r)
 		r.NoRoute(func(context *gin.Context) {
-			context.File("./install/static/dist/index.html")
+			context.File("./install/index.html")
 		})
 		//link.NotFound(r)
 		//Load routes

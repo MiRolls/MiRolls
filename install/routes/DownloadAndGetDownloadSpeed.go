@@ -13,7 +13,7 @@ import (
 type file struct {
 	File string `json:"file"`
 }
-type githubApi struct {
+type GithubApi struct {
 	Url       string `json:"url"`
 	AssetsUrl string `json:"assets_url"`
 	UploadUrl string `json:"upload_url"`
@@ -109,7 +109,7 @@ func DownloadAndGetDownloadSpeed(r *gin.Engine) {
 				c.JSON(500, gin.H{"message": "error", "error": err.Error()})
 				return
 			}
-			gitHubApiResponse := new(githubApi)
+			gitHubApiResponse := new(GithubApi)
 			_ = json.Unmarshal(responseJson, &gitHubApiResponse)
 			// Link to default
 			if err != nil {
@@ -120,7 +120,7 @@ func DownloadAndGetDownloadSpeed(r *gin.Engine) {
 				return
 			}
 			assets := gitHubApiResponse.Assets[0]
-			err = DownloadFile(fileName, assets.BrowserDownloadUrl)
+			err = DownloadFile(fileName, assets.BrowserDownloadUrl, "theme")
 			// Download file
 			if err != nil {
 				return
@@ -139,8 +139,8 @@ func DownloadAndGetDownloadSpeed(r *gin.Engine) {
 	//Download api
 }
 
-func DownloadFile(filepath string, url string) error {
-	err := os.Mkdir("theme", 0755)
+func DownloadFile(filepath string, url string, filepathName string) error {
+	err := os.Mkdir(filepathName, 0755)
 	if err != nil {
 		return err
 	}
