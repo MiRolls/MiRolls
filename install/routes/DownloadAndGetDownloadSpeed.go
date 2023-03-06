@@ -1,14 +1,12 @@
 package routes
 
 import (
-	"MiRolls/config"
 	"MiRolls/packages"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"io"
 	"net/http"
 	"os"
-	"strconv"
 	"time"
 )
 
@@ -93,13 +91,12 @@ var fileName = "./theme/default.zip"
 func DownloadAndGetDownloadSpeed(r *gin.Engine) {
 	r.POST("/install/download", func(c *gin.Context) {
 		data, err := c.GetRawData()
-		if err != nil {
-			c.JSON(500, gin.H{"error": err.Error(), "message": "error"})
-			return
-		}
 		file := new(file)
 		if json.Unmarshal(data, &file) != nil {
 			c.JSON(500, gin.H{"message": "error", "error": err.Error()})
+			return
+		}
+		if err != nil {
 			return
 		}
 		// theme
@@ -126,24 +123,12 @@ func DownloadAndGetDownloadSpeed(r *gin.Engine) {
 			err = DownloadFile(fileName, assets.BrowserDownloadUrl, "theme")
 			// Download file
 			if err != nil {
-				c.JSON(500, gin.H{"error": err.Error(), "message": "error"})
 				return
 			}
 			err = unZip()
 			if err != nil {
-				c.JSON(500, gin.H{"error": err.Error(), "message": "error"})
-				return
-			}
-			err = UpdateConfig()
-			if err != nil {
-				c.JSON(500, gin.H{"error": err.Error(), "message": "error"})
 				return
 			} // Unzip
-
-			c.JSON(200, gin.H{
-				"message": "success",
-				"done":    true,
-			})
 		} else {
 			c.JSON(500, gin.H{
 				"message": "error",
@@ -154,7 +139,7 @@ func DownloadAndGetDownloadSpeed(r *gin.Engine) {
 	//Download api
 }
 
-func DownloadFile(filepath string, url string, filepathName string, https ...*http.Header) error {
+func DownloadFile(filepath string, url string, filepathName string) error {
 	err := os.Mkdir(filepathName, 0755)
 	if err != nil {
 		return err
@@ -169,32 +154,7 @@ func DownloadFile(filepath string, url string, filepathName string, https ...*ht
 	}(out)
 
 	// Get response
-	var resp *http.Response
-	go func() {
-		resp, err = http.Get(url)
-	}()
-	//安排个小玩意来堵塞goroutine
-	for resp.Header.Get("Content-Length") == "" {
-		time.Sleep(1 * time.Second)
-	}
-	*https[0] = resp.Header
-	//Write for occupy go
-	fileStat, _ := out.Stat()
-	fileSize, _ := strconv.Atoi(resp.Header.Get("Content-Length"))
-
-	_, err = io.Copy(out, resp.Body) //每次都需要先复制一下文件，然后就可以测算大小咯
-	if err != nil {
-		return err
-	} //类似于do-while，但是我懒。
-	for fileStat.Size() <= int64(fileSize) {
-		//当下载了一半当文件的大小大于文件的源大小的时候说明下载好了。所以他之前一直是true，循环也会不断的运行。
-		_, err = io.Copy(out, resp.Body) //每次都需要先复制一下文件，然后就可以测算大小咯
-		if err != nil {
-			return err
-		}
-		time.Sleep(1 * time.Second) //挂个线程而已
-	}
-
+	resp, err := http.Get(url)
 	if err != nil {
 		return err
 	}
@@ -206,23 +166,16 @@ func DownloadFile(filepath string, url string, filepathName string, https ...*ht
 	}(resp.Body)
 
 	// write file
+	_, err = io.Copy(out, resp.Body)
+	if err != nil {
+		return err
+	}
 
 	return nil
 }
 
 func unZip() error {
 	err := packages.Unzip(fileName, "./theme/")
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-func UpdateConfig() error {
-	server := new(config.Server)
-	server.Port = 2333
-	server.Static = "theme"
-	err := config.ChangeServer(server)
 	if err != nil {
 		return err
 	}
