@@ -173,6 +173,10 @@ func DownloadFile(filepath string, url string, filepathName string, https ...*ht
 	go func() {
 		resp, err = http.Get(url)
 	}()
+	//安排个小玩意来堵塞goroutine
+	for resp.Header.Get("Content-Length") == "" {
+		time.Sleep(1 * time.Second)
+	}
 	*https[0] = resp.Header
 	//Write for occupy go
 	fileStat, _ := out.Stat()
