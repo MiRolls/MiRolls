@@ -1,9 +1,0 @@
-.stepIndicator{
-    width: 30%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    height: 60px;
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
