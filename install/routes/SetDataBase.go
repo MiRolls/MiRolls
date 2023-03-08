@@ -2,6 +2,7 @@ package routes
 
 import (
 	"MiRolls/config"
+	"MiRolls/database"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 )
@@ -15,6 +16,11 @@ func SetDatabase(r *gin.Engine) {
 		}
 		dbInfo := new(config.Database)
 		err = json.Unmarshal(data, &dbInfo)
+		if err != nil {
+			c.JSON(500, gin.H{"message": "error", "error": err.Error()})
+			return
+		}
+		err = database.Init(dbInfo.Username, dbInfo.Password, dbInfo.Host, dbInfo.Database)
 		if err != nil {
 			c.JSON(500, gin.H{"message": "error", "error": err.Error()})
 			return
