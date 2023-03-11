@@ -28,7 +28,8 @@ func CreateRoll(r *gin.Engine) {
 		reqBody, _ := c.GetRawData()
 		//reqBody := "1"
 		code := md5Hash(string(reqBody) + strconv.Itoa(rand.Int()))
-		link := "https://" + config.Configs.Site.Link + "/#/query?code=" + md5Hash(code)
+		//link := "https://" + config.Configs.Site.Link + "/#/query?code=" + md5Hash(code)
+		link := md5Hash(code)
 		// directly into database
 		//goland:noinspection SqlResolve
 		_, err = sql.Exec("INSERT INTO `rolls`(`id`,`roll`,`code`,`link`) VALUES(DEFAULT,?,?,?)", string(reqBody), code, md5Hash(code))
