@@ -2,7 +2,7 @@ package server
 
 import (
 	"MiRolls/config"
-	"MiRolls/install/routes"
+	"MiRolls/install"
 	"MiRolls/link"
 	"MiRolls/packages"
 	"encoding/json"
@@ -30,9 +30,9 @@ func Boot() {
 			if err != nil {
 				log.Fatal("[Error] Cant to text.")
 			}
-			gitHubApiResponse := new(routes.GithubApi)
+			gitHubApiResponse := new(install.GithubApi)
 			_ = json.Unmarshal(responseJson, &gitHubApiResponse)
-			err = routes.DownloadFile("./theme/install.zip", gitHubApiResponse.Assets[0].BrowserDownloadUrl, "theme")
+			err = install.DownloadFile("./theme/install.zip", gitHubApiResponse.Assets[0].BrowserDownloadUrl, "theme")
 			if err != nil {
 				log.Fatal("Can't download files")
 			}
@@ -46,9 +46,9 @@ func Boot() {
 		path, _ := filepath.Abs("./install")
 		r.Static("/", path)
 		//Load static files
-		routes.SetSite(r)
-		routes.SetDatabase(r)
-		routes.DownloadAndGetDownloadSpeed(r)
+		install.SetSite(r)
+		install.SetDatabase(r)
+		install.DownloadAndGetDownloadSpeed(r)
 		r.NoRoute(func(context *gin.Context) {
 			context.File("./install/index.html")
 		})
@@ -74,6 +74,7 @@ func Boot() {
 	link.QueryRoll(r)
 	link.CreateRoll(r)
 	link.NotFound(r)
+	link.AnswerQuestionnaire(r)
 
 	err := r.Run(":" + fmt.Sprintf("%d", config.Configs.Server.Port))
 	if err != nil {
