@@ -2,8 +2,7 @@ package link
 
 import (
 	"MiRolls/config"
-	"crypto/md5"
-	"encoding/hex"
+	"MiRolls/packages"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
@@ -27,12 +26,12 @@ func CreateRoll(r *gin.Engine) {
 		// get requestBody
 		reqBody, _ := c.GetRawData()
 		//reqBody := "1"
-		code := md5Hash(string(reqBody) + strconv.Itoa(rand.Int()))
+		code := packages.Md5Hash(string(reqBody) + strconv.Itoa(rand.Int()))
 		//link := "https://" + config.Configs.Site.Link + "/#/query?code=" + md5Hash(code)
-		link := md5Hash(code)
+		link := packages.Md5Hash(code)
 		// directly into database
 		//goland:noinspection SqlResolve
-		_, err = sql.Exec("INSERT INTO `rolls`(`id`,`roll`,`code`,`link`) VALUES(DEFAULT,?,?,?)", string(reqBody), code, md5Hash(code))
+		_, err = sql.Exec("INSERT INTO `rolls`(`id`,`roll`,`code`,`link`) VALUES(DEFAULT,?,?,?)", string(reqBody), code, packages.Md5Hash(code))
 		if err != nil {
 			c.JSON(500, gin.H{
 				"message":   "error",
@@ -50,10 +49,4 @@ func CreateRoll(r *gin.Engine) {
 		})
 	})
 	return
-}
-
-func md5Hash(str string) string {
-	h := md5.New()
-	h.Write([]byte(str))
-	return hex.EncodeToString(h.Sum(nil))
 }
