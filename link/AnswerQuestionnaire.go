@@ -29,6 +29,7 @@ func AnswerQuestionnaire(r *gin.Engine) {
 			return
 		}
 		_, err = db.Exec("INSERT INTO `answer`(`id`,`anwser`,`link`) VALUES (DEFAULT,?,?)", answerRel.Answer, answerRel.Link)
+		// insert database
 		if err != nil {
 			c.JSON(500, gin.H{
 				"message": "error",
@@ -38,6 +39,6 @@ func AnswerQuestionnaire(r *gin.Engine) {
 		}
 		c.JSON(200, gin.H{
 			"message": "success",
-		})
+		}) // return message
 	})
 }
