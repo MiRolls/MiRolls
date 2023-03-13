@@ -61,10 +61,8 @@ func Boot() {
 
 	// set release
 	r := gin.Default()
-
 	//Load MiddleWare
 	r.Use(MiddleWare)
-
 	//Load statics
 	path, _ := filepath.Abs(config.Configs.Server.Static)
 	r.Static("/", path)
