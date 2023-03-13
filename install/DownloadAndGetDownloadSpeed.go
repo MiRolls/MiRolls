@@ -13,6 +13,7 @@ import (
 type file struct {
 	File string `json:"file"`
 }
+
 type GithubApi struct {
 	Url       string `json:"url"`
 	AssetsUrl string `json:"assets_url"`
