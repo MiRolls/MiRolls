@@ -83,6 +83,7 @@ func QueryRoll(r *gin.Engine) {
 		// Use for(){} to loop database.
 		for i := 0; i < len(answers); i++ {
 			// loop length for answer.
+
 		}
 		// to link rolls
 
