@@ -23,7 +23,7 @@ func Init(userName string, password string, ip string, dbName string) error {
 	_, _ = db.Query(ROLLS)
 	_, _ = db.Query(ANSWER)
 	_, _ = db.Query("LOCK TABLES `rolls` WRITE")
-	_, _ = db.Query("UNLOCK TABLES;")
+	_, _ = db.Query("UNLOCK TABLES")
 	//Write db
 	return nil
 }
