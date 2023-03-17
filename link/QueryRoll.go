@@ -47,6 +47,16 @@ type dbRoll struct {
 	Quest any    `json:"quest"`
 }
 
+type AnswerFromJson struct {
+	Link   string `json:"link"`
+	Answer []struct {
+		Title  string      `json:"title"`
+		Type   string      `json:"type"`
+		Answer interface{} `json:"answer"`
+	} `json:"answer"`
+}
+
+//goland:noinspection ALL
 func QueryRoll(r *gin.Engine) {
 	r.POST("/query/roll", func(c *gin.Context) {
 		body, _ := c.GetRawData()
@@ -76,14 +86,27 @@ func QueryRoll(r *gin.Engine) {
 		//create return data
 
 		//init data
-		//data.Title =
+		rollStruct := new(dbRoll)
+		json.Unmarshal([]byte(roll.Roll), &rollStruct)
+		data.Title = rollStruct.Title
 
 		var answers []Answer
 		err = sql.Select(&answers, "SELECT `answer` FROM `answer` WHERE `link`=?", dataFront.Link)
+		data.AnswerOfNumber = len(answers)
+
 		// Use for(){} to loop database.
 		for i := 0; i < len(answers); i++ {
 			// loop length for answer.
-
+			//dbMap := make(map[string]interface{})
+			dbStruct := new(AnswerFromJson)
+			err := json.Unmarshal([]byte(answers[i].Answer), &dbStruct)
+			if err != nil {
+				c.JSON(500, gin.H{
+					"error": "Can't unmarshal json. " + err.Error(),
+				})
+				return
+			} // Use json.Unmarshal to parse.
+			data.Questions[i].Title = dbStruct.Answer[i].Title
 		}
 		// to link rolls
 
