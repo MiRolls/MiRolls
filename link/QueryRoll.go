@@ -127,6 +127,7 @@ func QueryRoll(r *gin.Engine) {
 						Option:         rollStruct.Quest[i].Options[i2],
 						NumberOfSelect: 0,
 					}
+
 					data.Questions[i].Answer = append(data.Questions[i].Answer, ra)
 				}
 			}
