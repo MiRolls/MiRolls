@@ -8,25 +8,41 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-type data struct { //Return's data type
+/* type data struct { //Return's data type
 	Questions      []*Question `json:"questions"`
 	Title          string      `json:"title"`
 	AnswerOfNumber int         `json:"answerOfNumber"`
 }
 
 type Question struct { //Question. return data.
-	Type          string     `json:"type"`
-	OptionsNumber int        `json:"optionsNumber,omitempty"`
-	Placeholder   string     `json:"placeholder,omitempty"`
-	Title         string     `json:"title"`
-	Options       []*Options `json:"options,omitempty"`
-	Answer        []string   `json:"answer,omitempty"`
+	Type string `json:"type"`
+	//OptionsNumber int    `json:"optionsNumber,omitempty"`
+	//Placeholder   string `json:"placeholder,omitempty"`
+	Title string `json:"title"`
+	//Option       []*Options `json:"options,omitempty"`
+	//Answer        []string   `json:"answer,omitempty"`
+	Answer interface{} `json:"answer"`
 }
 
 type Options struct {
-	Options string `json:"options"`
+	Title  string `json:"title"`
+	Option string `json:"option"`
 	//Selectivity []int    `json:"selectivity,omitempty"`
-	NumberOfSelect int `json:"NumberOfSelect"`
+	NumberOfSelect int `json:"numberOfSelect"`
+}*/ //old data
+type data struct {
+	Title          string `json:"title"`
+	AnswerOfNumber int    `json:"answerOfNumber"`
+	Questions      []struct {
+		Type   string        `json:"type"`
+		Title  string        `json:"title"`
+		Answer []interface{} `json:"answer"`
+	} `json:"questions"`
+}
+
+type radio struct {
+	Option         string `json:"option"`
+	NumberOfSelect int    `json:"numberOfSelect"`
 }
 
 type roll struct {
@@ -44,7 +60,13 @@ type Answer struct {
 
 type dbRoll struct {
 	Title string `json:"title"`
-	Quest any    `json:"quest"`
+	Quest []struct {
+		Type          string   `json:"type"`
+		OptionsNumber int      `json:"optionsNumber,omitempty"`
+		Title         string   `json:"title"`
+		Options       []string `json:"options,omitempty"`
+		Placeholder   string   `json:"placeholder,omitempty"`
+	} `json:"quest"`
 }
 
 type AnswerFromJson struct {
@@ -94,6 +116,22 @@ func QueryRoll(r *gin.Engine) {
 		err = sql.Select(&answers, "SELECT `answer` FROM `answer` WHERE `link`=?", dataFront.Link)
 		data.AnswerOfNumber = len(answers)
 
+		//Add questions to data
+		for i := 0; i < len(rollStruct.Quest); i++ {
+			data.Questions[i].Title = rollStruct.Quest[i].Title
+			data.Questions[i].Type = rollStruct.Quest[i].Type
+			if data.Questions[i].Type == "radio" || data.Questions[i].Type == "multipleChoice" {
+				//append(data.Questions[i].Answer)
+				for i2 := 0; i2 < len(rollStruct.Quest[i].Options); i2++ {
+					ra := radio{
+						Option:         rollStruct.Quest[i].Options[i2],
+						NumberOfSelect: 0,
+					}
+					data.Questions[i].Answer = append(data.Questions[i].Answer, ra)
+				}
+			}
+		}
+
 		// Use for(){} to loop database.
 		for i := 0; i < len(answers); i++ {
 			// loop length for answer.
@@ -102,11 +140,13 @@ func QueryRoll(r *gin.Engine) {
 			err := json.Unmarshal([]byte(answers[i].Answer), &dbStruct)
 			if err != nil {
 				c.JSON(500, gin.H{
-					"error": "Can't unmarshal json. " + err.Error(),
+					"error":   "Can't unmarshal json. " + err.Error(),
+					"message": "error",
 				})
 				return
 			} // Use json.Unmarshal to parse.
 			data.Questions[i].Title = dbStruct.Answer[i].Title
+			data.Questions[i].Type = dbStruct.Answer[i].Type
 		}
 		// to link rolls
 
