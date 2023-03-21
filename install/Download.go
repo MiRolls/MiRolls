@@ -90,7 +90,7 @@ type GithubApi struct {
 
 var fileName = "./theme/default.zip"
 
-func DownloadAndGetDownloadSpeed(r *gin.Engine) {
+func Download(r *gin.Engine) {
 	r.POST("/install/download", func(c *gin.Context) {
 		cfg := new(config.Server)
 		cfg.Port = 2333
@@ -98,7 +98,7 @@ func DownloadAndGetDownloadSpeed(r *gin.Engine) {
 		err := config.ChangeServer(cfg)
 		if err != nil {
 			c.JSON(500, gin.H{
-				"error":   err,
+				"error":   err.Error(),
 				"message": "error",
 			})
 			return
@@ -142,10 +142,13 @@ func DownloadAndGetDownloadSpeed(r *gin.Engine) {
 			if err != nil {
 				return
 			} // Unzip
+			c.JSON(200, gin.H{
+				"message": "success",
+			})
 		} else {
 			c.JSON(500, gin.H{
 				"message": "error",
-				"error":   "Are you idiot? What are you doing?" + err.Error(),
+				"error":   "Are you idiot? What are you doing?",
 			})
 		}
 	})

@@ -53,7 +53,7 @@ func Boot() {
 		//Load static files
 		install.SetSite(r)
 		install.SetDatabase(r)
-		install.DownloadAndGetDownloadSpeed(r)
+		install.Download(r)
 		r.NoRoute(func(context *gin.Context) {
 			context.File("./install/index.html")
 		})
