@@ -17,6 +17,7 @@ import (
 
 func Boot() {
 	isSuccess, errCode := config.InitConfig()
+
 	if !isSuccess && errCode == 0 {
 		log.Println("[Warning]MiRolls can't find config.yaml, It's running the Install Mode. Server is going to run at localhost:2333")
 		//read config.yaml and download file
@@ -37,7 +38,7 @@ func Boot() {
 			gitHubApiResponse := new(install.GithubApi)
 			_ = json.Unmarshal(responseJson, &gitHubApiResponse)
 			log.Println("[Success]Parse success. Download start.")
-			err = install.DownloadFile("./install/install.zip", gitHubApiResponse.Assets[0].BrowserDownloadUrl, "theme")
+			err = install.DownloadFile("./install/install.zip", gitHubApiResponse.Assets[0].BrowserDownloadUrl, "install")
 			if err != nil {
 				log.Fatal("Can't download files")
 			}
