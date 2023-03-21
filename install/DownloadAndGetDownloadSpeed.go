@@ -1,6 +1,7 @@
 package install
 
 import (
+	"MiRolls/config"
 	"MiRolls/packages"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
@@ -91,6 +92,17 @@ var fileName = "./theme/default.zip"
 
 func DownloadAndGetDownloadSpeed(r *gin.Engine) {
 	r.POST("/install/download", func(c *gin.Context) {
+		cfg := new(config.Server)
+		cfg.Port = 2333
+		cfg.Static = "theme"
+		err := config.ChangeServer(cfg)
+		if err != nil {
+			c.JSON(500, gin.H{
+				"error":   err,
+				"message": "error",
+			})
+			return
+		}
 		data, err := c.GetRawData()
 		file := new(file)
 		if json.Unmarshal(data, &file) != nil {
