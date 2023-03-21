@@ -13,6 +13,9 @@ const ANSWER = "CREATE TABLE `answer` (`id` int(11) NOT NULL AUTO_INCREMENT, `an
 func Init(userName string, password string, ip string, dbName string) error {
 	path := strings.Join([]string{userName, ":", password, "@tcp(", ip, ":", strconv.Itoa(3306), ")/", dbName, "?charset=utf8"}, "")
 	db, err := sqlx.Open("mysql", path)
+	defer func() {
+		_ = db.Close()
+	}()
 	if err != nil {
 		return errors.New("can't connect to database")
 	}
