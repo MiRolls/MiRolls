@@ -24,10 +24,10 @@ func Boot() {
 
 		_, err := os.ReadDir("install")
 		if err != nil {
-			err = os.Mkdir("install", 0777)
-			if err != nil {
-				log.Fatal("[Error] Can't write files.")
-			}
+			//err = os.Mkdir("install", 0777)
+			//if err != nil {
+			//	log.Fatal("[Error] Can't write files.")
+			//}
 			log.Println("[Warning]MiRolls can't find MiRolls-installer. Downloading MiRolls-installer now.")
 			get, err := http.Get("https://api.github.com/repos/MiRolls/MiRolls-installer/releases/latest")
 			log.Println("[Success]Got githubApi now.")
