@@ -8,28 +8,6 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-/* type data struct { //Return's data type
-	Questions      []*Question `json:"questions"`
-	Title          string      `json:"title"`
-	AnswerOfNumber int         `json:"answerOfNumber"`
-}
-
-type Question struct { //Question. return data.
-	Type string `json:"type"`
-	//OptionsNumber int    `json:"optionsNumber,omitempty"`
-	//Placeholder   string `json:"placeholder,omitempty"`
-	Title string `json:"title"`
-	//Option       []*Options `json:"options,omitempty"`
-	//Answer        []string   `json:"answer,omitempty"`
-	Answer interface{} `json:"answer"`
-}
-
-type Options struct {
-	Title  string `json:"title"`
-	Option string `json:"option"`
-	//Selectivity []int    `json:"selectivity,omitempty"`
-	NumberOfSelect int `json:"numberOfSelect"`
-}*/ //old data
 type data struct {
 	Title          string `json:"title"`
 	AnswerOfNumber int    `json:"answerOfNumber"`
@@ -169,15 +147,18 @@ func QueryRoll(r *gin.Engine) {
 							}
 						}
 					}
+				} else {
+					// is blank
+					data.Questions[questionNumber].Answer = append(data.Questions[questionNumber].Answer, dbStruct.Answer[questionNumber].Answer[0])
 				}
 			}
-		}
-		// to link rolls
+			// to link rolls
 
-		c.JSON(200, gin.H{
-			"message": "success",
-			"data":    *data,
-		})
-		_ = sql.Close()
+			c.JSON(200, gin.H{
+				"message": "success",
+				"data":    *data,
+			})
+			_ = sql.Close()
+		}
 	})
 }
