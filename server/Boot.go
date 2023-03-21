@@ -29,17 +29,19 @@ func Boot() {
 			}
 			log.Println("[Warning]MiRolls can't find MiRolls-installer. Downloading MiRolls-installer now.")
 			get, err := http.Get("https://api.github.com/repos/MiRolls/MiRolls-installer/releases/latest")
+			log.Println("[Success]Got githubApi now.")
 			responseJson, err := io.ReadAll(get.Body)
 			if err != nil {
 				log.Fatal("[Error] Cant to text.")
 			}
 			gitHubApiResponse := new(install.GithubApi)
 			_ = json.Unmarshal(responseJson, &gitHubApiResponse)
+			log.Println("[Success]Parse success. Download start.")
 			err = install.DownloadFile("./install/install.zip", gitHubApiResponse.Assets[0].BrowserDownloadUrl, "theme")
 			if err != nil {
 				log.Fatal("Can't download files")
 			}
-			err = packages.Unzip("./install/install.zip", "./theme")
+			err = packages.Unzip("./install/install.zip", "./install")
 			if err != nil {
 				log.Fatal("Cant unzip.")
 			}
