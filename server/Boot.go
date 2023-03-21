@@ -18,7 +18,7 @@ import (
 func Boot() {
 	isSuccess, errCode := config.InitConfig()
 	if !isSuccess && errCode == 0 {
-		log.Println("[Warning]MiRolls can't find config.yaml, It's running the Install Mode. Server run at localhost:2333")
+		log.Println("[Warning]MiRolls can't find config.yaml, It's running the Install Mode. Server is going to run at localhost:2333")
 		//read config.yaml and download file
 
 		_, err := os.ReadDir("install")
@@ -27,6 +27,7 @@ func Boot() {
 			if err != nil {
 				log.Fatal("[Error] Can't write files.")
 			}
+			log.Println("[Warning]MiRolls can't find MiRolls-installer. Downloading MiRolls-installer now.")
 			get, err := http.Get("https://api.github.com/repos/MiRolls/MiRolls-installer/releases/latest")
 			responseJson, err := io.ReadAll(get.Body)
 			if err != nil {
@@ -34,11 +35,11 @@ func Boot() {
 			}
 			gitHubApiResponse := new(install.GithubApi)
 			_ = json.Unmarshal(responseJson, &gitHubApiResponse)
-			err = install.DownloadFile("./theme/install.zip", gitHubApiResponse.Assets[0].BrowserDownloadUrl, "theme")
+			err = install.DownloadFile("./install/install.zip", gitHubApiResponse.Assets[0].BrowserDownloadUrl, "theme")
 			if err != nil {
 				log.Fatal("Can't download files")
 			}
-			err = packages.Unzip("./theme/install.zip", "./theme")
+			err = packages.Unzip("./install/install.zip", "./theme")
 			if err != nil {
 				log.Fatal("Cant unzip.")
 			}
