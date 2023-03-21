@@ -43,6 +43,11 @@ var defaultConfig = new(Config)
 
 //goland:noinspection GoDeprecation
 func InitConfig() (bool, int) {
+	_, err := os.ReadDir("config")
+	if err != nil {
+		return false, 0
+	}
+
 	configYaml, err := os.ReadFile("./config/config.yaml")
 	if err != nil {
 		return false, 0
