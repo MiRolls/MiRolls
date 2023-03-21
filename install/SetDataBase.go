@@ -20,12 +20,12 @@ func SetDatabase(r *gin.Engine) {
 			c.JSON(500, gin.H{"message": "error", "error": err.Error()})
 			return
 		}
-		err = database.Init(dbInfo.Username, dbInfo.Password, dbInfo.Host, dbInfo.Database)
-		if err != nil {
+		if config.ChangeDatabase(dbInfo) != nil {
 			c.JSON(500, gin.H{"message": "error", "error": err.Error()})
 			return
 		}
-		if config.ChangeDatabase(dbInfo) != nil {
+		err = database.Init(dbInfo.Username, dbInfo.Password, dbInfo.Host, dbInfo.Database)
+		if err != nil {
 			c.JSON(500, gin.H{"message": "error", "error": err.Error()})
 			return
 		}
