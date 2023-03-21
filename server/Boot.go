@@ -21,8 +21,9 @@ func Boot() {
 		log.Println("[Warning]MiRolls can't find config.yaml, It's running the Install Mode. Server run at localhost:2333")
 		//read config.yaml and download file
 
-		err := os.Mkdir("install", 0777)
+		_, err := os.ReadDir("install")
 		if err != nil {
+			err = os.Mkdir("install", 0777)
 			if err != nil {
 				log.Fatal("[Error] Can't write files.")
 			}
