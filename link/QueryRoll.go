@@ -76,7 +76,7 @@ func QueryRoll(r *gin.Engine) {
 		}
 
 		var roll roll
-		err = sql.Get(&roll, "SELECT `roll` FROM `rolls` WHERE `link`=?")
+		err = sql.Get(&roll, "SELECT `roll` FROM `rolls` WHERE `link`=?", dataFront.Link)
 		if err != nil {
 			c.JSON(500, gin.H{
 				"message": "error",
