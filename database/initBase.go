@@ -22,11 +22,26 @@ func Init(userName string, password string, ip string, dbName string) error {
 	defer func(open sqlx.DB) {
 		_ = open.Close()
 	}(*db) // Close
-	_, _ = db.Query("DROP TABLE IF EXISTS `rolls`")
-	_, _ = db.Query(ROLLS)
-	_, _ = db.Query(ANSWER)
-	_, _ = db.Query("LOCK TABLES `rolls` WRITE")
-	_, _ = db.Query("UNLOCK TABLES")
+	_, err = db.Query("DROP TABLE IF EXISTS `rolls`")
+	if err != nil {
+		return err
+	}
+	_, err = db.Query(ROLLS)
+	if err != nil {
+		return err
+	}
+	_, err = db.Query(ANSWER)
+	if err != nil {
+		return err
+	}
+	_, err = db.Query("LOCK TABLES `rolls` WRITE")
+	if err != nil {
+		return err
+	}
+	_, err = db.Query("UNLOCK TABLES")
+	if err != nil {
+		return err
+	}
 	//Write db
 	return nil
 }
