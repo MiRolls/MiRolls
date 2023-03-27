@@ -79,6 +79,7 @@ func Boot() {
 	link.CreateRoll(r)
 	link.NotFound(r)
 	link.AnswerQuestionnaire(r)
+	link.GetRoll(r)
 
 	err := r.Run(":" + fmt.Sprintf("%d", config.Configs.Server.Port))
 	if err != nil {
