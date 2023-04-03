@@ -69,14 +69,14 @@ func QueryRoll(r *gin.Engine) {
 	r.POST("/query/roll", func(c *gin.Context) {
 		body, err := c.GetRawData()
 		if err != nil {
-			c.JSON(500, gin.H{"message": err.Error(), "error": err.Error()})
+			c.JSON(402, gin.H{"message": err.Error(), "error": err.Error()})
 			//log.Fatal("[FATAL ERROR]Cannot connect database")
 			return
 		}
 		dataFront := new(dataFromFront2)
 		err = json.Unmarshal(body, &dataFront)
 		if err != nil {
-			c.JSON(500, gin.H{"message": err.Error(), "error": err.Error()})
+			c.JSON(400, gin.H{"message": err.Error(), "error": err.Error()})
 			//log.Fatal("[FATAL ERROR]Cannot connect database")
 			return
 		}
