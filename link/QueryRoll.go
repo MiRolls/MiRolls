@@ -1,7 +1,6 @@
 package link
 
 import (
-	"MiRolls/config"
 	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -65,7 +64,7 @@ func (ra *radio) AddNumberOfSelect() {
 }
 
 //goland:noinspection ALL
-func QueryRoll(r *gin.Engine) {
+func QueryRoll(r *gin.Engine, sql *sqlx.DB) {
 	r.POST("/query/roll", func(c *gin.Context) {
 		body, err := c.GetRawData()
 		if err != nil {
@@ -77,14 +76,6 @@ func QueryRoll(r *gin.Engine) {
 		err = json.Unmarshal(body, &dataFront)
 		if err != nil {
 			c.JSON(400, gin.H{"message": err.Error(), "error": err.Error()})
-			//log.Fatal("[FATAL ERROR]Cannot connect database")
-			return
-		}
-
-		mysql := fmt.Sprintf("%s:%s@%s(%s:%d)/%s", config.Configs.Database.Username, config.Configs.Database.Password, config.Configs.Database.Protocol, config.Configs.Database.Host, config.Configs.Database.Port, config.Configs.Database.Database)
-		sql, err := sqlx.Open("mysql", mysql)
-		if err != nil {
-			c.JSON(500, gin.H{"message": err.Error(), "error": err.Error(), "errorType": "database connect error"})
 			//log.Fatal("[FATAL ERROR]Cannot connect database")
 			return
 		}

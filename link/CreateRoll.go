@@ -1,9 +1,7 @@
 package link
 
 import (
-	"MiRolls/config"
 	"MiRolls/packages"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
@@ -11,17 +9,8 @@ import (
 	"strconv"
 )
 
-func CreateRoll(r *gin.Engine) {
+func CreateRoll(r *gin.Engine, sql *sqlx.DB) {
 	r.POST("/roll/create", func(c *gin.Context) {
-		mysql := fmt.Sprintf("%s:%s@%s(%s:%d)/%s", config.Configs.Database.Username, config.Configs.Database.Password, config.Configs.Database.Protocol, config.Configs.Database.Host, config.Configs.Database.Port, config.Configs.Database.Database)
-		sql, err := sqlx.Open("mysql", mysql)
-		if err != nil {
-			c.JSON(500, gin.H{
-				"message":   "error",
-				"error":     err.Error(),
-				"errorType": "DataBase connect error",
-			})
-		}
 
 		// get requestBody
 		reqBody, _ := c.GetRawData()
@@ -31,7 +20,7 @@ func CreateRoll(r *gin.Engine) {
 		link := packages.Md5Hash(code)
 		// directly into database
 		//goland:noinspection SqlResolve
-		_, err = sql.Exec("INSERT INTO `rolls`(`id`,`roll`,`code`,`link`) VALUES(DEFAULT,?,?,?)", string(reqBody), code, packages.Md5Hash(code))
+		_, err := sql.Exec("INSERT INTO `rolls`(`id`,`roll`,`code`,`link`) VALUES(DEFAULT,?,?,?)", string(reqBody), code, packages.Md5Hash(code))
 		if err != nil {
 			c.JSON(500, gin.H{
 				"message":   "error",
