@@ -1,7 +1,7 @@
-package packages
+package install
 
 import (
-	"MiRolls/install"
+	"MiRolls/packages"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"io"
@@ -28,14 +28,14 @@ func RunSetupMode() {
 		if err != nil {
 			log.Fatal("[Error] Cant to text.")
 		}
-		gitHubApiResponse := new(install.GithubApi)
+		gitHubApiResponse := new(GithubApi)
 		_ = json.Unmarshal(responseJson, &gitHubApiResponse)
 		log.Println("[Success]Parse success. Download start.")
-		err = install.DownloadFile("./install/install.zip", gitHubApiResponse.Assets[0].BrowserDownloadUrl, "install")
+		err = DownloadFile("./install/install.zip", gitHubApiResponse.Assets[0].BrowserDownloadUrl, "install")
 		if err != nil {
 			log.Fatal("Can't download files")
 		}
-		err = Unzip("./install/install.zip", "./install")
+		err = packages.Unzip("./install/install.zip", "./install")
 		if err != nil {
 			log.Fatal("Cant unzip.")
 		}
@@ -45,9 +45,9 @@ func RunSetupMode() {
 	path, _ := filepath.Abs("./install")
 	r.Static("/", path)
 	//Load static files
-	install.SetSite(r)
-	install.SetDatabase(r)
-	install.Download(r)
+	SetSite(r)
+	SetDatabase(r)
+	Download(r)
 	r.NoRoute(func(context *gin.Context) {
 		context.File("./install/index.html")
 	})

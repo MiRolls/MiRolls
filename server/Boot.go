@@ -3,8 +3,8 @@ package server
 import (
 	"MiRolls/config"
 	"MiRolls/database"
+	"MiRolls/install"
 	"MiRolls/link"
-	"MiRolls/packages"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"
@@ -16,7 +16,7 @@ func Boot() {
 	isSuccess, errCode := config.InitConfig()
 	if !isSuccess && errCode == 0 {
 		//Install
-		packages.RunSetupMode()
+		install.RunSetupMode()
 	}
 
 	err, db := database.Open()
