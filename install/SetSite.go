@@ -33,13 +33,6 @@ func SetSite(r *gin.Engine) {
 			})
 			return
 		}
-		//yamlConfig, err := yaml.Marshal(&siteInfo)
-		//if err != nil {
-		//	c.JSON(500, gin.H{
-		//		"error":   err.Error(),
-		//		"message": "error",
-		//	})
-		//}
 		err = config.ChangeSite(siteInfo)
 		if err != nil {
 			c.JSON(500, gin.H{

@@ -3,6 +3,7 @@ package install
 import (
 	"MiRolls/config"
 	"MiRolls/packages"
+	"context"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"io"
@@ -90,10 +91,10 @@ type GithubApi struct {
 
 var fileName = "./theme/default.zip"
 
-func Download(r *gin.Engine) {
+func Download(r *gin.Engine, closeServer context.CancelFunc) {
 	r.POST("/install/download", func(c *gin.Context) {
 		cfg := new(config.Server)
-		cfg.Port = 2333
+		cfg.Port = 23333
 		cfg.Static = "theme"
 		err := config.ChangeServer(cfg)
 		if err != nil {
@@ -152,6 +153,7 @@ func Download(r *gin.Engine) {
 			})
 		}
 	})
+	closeServer()
 	//Download api
 }
 
