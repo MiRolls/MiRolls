@@ -5,17 +5,20 @@ import (
 	"MiRolls/packages"
 	"context"
 	"encoding/json"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"io"
 	"log"
 	"net/http"
 	"os"
-	"os/exec"
+	"os/signal"
 	"path/filepath"
+	"syscall"
 )
 
 func Run() {
 	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 	log.Println("[Warning]MiRolls can't find config.yaml, It's running the Install Mode. Server is going to run at localhost:2333")
 	//read config.yaml and download file
 
@@ -27,14 +30,20 @@ func Run() {
 		//}
 		log.Println("[Warning]MiRolls can't find MiRolls-installer. Downloading MiRolls-installer now.")
 		get, err := http.Get("https://api.github.com/repos/MiRolls/MiRolls-installer/releases/latest")
+		if err != nil {
+			log.Fatal("[Fatal] Cant get githubApi.")
+		}
 		log.Println("[Success]Got githubApi now.")
 		responseJson, err := io.ReadAll(get.Body)
 		if err != nil {
-			log.Fatal("[Error] Cant to text.")
+			log.Fatal("[Fatal] Cant to text.")
 		}
 		gitHubApiResponse := new(GithubApi)
-		_ = json.Unmarshal(responseJson, &gitHubApiResponse)
-		log.Println("[Success]Parse success. Download start.")
+		err = json.Unmarshal(responseJson, &gitHubApiResponse)
+		if err != nil {
+			log.Fatal("[FATAL] Cant unmarshal the github api response")
+		}
+		log.Println("[Success] Parse success. Download start.")
 		err = DownloadFile("./install/install.zip", gitHubApiResponse.Assets[0].BrowserDownloadUrl, "install")
 		if err != nil {
 			log.Fatal("Can't download files")
@@ -58,19 +67,36 @@ func Run() {
 	//link.NotFound(r)
 	//Load routes
 	//_ = r.Run(":2333")
-	cmd := exec.Command("r.Run", ":2333")
-	go func(ctx context.Context, cmd *exec.Cmd) {
-		//调用cmd.Start来启动进程
-		if err := cmd.Start(); err != nil {
-			log.Fatalf("start: %s\n", err)
+	//fmt.Println(111)
+	//go func() { time.Sleep(time.Second * 5); fmt.Println(111) }()
+
+	srv := &http.Server{
+		Addr:    ":2333",
+		Handler: r,
+	}
+
+	go func(server *http.Server) {
+		//srv.ListenAndServe
+		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			log.Fatal("[FATAL] Can't run server")
 		}
-		//监听ctx.Done信号
-		<-ctx.Done()
-		//收到取消信号，结束进程
-		if err := cmd.Process.Kill(); err != nil {
-			log.Fatal("Process Kill:", err)
-		}
-	}(ctx, cmd)
+	}(srv)
+	log.Println("Server is running at http://localhost:2333")
+	err = srv.Shutdown(ctx)
+
+	quit := make(chan os.Signal, 1)                      // 创建一个接收信号的通道
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM) // 让通道接收中断信号和终止信号
+
+	<-quit
+
+	fmt.Println("Shutting down server...")
+
+	<-ctx.Done()
+	err = srv.Close()
+	if err != nil {
+		log.Fatal("[FATAL] Can't close server" + err.Error())
+	}
+
 	mainProgram.Run()
 	return
 }

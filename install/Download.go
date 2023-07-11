@@ -94,7 +94,7 @@ var fileName = "./theme/default.zip"
 func Download(r *gin.Engine, closeServer context.CancelFunc) {
 	r.POST("/install/download", func(c *gin.Context) {
 		cfg := new(config.Server)
-		cfg.Port = 23333
+		cfg.Port = 2333
 		cfg.Static = "theme"
 		err := config.ChangeServer(cfg)
 		if err != nil {
@@ -152,8 +152,9 @@ func Download(r *gin.Engine, closeServer context.CancelFunc) {
 				"error":   "Are you idiot? What are you doing?",
 			})
 		}
+		closeServer()
 	})
-	closeServer()
+
 	//Download api
 }
 
