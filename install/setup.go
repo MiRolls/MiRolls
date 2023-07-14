@@ -1,19 +1,17 @@
 package install
 
 import (
+	"MiRolls/config"
 	"MiRolls/mainProgram"
 	"MiRolls/packages"
 	"context"
 	"encoding/json"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"io"
 	"log"
 	"net/http"
 	"os"
-	"os/signal"
 	"path/filepath"
-	"syscall"
 )
 
 func Run() {
@@ -75,28 +73,23 @@ func Run() {
 		Handler: r,
 	}
 
-	go func(server *http.Server) {
+	go func() {
 		//srv.ListenAndServe
-		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			log.Fatal("[FATAL] Can't run server")
+		err = srv.ListenAndServe()
+		if err != nil && err != http.ErrServerClosed {
+			log.Fatal("[FATAL] Can't run server." + err.Error())
 		}
-	}(srv)
-	log.Println("Server is running at http://localhost:2333")
-	err = srv.Shutdown(ctx)
-
-	quit := make(chan os.Signal, 1)                      // 创建一个接收信号的通道
-	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM) // 让通道接收中断信号和终止信号
-
-	<-quit
-
-	fmt.Println("Shutting down server...")
+	}()
+	log.Println("Install MiRolls at http://localhost:2333/")
 
 	<-ctx.Done()
+	log.Println("Shutting down server...")
 	err = srv.Close()
 	if err != nil {
 		log.Fatal("[FATAL] Can't close server" + err.Error())
 	}
 
+	config.InitConfig()
 	mainProgram.Run()
 	return
 }
