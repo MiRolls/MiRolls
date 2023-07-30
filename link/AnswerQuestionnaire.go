@@ -18,7 +18,7 @@ func AnswerQuestionnaire(r *gin.Engine, db *sqlx.DB) {
 		answerRel := new(answer)
 		_ = json.Unmarshal(body, &answerRel)
 
-		_, err := db.Exec("INSERT INTO `answer`(`id`,`anwser`,`link`) VALUES (DEFAULT,?,?)", answerRel.Answer, answerRel.Link)
+		_, err := db.Exec("INSERT INTO `answer`(`id`,`answer`,`link`) VALUES (DEFAULT,?,?)", answerRel.Answer, answerRel.Link)
 		// insert database
 		if err != nil {
 			c.JSON(500, gin.H{
