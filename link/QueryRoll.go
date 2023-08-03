@@ -101,7 +101,7 @@ func QueryRoll(r *gin.Engine, sql *sqlx.DB) {
 		data.Title = rollStruct.Title
 
 		var answers []Answer
-		err = sql.Select(&answers, "SELECT `answer` FROM `answer` WHERE `link`=?", dataFront.Code)
+		err = sql.Select(&answers, "SELECT `answer` FROM `answer` WHERE `code`=?", dataFront.Code)
 		data.AnswerOfNumber = len(answers)
 
 		//Add questions to data
@@ -154,6 +154,7 @@ func QueryRoll(r *gin.Engine, sql *sqlx.DB) {
 									"error":   "data has error!",
 									"message": "error",
 								})
+								return
 							}
 						}
 					}
@@ -164,17 +165,18 @@ func QueryRoll(r *gin.Engine, sql *sqlx.DB) {
 			}
 			// to link rolls
 
-			c.JSON(200, gin.H{
-				"message": "success",
-				"data":    data,
-			})
-			fmt.Println("success")
-			err = sql.Close()
-			if err != nil {
-				c.JSON(500, gin.H{"message": err.Error(), "error": err.Error()})
-				//log.Fatal("[FATAL ERROR]Cannot connect database")
-				return
-			}
+			sql.Close()
+			//if err != nil {
+			//	c.JSON(500, gin.H{"message": err.Error(), "error": err.Error()})
+			//	log.Fatal("[FATAL ERROR]Cannot connect database")
+			//return
+			//}
 		}
+		c.JSON(200, gin.H{
+			"message": "success",
+			"data":    data,
+		})
+		fmt.Println("success")
+		return
 	})
 }
