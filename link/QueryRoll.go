@@ -112,7 +112,7 @@ func QueryRoll(r *gin.Engine, sql *sqlx.DB) {
 			})
 			//data.Questions[i].Title = rollStruct.Quest[i].Title
 			//data.Questions[i].Type = rollStruct.Quest[i].Type
-			if data.Questions[i].Type == "radio" || data.Questions[i].Type == "multipleChoice" {
+			if data.Questions[i].Type == "radio" || data.Questions[i].Type == "choice" {
 				//append(data.Questions[answerNumber].Answer)
 				for i2 := 0; i2 < len(rollStruct.Quest[i].Options); i2++ {
 					ra := radio{
@@ -141,7 +141,7 @@ func QueryRoll(r *gin.Engine, sql *sqlx.DB) {
 			//Loop every question
 			for questionNumber := 0; questionNumber < len(dbStruct.Answer); questionNumber++ {
 				//2 condition
-				if data.Questions[questionNumber].Type == "radio" || data.Questions[questionNumber].Type == "multipleChoice" {
+				if data.Questions[questionNumber].Type == "radio" || data.Questions[questionNumber].Type == "choice" {
 					for optionNumber := 0; optionNumber < len(dbStruct.Answer[questionNumber].Answer); optionNumber++ {
 						//dbStruct..[questionNumber].Answer[optionNumber]
 						if dbStruct.Answer[questionNumber].Answer[optionNumber] == true {
