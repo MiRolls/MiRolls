@@ -61,7 +61,7 @@ func InitConfig() (bool, int) {
 
 //goland:noinspection GoDeprecation
 func MakeConfig() error {
-	err := os.Mkdir("config", 0755)
+	err := os.MkdirAll("config", 0755)
 	if err != nil {
 		return err
 	}
@@ -139,4 +139,8 @@ func ChangeServer(value *Server) error {
 		return errors.New(err.Error())
 	}
 	return nil
+}
+
+func Destroy() error {
+	return os.Remove("config/config.yaml")
 }

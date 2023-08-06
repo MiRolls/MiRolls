@@ -8,6 +8,14 @@ import (
 
 func SetSite(r *gin.Engine) {
 	r.POST("/install/set/site", func(c *gin.Context) {
+		var hasError *bool = new(bool)
+		*hasError = true
+		defer func(hasError *bool) {
+			if *hasError == true {
+				_ = config.Destroy()
+			}
+		}(hasError)
+
 		err := config.MakeConfig()
 		if err != nil {
 			c.JSON(500, gin.H{
@@ -42,6 +50,7 @@ func SetSite(r *gin.Engine) {
 			return
 		}
 
+		*hasError = false
 		c.JSON(200, gin.H{
 			"message": "success",
 		})

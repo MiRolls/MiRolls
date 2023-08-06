@@ -93,6 +93,14 @@ var fileName = "./theme/default.zip"
 
 func Download(r *gin.Engine, closeServer context.CancelFunc) {
 	r.POST("/install/download", func(c *gin.Context) {
+		var hasError *bool = new(bool)
+		*hasError = true
+		defer func(hasError *bool) {
+			if *hasError == true {
+				_ = config.Destroy()
+			}
+		}(hasError)
+
 		cfg := new(config.Server)
 		cfg.Port = 2333
 		cfg.Static = "theme"
@@ -143,6 +151,7 @@ func Download(r *gin.Engine, closeServer context.CancelFunc) {
 			if err != nil {
 				return
 			} // Unzip
+			*hasError = false
 			c.JSON(200, gin.H{
 				"message": "success",
 			})
