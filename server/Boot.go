@@ -7,6 +7,7 @@ import (
 )
 
 func Boot() {
+
 	isSuccess, errCode := config.InitConfig()
 	if !isSuccess && errCode == 0 {
 		//Install

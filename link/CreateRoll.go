@@ -1,7 +1,7 @@
 package link
 
 import (
-	"MiRolls/packages"
+	"MiRolls/utils"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
@@ -15,12 +15,12 @@ func CreateRoll(r *gin.Engine, sql *sqlx.DB) {
 		// get requestBody
 		reqBody, _ := c.GetRawData()
 		//reqBody := "1"
-		code := packages.Md5Hash(string(reqBody) + strconv.Itoa(rand.Int()))
+		code := utils.Md5Hash(string(reqBody) + strconv.Itoa(rand.Int()))
 		//link := "https://" + config.Configs.Site.Link + "/#/query?code=" + md5Hash(code)
-		link := packages.Md5Hash(code)
+		link := utils.Md5Hash(code)
 		// directly into database
 		//goland:noinspection SqlResolve
-		_, err := sql.Exec("INSERT INTO `rolls`(`id`,`roll`,`code`,`link`) VALUES(DEFAULT,?,?,?)", string(reqBody), code, packages.Md5Hash(code))
+		_, err := sql.Exec("INSERT INTO `rolls`(`id`,`roll`,`code`,`link`) VALUES(DEFAULT,?,?,?)", string(reqBody), code, utils.Md5Hash(code))
 		if err != nil {
 			c.JSON(500, gin.H{
 				"message":   "error",

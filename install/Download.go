@@ -2,7 +2,7 @@ package install
 
 import (
 	"MiRolls/config"
-	"MiRolls/packages"
+	"MiRolls/utils"
 	"context"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
@@ -203,7 +203,7 @@ func DownloadFile(filepath string, url string, filepathName string) error {
 }
 
 func unZip() error {
-	err := packages.Unzip(fileName, "./theme/")
+	err := utils.Unzip(fileName, "./theme/")
 	if err != nil {
 		return err
 	}

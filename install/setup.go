@@ -3,7 +3,7 @@ package install
 import (
 	"MiRolls/config"
 	"MiRolls/mainProgram"
-	"MiRolls/packages"
+	"MiRolls/utils"
 	"context"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
@@ -46,7 +46,7 @@ func Run() {
 		if err != nil {
 			log.Fatal("Can't download files")
 		}
-		err = packages.Unzip("./install/install.zip", "./install")
+		err = utils.Unzip("./install/install.zip", "./install")
 		if err != nil {
 			log.Fatal("Cant unzip.")
 		}
