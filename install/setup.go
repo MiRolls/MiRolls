@@ -5,9 +5,7 @@ import (
 	"MiRolls/mainProgram"
 	"MiRolls/utils"
 	"context"
-	"encoding/json"
 	"github.com/gin-gonic/gin"
-	"io"
 	"log"
 	"net/http"
 	"os"
@@ -22,27 +20,8 @@ func Run() {
 
 	_, err := os.ReadDir("install")
 	if err != nil {
-		//err = os.Mkdir("install", 0777)
-		//if err != nil {
-		//	log.Fatal("[Error] Can't write files.")
-		//}
 		log.Println("[Warning]MiRolls can't find MiRolls-installer. Downloading MiRolls-installer now.")
-		get, err := http.Get("https://api.github.com/repos/MiRolls/MiRolls-installer/releases/latest")
-		if err != nil {
-			log.Fatal("[Fatal] Cant get githubApi.")
-		}
-		log.Println("[Success]Got githubApi now.")
-		responseJson, err := io.ReadAll(get.Body)
-		if err != nil {
-			log.Fatal("[Fatal] Cant to text.")
-		}
-		gitHubApiResponse := new(GithubApi)
-		err = json.Unmarshal(responseJson, &gitHubApiResponse)
-		if err != nil {
-			log.Fatal("[FATAL] Cant unmarshal the github api response")
-		}
-		log.Println("[Success] Parse success. Download start.")
-		err = DownloadFile("./install/install.zip", gitHubApiResponse.Assets[0].BrowserDownloadUrl, "install")
+		err = DownloadFile("./install/install.zip", config.CloudConfigs.InstallerDownload, "install")
 		if err != nil {
 			log.Fatal("Can't download files")
 		}
