@@ -33,6 +33,9 @@ jobs:
         zip -j releases/Mirolls-Windows-amd64-${TAG_NAME}.zip releases/Mirolls-Windows-amd64-${TAG_NAME}
         zip -j releases/Mirolls-Darwin-amd64-${TAG_NAME}.zip releases/Mirolls-Darwin-amd64-${TAG_NAME}
 
+        echo "::set-env name=RELEASE_FILES::releases/Mirolls-Linux-amd64-${TAG_NAME}.zip releases/Mirolls-Windows-amd64-${TAG_NAME}.zip releases/Mirolls-Darwin-amd64-${TAG_NAME}.zip"
+
+
     - name: Read Configuration from JSON
       id: read_config
       run: echo "::set-output name=config::$(cat work.json)"
@@ -42,10 +45,7 @@ jobs:
       id: create_release
       uses: softprops/action-gh-release@v1
       with:
-        files: |
-          releases/Mirolls-Linux-amd64-${TAG_NAME}.zip
-          releases/Mirolls-Windows-amd64-${TAG_NAME}.zip
-          releases/Mirolls-Darwin-amd64-${TAG_NAME}.zip
+        files: ${{ env.RELEASE_FILES }}
         tag_name: ${{ fromJson(steps.read_config.outputs.config).tag_name }}
         title: ${{ fromJson(steps.read_config.outputs.config).title }}
         body_path: working.md
