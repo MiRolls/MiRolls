@@ -12,3 +12,4 @@ release
 install/static/node_modules
 MiRolls
 data.md
+go.env
