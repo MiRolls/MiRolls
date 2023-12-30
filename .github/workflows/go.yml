@@ -9,11 +9,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    outputs:
-      # 用于传递文件列表的输出变量
-      id: release
-      value: ${{ steps.set_up.outputs.release_files }}
-
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
@@ -38,7 +33,8 @@ jobs:
         zip -j releases/Mirolls-Windows-amd64-${TAG_NAME}.zip releases/Mirolls-Windows-amd64-${TAG_NAME}
         zip -j releases/Mirolls-Darwin-amd64-${TAG_NAME}.zip releases/Mirolls-Darwin-amd64-${TAG_NAME}
 
-        echo "release_files=releases/Mirolls-Linux-amd64-${TAG_NAME}.zip releases/Mirolls-Windows-amd64-${TAG_NAME}.zip releases/Mirolls-Darwin-amd64-${TAG_NAME}.zip" >> $GITHUB_ENV
+        echo "release_files=releases/Mirolls-Linux-amd64-${TAG_NAME}.zip releases/Mirolls-Windows-amd64-${TAG_NAME}.zip releases/Mirolls-Darwin-amd64-${TAG_NAME}.zip" > releases_files.txt
+
 
 
     - name: Read Configuration from JSON
@@ -46,11 +42,18 @@ jobs:
       run: echo "::set-output name=config::$(cat work.json)"
       shell: bash
 
+    - name: Upload Release Files
+      id: upload_release_files
+      uses: actions/upload-artifact@v2
+      with:
+        name: releases
+        path: releases_files.txt
+      
     - name: Create Release
       id: create_release
       uses: softprops/action-gh-release@v1
-      with:
-        files: ${{ needs.build.outputs.release }}
+       with:
+        files: ${{ steps.upload_release_files.outputs.artifact_path }}/releases_files.txt
         tag_name: ${{ fromJson(steps.read_config.outputs.config).tag_name }}
         title: ${{ fromJson(steps.read_config.outputs.config).title }}
         body_path: working.md
