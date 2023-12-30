@@ -1,0 +1,57 @@
+name: Go Build and Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Go 1.21.x
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.21.x
+
+    - name: Build
+      run: |
+        # 构建可执行程序，并为生成的可执行文件添加tag_name前缀
+        TAG_NAME=$(cat work.json | jq -r .tag_name)
+
+        # 构建三种平台的可执行程序
+        GOOS=linux GOARCH=amd64 go build -o releases/Mirolls-Linux-amd64-${TAG_NAME}
+        GOOS=windows GOARCH=amd64 go build -o releases/Mirolls-Windows-amd64-${TAG_NAME}
+        GOOS=darwin GOARCH=amd64 go build -o releases/Mirolls-Darwin-amd64-${TAG_NAME}
+
+        # 打包成ZIP文件
+        zip -j releases/Mirolls-Linux-amd64-${TAG_NAME}.zip releases/Mirolls-Linux-amd64-${TAG_NAME}
+        zip -j releases/Mirolls-Windows-amd64-${TAG_NAME}.zip releases/Mirolls-Windows-amd64-${TAG_NAME}
+        zip -j releases/Mirolls-Darwin-amd64-${TAG_NAME}.zip releases/Mirolls-Darwin-amd64-${TAG_NAME}
+
+    - name: Read Configuration from JSON
+      id: read_config
+      run: echo "::set-output name=config::$(cat work.json)"
+      shell: bash
+
+    - name: Create Release
+      id: create_release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          releases/Mirolls-Linux-amd64-${TAG_NAME}.zip
+          releases/Mirolls-Windows-amd64-${TAG_NAME}.zip
+          releases/Mirolls-Darwin-amd64-${TAG_NAME}.zip
+        tag_name: ${{ fromJson(steps.read_config.outputs.config).tag_name }}
+        title: ${{ fromJson(steps.read_config.outputs.config).title }}
+        body_path: working.md
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Clean up
+      run: |
+        rm -rf releases
+      continue-on-error: true
