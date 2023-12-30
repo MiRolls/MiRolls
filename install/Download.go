@@ -28,7 +28,7 @@ func Download(r *gin.Engine, closeServer context.CancelFunc) {
 		}(hasError)
 
 		cfg := new(config.Server)
-		cfg.Port = 2333
+		cfg.Bind = ":2333"
 		cfg.Static = "theme"
 		err := config.ChangeServer(cfg)
 		if err != nil {

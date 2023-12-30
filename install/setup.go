@@ -2,6 +2,7 @@ package install
 
 import (
 	"MiRolls/config"
+	"MiRolls/database"
 	"MiRolls/mainProgram"
 	"MiRolls/utils"
 	"context"
@@ -69,6 +70,7 @@ func Run() {
 	}
 
 	config.InitConfig()
+	database.Open()
 	mainProgram.Run()
 	return
 }
