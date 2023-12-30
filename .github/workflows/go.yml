@@ -33,7 +33,7 @@ jobs:
         zip -j releases/Mirolls-Windows-amd64-${TAG_NAME}.zip releases/Mirolls-Windows-amd64-${TAG_NAME}
         zip -j releases/Mirolls-Darwin-amd64-${TAG_NAME}.zip releases/Mirolls-Darwin-amd64-${TAG_NAME}
 
-        echo "::set-env name=RELEASE_FILES::releases/Mirolls-Linux-amd64-${TAG_NAME}.zip releases/Mirolls-Windows-amd64-${TAG_NAME}.zip releases/Mirolls-Darwin-amd64-${TAG_NAME}.zip"
+        echo "::set-output name=release_files::releases/Mirolls-Linux-amd64-${TAG_NAME}.zip releases/Mirolls-Windows-amd64-${TAG_NAME}.zip releases/Mirolls-Darwin-amd64-${TAG_NAME}.zip"
 
 
     - name: Read Configuration from JSON
@@ -45,7 +45,7 @@ jobs:
       id: create_release
       uses: softprops/action-gh-release@v1
       with:
-        files: ${{ env.RELEASE_FILES }}
+        files: ${{ steps.build.outputs.release_files }}
         tag_name: ${{ fromJson(steps.read_config.outputs.config).tag_name }}
         title: ${{ fromJson(steps.read_config.outputs.config).title }}
         body_path: working.md
@@ -55,3 +55,4 @@ jobs:
       run: |
         rm -rf releases
       continue-on-error: true
+
