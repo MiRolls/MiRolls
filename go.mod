@@ -4,12 +4,13 @@ go 1.19
 
 require (
 	github.com/gin-gonic/gin v1.9.1
-	github.com/go-sql-driver/mysql v1.6.0
+	github.com/go-sql-driver/mysql v1.7.1
 	github.com/jmoiron/sqlx v1.3.5
 	gopkg.in/yaml.v2 v2.4.0
 )
 
 require (
+	github.com/bitly/go-simplejson v0.5.1 // indirect
 	github.com/bytedance/sonic v1.9.2 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.2 // indirect

@@ -2,8 +2,11 @@ package config
 
 import (
 	"errors"
+	"github.com/bitly/go-simplejson"
 	"gopkg.in/yaml.v2"
+	"io"
 	"log"
+	"net/http"
 	"os"
 	"path/filepath"
 )
@@ -15,7 +18,7 @@ type Config struct {
 }
 
 type Server struct {
-	Port   int    `yaml:"port"`
+	Bind   string `yaml:"bind"`
 	Static string `yaml:"static"`
 }
 
@@ -38,8 +41,48 @@ type Site struct {
 	NeedIcp   int    `yaml:"needIcp"`
 }
 
+type CloudJson struct {
+	LatestBackendVersion string
+	InstallerDownload    string
+	DefaultThemeDownload string
+	Activity             bool
+}
+
 var Configs Config
+var CloudConfigs CloudJson
 var defaultConfig = new(Config)
+
+func init() {
+	// 从云端拉取云端配置
+	resp, err := http.Get("https://mirolls.rcov.top/config/main.json")
+
+	if err != nil {
+		log.Fatal("[ERROR] Failed to pull cloud configuration")
+	}
+	defer resp.Body.Close()
+
+	res, err := io.ReadAll(resp.Body)
+
+	if err != nil {
+		log.Fatal("[ERROR] Failed to Read cloud configuration,err: " + err.Error())
+	}
+
+	cj, err := simplejson.NewJson(res)
+	if err != nil {
+		log.Fatal("[ERROR] Backend returns non-JSON data, please check the network. err: " + err.Error())
+	}
+	// 调试使用，生产环境请注释：
+	// log.Println("[DEBUG] CloudConfigContext: \n" + string(res))
+
+	// 读取当前后端版本所需要下载的安装程序版本
+	CloudConfigs.InstallerDownload, _ = cj.Get(BackendVersion).Get("installer-download").String()
+	// 读取当前后端版本所需要下载的前端版本
+	CloudConfigs.DefaultThemeDownload, _ = cj.Get(BackendVersion).Get("default-theme-download").String()
+	// 读取当s前后端版本是否处理维护阶段
+	CloudConfigs.Activity, _ = cj.Get(BackendVersion).Get("activity").Bool()
+	// 读取当前最新后端版本
+	CloudConfigs.LatestBackendVersion, _ = cj.Get("LatestBackendVersion").String()
+}
 
 //goland:noinspection GoDeprecation
 func InitConfig() (bool, int) {
