@@ -9,6 +9,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    outputs:
+      # 用于传递文件列表的输出变量
+      id: release
+      value: ${{ steps.set_up.outputs.release_files }}
+
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
@@ -33,7 +38,7 @@ jobs:
         zip -j releases/Mirolls-Windows-amd64-${TAG_NAME}.zip releases/Mirolls-Windows-amd64-${TAG_NAME}
         zip -j releases/Mirolls-Darwin-amd64-${TAG_NAME}.zip releases/Mirolls-Darwin-amd64-${TAG_NAME}
 
-        echo "::set-output name=release_files::releases/Mirolls-Linux-amd64-${TAG_NAME}.zip releases/Mirolls-Windows-amd64-${TAG_NAME}.zip releases/Mirolls-Darwin-amd64-${TAG_NAME}.zip"
+        echo "release_files=releases/Mirolls-Linux-amd64-${TAG_NAME}.zip releases/Mirolls-Windows-amd64-${TAG_NAME}.zip releases/Mirolls-Darwin-amd64-${TAG_NAME}.zip" >> $GITHUB_ENV
 
 
     - name: Read Configuration from JSON
@@ -44,8 +49,8 @@ jobs:
     - name: Create Release
       id: create_release
       uses: softprops/action-gh-release@v1
-      with:
-        files: ${{ steps.build.outputs.release_files }}
+       with:
+        files: ${{ needs.build.outputs.release }}
         tag_name: ${{ fromJson(steps.read_config.outputs.config).tag_name }}
         title: ${{ fromJson(steps.read_config.outputs.config).title }}
         body_path: working.md
