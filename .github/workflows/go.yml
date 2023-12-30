@@ -52,7 +52,7 @@ jobs:
     - name: Create Release
       id: create_release
       uses: softprops/action-gh-release@v1
-       with:
+      with:
         files: ${{ steps.upload_release_files.outputs.artifact_path }}/releases_files.txt
         tag_name: ${{ fromJson(steps.read_config.outputs.config).tag_name }}
         title: ${{ fromJson(steps.read_config.outputs.config).title }}
