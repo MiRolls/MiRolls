@@ -23,7 +23,7 @@ func AnswerQuestionnaire(c *gin.Context) {
 
 	// Get "code" from "rolls" with "link"
 	var ro rollFromDb // Get roll from database
-	err := database.Db.Get(&ro, "SELECT `code` from `answer` WHERE `link`=?", answerRel.Link)
+	err := database.Db.Get(&ro, "SELECT `code` from `rolls` WHERE `link`=?", answerRel.Link)
 	if err != nil {
 		c.JSON(503, gin.H{
 			"message": "error",
