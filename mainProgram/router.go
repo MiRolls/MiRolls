@@ -12,5 +12,5 @@ func RegisterRouter(r *gin.Engine) {
 	r.NoRoute(link.NotFound)
 	r.POST("/answer", link.AnswerQuestionnaire)
 	r.POST("/get/roll", link.GetRoll)
-	r.POST("/get/ansers", link.GetAnswers)
+	r.POST("/get/answers", link.GetAnswers)
 }
