@@ -3,31 +3,41 @@ package link
 import (
 	"MiRolls/database"
 	"MiRolls/utils"
+	"encoding/json"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 	"math/rand"
 	"strconv"
 )
 
+// CreateQuestionnaire create a questionnaire with `questionnaire` structure
 func CreateQuestionnaire(c *gin.Context) {
-	// get requestBody
+	// Firstly,  Get request body
 	reqBody, _ := c.GetRawData()
-	//reqBody := "1"
-	code := utils.Md5Hash(string(reqBody) + strconv.Itoa(rand.Int()))
-	//link := "https://" + config.Configs.Site.Link + "/#/query?code=" + md5Hash(code)
-	link := utils.Md5Hash(code)
-	// directly into database
-	//goland:noinspection SqlResolve
-	_, err := database.Db.Exec("INSERT INTO `rolls`(`id`,`roll`,`code`,`link`) VALUES(DEFAULT,?,?,?)", string(reqBody), code, utils.Md5Hash(code))
-	if err != nil {
-		c.JSON(500, gin.H{
+
+	// Secondly, Check the request
+	Questionnaire := new(utils.Questionnaire)
+	err := json.Unmarshal(reqBody, &Questionnaire)
+	if err != nil { // check not success
+		c.JSON(400, gin.H{
 			"message": "error",
-			"error":   err.Error(),
+			"error":   "it isn't questionnaire",
+		})
+	}
+
+	// Thirdly, Write database
+	code := utils.Md5Hash(string(reqBody) + strconv.Itoa(rand.Int()))
+	link := utils.Md5Hash(code)
+	_, err = database.Db.Exec("INSERT INTO `rolls`(`id`,`roll`,`code`,`link`) VALUES(DEFAULT,?,?,?)", string(reqBody), code, utils.Md5Hash(code))
+	if err != nil {
+		c.JSON(503, gin.H{
+			"message": "error",
+			"error":   "cannot write in database",
 		})
 		return
 	}
-	// All information has been placed in json. So we can directly into database
-	// After placed in database, we'll return json of Frontend
+
+	// Fourthly, return
 	c.JSON(200, gin.H{
 		"message": "success",
 		"data": gin.H{
