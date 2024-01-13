@@ -9,7 +9,7 @@ import (
 	"strconv"
 )
 
-func CreateRoll(c *gin.Context) {
+func CreateQuestionnaire(c *gin.Context) {
 	// get requestBody
 	reqBody, _ := c.GetRawData()
 	//reqBody := "1"
@@ -21,17 +21,18 @@ func CreateRoll(c *gin.Context) {
 	_, err := database.Db.Exec("INSERT INTO `rolls`(`id`,`roll`,`code`,`link`) VALUES(DEFAULT,?,?,?)", string(reqBody), code, utils.Md5Hash(code))
 	if err != nil {
 		c.JSON(500, gin.H{
-			"message":   "error",
-			"error":     err.Error(),
-			"errorType": "DataBase insert error",
+			"message": "error",
+			"error":   err.Error(),
 		})
 		return
 	}
 	// All information has been placed in json. So we can directly into database
 	// After placed in database, we'll return json of Frontend
 	c.JSON(200, gin.H{
-		"message":  "success",
-		"rollCode": code,
-		"rollLink": link,
+		"message": "success",
+		"data": gin.H{
+			"code": code,
+			"link": link,
+		},
 	})
 }
