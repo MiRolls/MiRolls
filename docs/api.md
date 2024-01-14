@@ -216,7 +216,7 @@ What do the api will do?
 
 Request:
 
-Null
+```/site/get```
 
 Response (data):
 
