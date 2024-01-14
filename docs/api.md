@@ -224,5 +224,4 @@ Response (data):
 
 What do the api will do?
 
-1. Read config.yml
-2. Return to you
+1. Return ```site``` to you
