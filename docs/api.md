@@ -4,7 +4,9 @@ MiRolls has some apis, if you want to develop a MiRolls theme, you must use them
 
 ## Data
 
-MiRolls(normal) has four structures, they are ```bigData``` ```site``` ```questionnaire``` and ```answer```
+All APIs revolve around four structures
+
+They are ```bigData``` ```site``` ```questionnaire``` and ```answer```
 
 ### Site
 
@@ -194,7 +196,25 @@ they will return as response in [create questionnaire api](#create-questionnaire
 | error   | string                | if message="error", there is error info |
 | data    | any, usually {} or [] | response data                           |
 
-### Create Questionnaire
+### Site
+
+#### Get Site
+
+Request:
+
+```/site/get```
+
+Response (data):
+
+[```Site```](#site)
+
+What do the api will do?
+
+1. Return ```site``` to you
+
+### Questionnaire
+
+#### Create Questionnaire
 
 Request:
 
@@ -212,16 +232,4 @@ What do the api will do?
 2. Generate code and link
 3. Write database and return
 
-### Get Site
 
-Request:
-
-```/site/get```
-
-Response (data):
-
-[```Site```](#site)
-
-What do the api will do?
-
-1. Return ```site``` to you
