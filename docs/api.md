@@ -130,13 +130,13 @@ The ```site``` structure is in ```config``` key, you can DIY it. You can get you
 interface Questionnaire {  //main interface
     title: string;
     // the title of questionnaire
-    questions: (RadioCheckboxAndSelect | InputAndtextarea | Slider)[];
+    questions: (RadioCheckboxAndSelect | InputAndTextarea | Slider)[];
 }
 
 interface Question {
     title: string;
     type: "radio" | "checkbox" | "input" | "textarea" | "select" | "slider";
-    // use tag name, more easy for develop
+    // use tag name, easier for develop
 }
 
 interface RadioCheckboxAndSelect extends Question {
@@ -145,7 +145,7 @@ interface RadioCheckboxAndSelect extends Question {
     // options look like["orange","apple","banana"]
 }
 
-interface InputAndtextarea extends Question {
+interface InputAndTextarea extends Question {
     type: "input" | "textarea";
     placeholder: string;
     // <input placeholder="" type="text">
