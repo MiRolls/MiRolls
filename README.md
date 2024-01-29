@@ -1,4 +1,4 @@
-# MiRolls deploy tutorial
+# MiRolls Deployment Documentation
 
 > Author not native English speaker, so some sentience maybe has Grammatical error, please excuse me, sorry!
 
@@ -6,7 +6,7 @@
 
 **If you need build the *Mirolls* you need have a normal the server manage experience. You must be able to insert the ".sql" file, and must use nginx/apache... to bind Your domain name.**
 
-### Use Normal theme build website
+### Build with the default theme
 
 1. Download [Releases@latest](https://github.com/liangmiQwQ/MiRolls-/releases), Choose your server version(Such as Linux arm64.zip or Windows amd64.zip and more)
 
@@ -34,10 +34,11 @@
 
    ***Tips: This Step is very important.If you cannot import, please use some server manage tools(such as cPanel and Plesk)***
 
-4. Open shell(cmd), run MiRolls!
+4. Open shell(cmd powershell), run MiRolls!
 
 ```shell
 $ cd /mirolls/website/mirolls
+$ chmod +x mirolls
 $ ./mirolls
 ```
 
@@ -48,8 +49,8 @@ mirolls.exe
 
 License
 
-[MIT](https://opensource.org/licenses/MIT)
+[APACHE LICENSE 2.0](https://apache.org/licenses/LICENSE-2.0)
 
-Copyright © 2023-present,Liangmi
+Copyright © 2023-to date,Liangmi
 
 ***EnJoy the MiRolls***
