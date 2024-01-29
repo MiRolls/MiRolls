@@ -6,11 +6,11 @@ import (
 )
 
 func RegisterRouter(r *gin.Engine) {
-	r.POST("/get/site", link.GetSite)
-	r.POST("/query/roll", link.QueryRoll)
-	r.POST("/roll/create", link.CreateRoll)
+	r.POST("/site/get", link.GetSite)
+	r.POST("/bigdata/get", link.QueryRoll)
+	r.POST("/questionnaire/create", link.CreateQuestionnaire)
 	r.NoRoute(link.NotFound)
-	r.POST("/answer", link.AnswerQuestionnaire)
-	r.POST("/get/roll", link.GetRoll)
-	r.POST("/get/answers", link.GetAnswers)
+	r.POST("/answer/create", link.AnswerQuestionnaire)
+	r.POST("/questionnaire/get", link.GetRoll)
+	r.POST("/answer/get", link.GetAnswers)
 }
