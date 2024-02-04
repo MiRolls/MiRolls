@@ -10,7 +10,7 @@ import (
 func Run() {
 	r := gin.Default()
 	//Load MiddleWare
-	r.Use(MiddleWare)
+	r.Use(GlobalMiddleWare())
 	//Load statics
 	path, _ := filepath.Abs(config.Configs.Server.Static)
 	r.Static("/", path)
