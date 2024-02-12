@@ -11,7 +11,7 @@ import (
 var Db *sqlx.DB
 
 func Open() {
-	mysql := fmt.Sprintf("%s:%s@%s(%s:%d)/%s", config.Configs.Database.Username, config.Configs.Database.Password, config.Configs.Database.Protocol, config.Configs.Database.Host, config.Configs.Database.Port, config.Configs.Database.Database)
+	mysql := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", config.Config.Key.DB.Username, config.Config.Key.DB.Password, config.Config.Key.DB.Address, config.Config.Key.DB.Port, config.Config.Key.DB.Database)
 	db, err := sqlx.Open("mysql", mysql)
 	if err != nil {
 		log.Fatal("[FATAL] Database connection pool couldn't run. err: " + err.Error())

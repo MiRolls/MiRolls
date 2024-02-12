@@ -4,7 +4,6 @@ import (
 	"MiRolls/config"
 	"github.com/gin-gonic/gin"
 	"log"
-	"path/filepath"
 )
 
 func Run() {
@@ -12,14 +11,14 @@ func Run() {
 	//Load MiddleWare
 	r.Use(GlobalMiddleWare())
 	//Load statics
-	path, _ := filepath.Abs(config.Configs.Server.Static)
-	r.Static("/", path)
+	//path, _ := filepath.Abs(config.Config.Key..Static)
+	//r.Static("/", path)
 
 	//Register Router
 	RegisterRouter(r)
 
-	log.Println("[Success]Server is running, listen: " + config.Configs.Server.Bind)
-	err := r.Run(config.Configs.Server.Bind)
+	log.Println("[Success]Server is running, listen: " + config.Config.Key.Web.Address)
+	err := r.Run(config.Config.Key.Web.Address)
 	if err != nil {
 		log.Fatal("[FATAL ERROR] Cannot start server")
 	}
